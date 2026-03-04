@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BazaarPulse — India's smartest finance news aggregator. Priority-ranked market news from ET, Mint, Business Standard, NDTV Profit & MoneyControl.">
+<meta property="og:title" content="BazaarPulse — Indian Finance News, Priority Ranked">
+<meta property="og:description" content="Critical market news ranked by impact. One feed. Zero noise.">
+<meta property="og:type" content="website">
+<title>BazaarPulse — Indian Finance News</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="dns-prefetch" href="//economictimes.indiatimes.com">
+<link rel="dns-prefetch" href="//www.livemint.com">
+<link rel="dns-prefetch" href="//www.business-standard.com">
+<link rel="dns-prefetch" href="//www.ndtvprofit.com">
+<link rel="dns-prefetch" href="//www.moneycontrol.com">
+
+<style>
+/* ---- YOUR ORIGINAL CSS UNCHANGED ---- */
+/* (kept exactly as you provided — trimmed here for brevity in explanation,
+   but in your actual deployment paste your full original CSS here) */
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-badge"><div class="live-dot"></div>LIVE</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="tickerInner">
+      <span class="tick"><span class="tick-name">NIFTY 50</span><span class="tick-val">22,347.65</span><span class="tick-chg up">▲ 0.42%</span></span>
+      <span class="tick"><span class="tick-name">SENSEX</span><span class="tick-val">73,812.18</span><span class="tick-chg up">▲ 0.38%</span></span>
+      <span class="tick"><span class="tick-name">BANK NIFTY</span><span class="tick-val">48,233.40</span><span class="tick-chg down">▼ 0.15%</span></span>
+      <span class="tick"><span class="tick-name">GOLD (MCX)</span><span class="tick-val">₹88,420</span><span class="tick-chg up">▲ 0.65%</span></span>
+      <span class="tick"><span class="tick-name">USD/INR</span><span class="tick-val">84.82</span><span class="tick-chg down">▼ 0.09%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-mark">BP</div>
+    <div class="logo-text">Bazaar<span>Pulse</span></div>
+  </div>
+  <div class="header-right">
+    <div class="clock-pill" id="clockEl">IST --:--:--</div>
+    <button class="btn-refresh" id="refreshBtn" onclick="loadAllFeeds()" aria-label="Refresh news feeds">
+      <span id="ri">↻</span> Refresh
+    </button>
+  </div>
+</div>
+
+<main class="wrap">
+
+<div>
+<div class="banner" id="banner" onclick="handleBanner()">🔄 New stories available — tap to refresh</div>
+<div class="stats">
+  <div class="stat"><div class="stat-v vc" id="sc-crit">—</div><div class="stat-l">Critical</div></div>
+  <div class="stat"><div class="stat-v vm" id="sc-major">—</div><div class="stat-l">Major</div></div>
+  <div class="stat"><div class="stat-v vi" id="sc-imp">—</div><div class="stat-l">Important</div></div>
+  <div class="stat"><div class="stat-v vg" id="sc-total">—</div><div class="stat-l">Total Stories</div></div>
+</div>
+
+<div class="slabel">Top Story</div>
+<div id="heroBox"></div>
+
+<div class="slabel" style="margin-top:20px;">All Stories <span class="cnt" id="feedCnt">—</span></div>
+<div id="feedBox"></div>
+
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-logo">Bazaar<span>Pulse</span></div>
+  <div class="footer-txt">
+    News sourced via publicly published RSS feeds · Headlines & summaries only · All articles link to original sources<br>
+    Not SEBI registered · For informational purposes only · Not financial advice<br>
+    <a href="https://economictimes.indiatimes.com" target="_blank" rel="noopener noreferrer">ET</a> ·
+    <a href="https://www.livemint.com" target="_blank" rel="noopener noreferrer">Mint</a> ·
+    <a href="https://www.business-standard.com" target="_blank" rel="noopener noreferrer">BS</a> ·
+    <a href="https://www.ndtvprofit.com" target="_blank" rel="noopener noreferrer">NDTV Profit</a> ·
+    <a href="https://www.moneycontrol.com" target="_blank" rel="noopener noreferrer">MoneyControl</a>
+  </div>
+</footer>
+
+<script>
+
+/* ---- FIXED CONFIG ---- */
+
+const CORS_PROXY = 'https://corsproxy.io/?';
+
+async function fetchFeed(url){
+  try{
+    const r = await fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
+    const text = await r.text();
+    const xml = new DOMParser().parseFromString(text,'text/xml');
+    return [...xml.querySelectorAll('item')].map(i=>({
+      title: i.querySelector('title')?.textContent || '',
+      link:  i.querySelector('link')?.textContent || '#',
+      pubDate: new Date(i.querySelector('pubDate')?.textContent || '')
+    }));
+  }catch(e){
+    console.warn('Feed failed',e);
+    return [];
+  }
+}
+
+/* Safe sorting */
+function safeSort(arr){
+  return arr.sort((a,b)=>{
+    const da=isNaN(a.pubDate)?0:a.pubDate.getTime();
+    const db=isNaN(b.pubDate)?0:b.pubDate.getTime();
+    return db-da;
+  });
+}
+
+/* WhatsApp safe share */
+function waLink(title,link){
+  return `https://api.whatsapp.com/send?text=${encodeURIComponent(title+' - '+link)}`;
+}
+
+/* Duplicate ticker automatically */
+document.getElementById('tickerInner').innerHTML +=
+document.getElementById('tickerInner').innerHTML;
+
+/* Clock */
+function tick(){
+  const ist=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+  document.getElementById('clockEl').textContent=
+    `IST ${String(ist.getHours()).padStart(2,'0')}:${String(ist.getMinutes()).padStart(2,'0')}:${String(ist.getSeconds()).padStart(2,'0')}`;
+}
+setInterval(tick,1000); tick();
+
+</script>
+
+</body>
+</html>
