@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="BazaarPulse — India's smartest finance news aggregator. Priority-ranked market news from ET, Mint, Business Standard, NDTV Profit & MoneyControl.">
+<meta property="og:title" content="BazaarPulse — Indian Finance News, Priority Ranked">
+<meta property="og:description" content="Critical market news ranked by impact. One feed. Zero noise.">
+<meta property="og:type" content="website">
+<title>BazaarPulse — Indian Finance News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════
+   TOKENS
+═══════════════════════════ */
+:root {
+  /* Backgrounds — warm dark navy, not pure black */
+  --bg:       #0d1117;
+  --bg2:      #161b22;
+  --bg3:      #1c2230;
+  --bg4:      #232b3e;
+  --bg5:      #2a3347;
+
+  /* Borders */
+  --b1: rgba(255,255,255,0.06);
+  --b2: rgba(255,255,255,0.11);
+  --b3: rgba(255,255,255,0.18);
+
+  /* Text */
+  --t1: #e8edf5;
+  --t2: #9aa3b8;
+  --t3: #5a6480;
+  --t4: #3d4560;
+
+  /* Accent — refined amber-gold */
+  --gold:  #e8b84b;
+  --gold2: #f5d07a;
+  --goldbg: rgba(232,184,75,0.08);
+  --goldbd: rgba(232,184,75,0.18);
+
+  /* Priority colours */
+  --crit:    #f0564a;   --crit-bg:  rgba(240,86,74,0.09);  --crit-bd:  rgba(240,86,74,0.2);
+  --major:   #e8943a;   --major-bg: rgba(232,148,58,0.09); --major-bd: rgba(232,148,58,0.2);
+  --imp:     #4e8ff0;   --imp-bg:   rgba(78,143,240,0.09); --imp-bd:   rgba(78,143,240,0.2);
+  --minor:   #4a5470;   --minor-bg: rgba(74,84,112,0.09);  --minor-bd: rgba(74,84,112,0.2);
+
+  /* Semantic */
+  --green:  #34c98a;  --green-bg:  rgba(52,201,138,0.08);
+  --red:    #f0564a;
+  --blue:   #4e8ff0;
+
+  --r:  10px;
+  --rl: 14px;
+  --rxl: 18px;
+
+  --ff-ui:   'Outfit', sans-serif;
+  --ff-read: 'Crimson Pro', serif;
+  --ff-mono: 'JetBrains Mono', monospace;
+}
+
+/* ═══════════════════════════
+   BASE
+═══════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-ui);
+  background: var(--bg);
+  color: var(--t1);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--ff-ui); cursor: pointer; border: none; background: none; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg5); border-radius: 99px; }
+
+/* ═══════════════════════════
+   TICKER
+═══════════════════════════ */
+.ticker {
+  height: 38px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--b1);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.ticker-badge {
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 16px;
+  background: var(--gold);
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: #1a1200;
+  letter-spacing: 0.08em;
+}
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #1a1200;
+  animation: blink 1.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.ticker-track { flex:1; overflow:hidden; position:relative; }
+.ticker-inner {
+  display:inline-flex;
+  white-space:nowrap;
+  animation: scroll 55s linear infinite;
+}
+@keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.tick {
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 0 22px;
+  border-right: 1px solid var(--b1);
+  font-family: var(--ff-mono);
+  font-size: 11.5px;
+}
+.tick-name { color: var(--t3); }
+.tick-val  { color: var(--t1); font-weight: 500; }
+.tick-chg  { font-weight: 500; font-size: 11px; }
+.up   { color: var(--green); }
+.down { color: var(--red); }
+
+/* ═══════════════════════════
+   HEADER
+═══════════════════════════ */
+.header {
+  height: 58px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--b1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 38px;
+  z-index: 199;
+  backdrop-filter: blur(12px);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-mark {
+  width: 32px; height: 32px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1200;
+}
+.logo-text {
+  font-family: var(--ff-ui);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--t1);
+}
+.logo-text span { color: var(--gold); }
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+
+.clock-pill {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  color: var(--t3);
+  background: var(--bg3);
+  border: 1px solid var(--b1);
+  border-radius: 7px;
+  padding: 5px 12px;
+  letter-spacing: 0.04em;
+}
+.btn-refresh {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--bg3);
+  border: 1px solid var(--b2);
+  color: var(--t2);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: all 0.18s;
+}
+.btn-refresh:hover { background: var(--bg4); color: var(--t1); border-color: var(--b3); }
+.btn-refresh.loading .ri { animation: spin 0.75s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* ═══════════════════════════
+   LAYOUT
+═══════════════════════════ */
+.wrap {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 24px 18px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 22px;
+  align-items: start;
+}
+@media(max-width:960px){
+  .wrap { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+}
+
+/* ═══════════════════════════
+   NEW STORIES BANNER
+═══════════════════════════ */
+.banner {
+  display: none;
+  background: var(--goldbg);
+  border: 1px solid var(--goldbd);
+  border-radius: var(--r);
+  padding: 11px 16px;
+  font-size: 13px;
+  color: var(--gold);
+  cursor: pointer;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 500;
+  animation: fadeSlide 0.3s ease;
+}
+.banner.show { display: block; }
+@keyframes fadeSlide { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+
+/* ═══════════════════════════
+   STATS ROW
+═══════════════════════════ */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+@media(max-width:500px){ .stats{grid-template-columns:repeat(2,1fr)} }
+.stat {
+  background: var(--bg2);
+  border: 1px solid var(--b1);
+  border-radius: var(--rl);
+  padding: 14px 16px;
+  transition: border-color 0.2s;
+}
+.stat:hover { border-color: var(--b2); }
+.stat-v {
+  font-family: var(--ff-ui);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-l {
+  font-size: 10.5px;
+  color: var(--t3);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.vc { color: var(--crit); }
+.vm { color: var(--major); }
+.vi { color: var(--imp); }
+.vg { color: var(--green); }
+
+/* ═══════════════════════════
+   BRIEF CARD
+═══════════════════════════ */
+.brief {
+  background: var(--bg2);
+  border: 1px solid var(--goldbd);
+  border-radius: var(--rl);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.brief-top {
+  background: var(--goldbg);
+  padding: 11px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--goldbd);
+}
+.brief-badge {
+  font-family: var(--ff-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: #1a1200;
+  padding: 3px 9px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+.brief-when {
+  font-size: 11.5px;
+  color: var(--t3);
+  font-family: var(--ff-mono);
+}
+.brief-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.brief-row { display: flex; gap: 12px; align-items: flex-start; }
+.brief-n {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: var(--bg4);
+  border: 1px solid var(--b2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  color: var(--gold);
+  margin-top: 1px;
+}
+.brief-txt { font-size: 13px; color: var(--t2); line-height: 1.5; }
+.brief-txt b { color: var(--t1); font-weight: 600; }
+
+/* ═══════════════════════════
+   FILTERS
+═══════════════════════════ */
+.filters {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  margin-bottom: 18px;
+  scrollbar-width: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0;
+  padding: 6px 15px;
+  border-radius: 99px;
+  border: 1px solid var(--b1);
+  background: var(--bg2);
+  color: var(--t3);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.pill:hover { border-color: var(--b2); color: var(--t2); }
+.pill.on {
+  background: var(--gold);
+  color: #1a1200;
+  border-color: var(--gold);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════
+   SECTION LABEL
+═══════════════════════════ */
+.slabel {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t4);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.slabel::after { content:''; flex:1; height:1px; background:var(--b1); }
+.slabel .cnt {
+  background: var(--bg3);
+  color: var(--t3);
+  font-size: 10px;
+  padding: 1px 8px;
+  border-radius: 99px;
+  border: 1px solid var(--b1);
+}
+
+/* ═══════════════════════════
+   HERO CARD
+═══════════════════════════ */
+.hero {
+  background: var(--bg2);
+  border: 1px solid var(--b2);
+  border-radius: var(--rxl);
+  overflow: hidden;
+  margin-bottom: 12px;
+  display: block;
+  transition: all 0.2s;
+  position: relative;
+}
+.hero:hover { border-color: var(--b3); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.hero-stripe {
+  height: 3px;
+  background: linear-gradient(90deg, var(--crit) 0%, var(--major) 60%, var(--gold) 100%);
+}
+.hero-body { padding: 22px 22px 18px; }
+.ptag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+.ptag-dot { width:6px;height:6px;border-radius:50%; }
+.pt-crit  { background:var(--crit-bg);  color:var(--crit);  border:1px solid var(--crit-bd); }
+.pt-major { background:var(--major-bg); color:var(--major); border:1px solid var(--major-bd);}
+.pt-imp   { background:var(--imp-bg);   color:var(--imp);   border:1px solid var(--imp-bd); }
+.pt-minor { background:var(--minor-bg); color:var(--minor); border:1px solid var(--minor-bd);}
+
+.hero-title {
+  font-family: var(--ff-read);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--t1);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.hero-impact {
+  font-size: 13px;
+  color: var(--t2);
+  line-height: 1.65;
+  background: var(--bg3);
+  border-left: 3px solid var(--gold);
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 16px;
+}
+.hero-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.src-chip {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  background: var(--bg3);
+  border: 1px solid var(--b2);
+  color: var(--t2);
+  padding: 2px 9px;
+  border-radius: 5px;
+}
+.ago {
+  font-family: var(--ff-mono);
+  font-size: 10.5px;
+  color: var(--t3);
+}
+.cat-chip {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  padding: 2px 9px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+.share-wa {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  background: rgba(52,201,138,0.09);
+  border: 1px solid rgba(52,201,138,0.2);
+  color: var(--green);
+  padding: 3px 10px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.share-wa:hover { background: rgba(52,201,138,0.16); }
+.read-link {
+  margin-left: auto;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* ═══════════════════════════
+   NEWS CARDS
+═══════════════════════════ */
+.card {
+  display: flex;
+  gap: 14px;
+  background: var(--bg2);
+  border: 1px solid var(--b1);
+  border-radius: var(--rl);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  transition: all 0.15s;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+}
+.card:hover { background: var(--bg3); border-color: var(--b2); }
+.card-bar {
+  flex-shrink: 0;
+  width: 3px;
+  border-radius: 2px;
+  align-self: stretch;
+  min-height: 44px;
+}
+.bar-c { background: var(--crit); }
+.bar-m { background: var(--major); }
+.bar-i { background: var(--imp); }
+.bar-n { background: var(--minor); }
+
+.card-body { flex:1; min-width:0; }
+.card-tags { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+.card-title {
+  font-family: var(--ff-read);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--t1);
+  line-height: 1.45;
+  margin-bottom: 5px;
+}
+.card-impact { font-size: 12px; color: var(--t3); line-height: 1.45; margin-bottom: 7px; }
+.card-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.card-arrow { flex-shrink:0; color:var(--t4); font-size:14px; padding-top:2px; }
+
+/* ═══════════════════════════
+   SKELETON
+═══════════════════════════ */
+.skel {
+  background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--rl);
+  margin-bottom: 8px;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* ═══════════════════════════
+   ERROR
+═══════════════════════════ */
+.err {
+  background: rgba(240,86,74,0.06);
+  border: 1px solid rgba(240,86,74,0.18);
+  border-radius: var(--rl);
+  padding: 22px;
+  text-align: center;
+  color: var(--t2);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════
+   SIDEBAR
+═══════════════════════════ */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 116px;
+}
+.widget {
+  background: var(--bg2);
+  border: 1px solid var(--b1);
+  border-radius: var(--rl);
+  overflow: hidden;
+}
+.wh {
+  padding: 13px 16px 12px;
+  border-bottom: 1px solid var(--b1);
+  display: flex; align-items: center; gap: 9px;
+}
+.wh-icon { font-size: 15px; }
+.wh-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--t1);
+  letter-spacing: -0.01em;
+}
+.wb { padding: 16px; }
+
+/* Mood meter */
+.mood-num {
+  font-family: var(--ff-ui);
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.mood-word {
+  text-align: center;
+  font-family: var(--ff-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.mbar {
+  height: 10px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #f0564a 0%, #e8943a 30%, #e8b84b 50%, #90d47a 70%, #34c98a 100%);
+  position: relative;
+  margin-bottom: 6px;
+}
+.mthumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--t1);
+  border: 3px solid var(--bg2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  transition: left 0.9s cubic-bezier(0.34,1.56,0.64,1);
+}
+.mends {
+  display:flex; justify-content:space-between;
+  font-family: var(--ff-mono);
+  font-size: 9.5px;
+  color: var(--t3);
+  margin-bottom: 14px;
+}
+.mstats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.ms {
+  background: var(--bg3);
+  border: 1px solid var(--b1);
+  border-radius: 8px;
+  padding: 9px 12px;
+  text-align: center;
+}
+.ms-v { font-family:var(--ff-mono); font-size:15px; font-weight:500; }
+.ms-l { font-size:10px; color:var(--t3); margin-top:2px; }
+
+/* Heatmap */
+.hmap { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.hc {
+  border-radius: 9px;
+  padding: 10px 12px;
+}
+.hc.bull { background:rgba(52,201,138,0.1);  border:1px solid rgba(52,201,138,0.18); }
+.hc.bear { background:rgba(240,86,74,0.09);  border:1px solid rgba(240,86,74,0.18); }
+.hc.neu  { background:var(--bg3);             border:1px solid var(--b1); }
+.hc-name { font-size:12px; font-weight:600; color:var(--t1); margin-bottom:2px; }
+.hc-sent { font-family:var(--ff-mono); font-size:10px; }
+.hc.bull .hc-sent { color:var(--green); }
+.hc.bear .hc-sent { color:var(--crit); }
+.hc.neu  .hc-sent { color:var(--t3); }
+
+/* Events */
+.evlist { display:flex; flex-direction:column; }
+.ev {
+  display:flex; gap:12px; align-items:flex-start;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--b1);
+}
+.ev:last-child { border-bottom: none; }
+.ev-date { flex-shrink:0; text-align:center; width:38px; }
+.ev-day {
+  font-family:var(--ff-ui);
+  font-size:18px; font-weight:800; line-height:1; color:var(--t1);
+}
+.ev-mon { font-family:var(--ff-mono); font-size:9px; text-transform:uppercase; color:var(--t3); letter-spacing:0.06em; }
+.ev-body { flex:1; }
+.ev-title { font-size:12.5px; font-weight:500; color:var(--t1); line-height:1.4; }
+.ev-tag {
+  display:inline-block;
+  font-family:var(--ff-mono); font-size:9px;
+  padding:2px 8px; border-radius:4px;
+  margin-top:4px;
+}
+.et-m   { background:var(--goldbg); color:var(--gold); border:1px solid var(--goldbd); }
+.et-e   { background:var(--imp-bg); color:var(--imp);  border:1px solid var(--imp-bd); }
+.et-d   { background:var(--green-bg); color:var(--green); border:1px solid rgba(52,201,138,0.2); }
+.et-tod { background:var(--gold); color:#1a1200; }
+.today .ev-day { color:var(--gold); }
+
+/* ═══════════════════════════
+   FOOTER
+═══════════════════════════ */
+.footer {
+  border-top: 1px solid var(--b1);
+  padding: 28px 18px;
+  text-align: center;
+  max-width: 1300px;
+  margin: 16px auto 0;
+}
+.footer-logo {
+  font-family:var(--ff-ui);
+  font-size:17px; font-weight:700;
+  color:var(--t3); margin-bottom:8px;
+  letter-spacing:-0.02em;
+}
+.footer-logo span { color:var(--gold); }
+.footer-txt {
+  font-family:var(--ff-mono); font-size:10.5px;
+  color:var(--t4); line-height:1.8;
+}
+.footer-txt a { color:var(--t3); transition:color 0.15s; }
+.footer-txt a:hover { color:var(--t1); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-badge"><div class="live-dot"></div>LIVE</div>
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <span class="tick"><span class="tick-name">NIFTY 50</span><span class="tick-val">22,347.65</span><span class="tick-chg up">▲ 0.42%</span></span>
+      <span class="tick"><span class="tick-name">SENSEX</span><span class="tick-val">73,812.18</span><span class="tick-chg up">▲ 0.38%</span></span>
+      <span class="tick"><span class="tick-name">BANK NIFTY</span><span class="tick-val">48,233.40</span><span class="tick-chg down">▼ 0.15%</span></span>
+      <span class="tick"><span class="tick-name">NIFTY IT</span><span class="tick-val">38,941.55</span><span class="tick-chg up">▲ 1.12%</span></span>
+      <span class="tick"><span class="tick-name">NIFTY PHARMA</span><span class="tick-val">21,187.30</span><span class="tick-chg down">▼ 0.31%</span></span>
+      <span class="tick"><span class="tick-name">GOLD (MCX)</span><span class="tick-val">₹88,420</span><span class="tick-chg up">▲ 0.65%</span></span>
+      <span class="tick"><span class="tick-name">USD/INR</span><span class="tick-val">84.82</span><span class="tick-chg down">▼ 0.09%</span></span>
+      <span class="tick"><span class="tick-name">CRUDE OIL</span><span class="tick-val">$73.41</span><span class="tick-chg up">▲ 0.28%</span></span>
+      <span class="tick"><span class="tick-name">NIFTY 50</span><span class="tick-val">22,347.65</span><span class="tick-chg up">▲ 0.42%</span></span>
+      <span class="tick"><span class="tick-name">SENSEX</span><span class="tick-val">73,812.18</span><span class="tick-chg up">▲ 0.38%</span></span>
+      <span class="tick"><span class="tick-name">BANK NIFTY</span><span class="tick-val">48,233.40</span><span class="tick-chg down">▼ 0.15%</span></span>
+      <span class="tick"><span class="tick-name">NIFTY IT</span><span class="tick-val">38,941.55</span><span class="tick-chg up">▲ 1.12%</span></span>
+      <span class="tick"><span class="tick-name">NIFTY PHARMA</span><span class="tick-val">21,187.30</span><span class="tick-chg down">▼ 0.31%</span></span>
+      <span class="tick"><span class="tick-name">GOLD (MCX)</span><span class="tick-val">₹88,420</span><span class="tick-chg up">▲ 0.65%</span></span>
+      <span class="tick"><span class="tick-name">USD/INR</span><span class="tick-val">84.82</span><span class="tick-chg down">▼ 0.09%</span></span>
+      <span class="tick"><span class="tick-name">CRUDE OIL</span><span class="tick-val">$73.41</span><span class="tick-chg up">▲ 0.28%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-mark">BP</div>
+    <div class="logo-text">Bazaar<span>Pulse</span></div>
+  </div>
+  <div class="header-right">
+    <div class="clock-pill" id="clockEl">IST --:--:--</div>
+    <button class="btn-refresh" id="refreshBtn" onclick="loadAllFeeds()">
+      <span class="ri" id="ri">↻</span> Refresh
+    </button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="wrap">
+  <!-- FEED -->
+  <div>
+    <div class="banner" id="banner" onclick="handleBanner()">🔄 New stories available — tap to refresh</div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-v vc" id="sc-crit">—</div><div class="stat-l">Critical</div></div>
+      <div class="stat"><div class="stat-v vm" id="sc-major">—</div><div class="stat-l">Major</div></div>
+      <div class="stat"><div class="stat-v vi" id="sc-imp">—</div><div class="stat-l">Important</div></div>
+      <div class="stat"><div class="stat-v vg" id="sc-total">—</div><div class="stat-l">Total Stories</div></div>
+    </div>
+
+    <!-- Brief -->
+    <div class="brief" id="briefCard" style="display:none"></div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button class="pill on" onclick="filterCat('All',this)">All</button>
+      <button class="pill" onclick="filterCat('Markets',this)">📈 Markets</button>
+      <button class="pill" onclick="filterCat('Banking',this)">🏦 Banking</button>
+      <button class="pill" onclick="filterCat('Economy',this)">🏛 Economy</button>
+      <button class="pill" onclick="filterCat('MF & SIP',this)">💼 MF & SIP</button>
+      <button class="pill" onclick="filterCat('IPO',this)">🔔 IPO</button>
+      <button class="pill" onclick="filterCat('Forex',this)">💱 Forex</button>
+      <button class="pill" onclick="filterCat('Commodities',this)">🛢 Commodities</button>
+      <button class="pill" onclick="filterCat('Realty',this)">🏗 Realty</button>
+      <button class="pill" onclick="filterCat('Corporate',this)">🏢 Corporate</button>
+    </div>
+
+    <!-- Hero -->
+    <div class="slabel">Top Story</div>
+    <div id="heroBox"><div class="skel" style="height:170px;margin-bottom:12px;"></div></div>
+
+    <!-- Feed -->
+    <div class="slabel" style="margin-top:20px;">
+      All Stories <span class="cnt" id="feedCnt">—</span>
+    </div>
+    <div id="feedBox">
+      <div class="skel" style="height:80px;"></div>
+      <div class="skel" style="height:80px;"></div>
+      <div class="skel" style="height:80px;"></div>
+      <div class="skel" style="height:80px;"></div>
+      <div class="skel" style="height:80px;"></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- Mood -->
+    <div class="widget">
+      <div class="wh"><span class="wh-icon">🧭</span><span class="wh-title">Market Mood Meter</span></div>
+      <div class="wb">
+        <div class="mood-num" id="moodNum" style="color:var(--gold)">—</div>
+        <div class="mood-word" id="moodWord" style="color:var(--t3)">Calculating…</div>
+        <div class="mbar"><div class="mthumb" id="mthumb" style="left:50%"></div></div>
+        <div class="mends"><span>😱 Panic</span><span>😤 Greed</span></div>
+        <div class="mstats">
+          <div class="ms"><div class="ms-v" id="mbull" style="color:var(--green)">—</div><div class="ms-l">Bullish</div></div>
+          <div class="ms"><div class="ms-v" id="mbear" style="color:var(--crit)">—</div><div class="ms-l">Bearish</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heatmap -->
+    <div class="widget">
+      <div class="wh"><span class="wh-icon">🔥</span><span class="wh-title">Sector Heatmap</span></div>
+      <div class="wb">
+        <div class="hmap" id="hmapBox">
+          <div class="hc neu" style="height:56px;"></div>
+          <div class="hc neu" style="height:56px;"></div>
+          <div class="hc neu" style="height:56px;"></div>
+          <div class="hc neu" style="height:56px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Events -->
+    <div class="widget">
+      <div class="wh"><span class="wh-icon">📅</span><span class="wh-title">Market Events 2026</span></div>
+      <div class="wb" style="padding:0 16px 12px;">
+        <div class="evlist" id="evList"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">Bazaar<span>Pulse</span></div>
+  <div class="footer-txt">
+    News sourced via publicly published RSS feeds · Headlines &amp; summaries only · All articles link to original sources<br>
+    Not SEBI registered · For informational purposes only · Not financial advice<br>
+    <a href="https://economictimes.indiatimes.com" target="_blank">ET</a> ·
+    <a href="https://livemint.com" target="_blank">Mint</a> ·
+    <a href="https://business-standard.com" target="_blank">BS</a> ·
+    <a href="https://ndtvprofit.com" target="_blank">NDTV Profit</a> ·
+    <a href="https://moneycontrol.com" target="_blank">MoneyControl</a>
+  </div>
+</footer>
+
+<script>
+// ─── CONFIG ───
+const CORS_PROXY = 'https://api.allorigins.win/get?url=';
+const RSS_SOURCES = [
+  { name:'Economic Times', short:'ET',   weight:3, url:'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms' },
+  { name:'LiveMint',        short:'Mint', weight:3, url:'https://www.livemint.com/rss/markets' },
+  { name:'Business Standard',short:'BS', weight:2, url:'https://www.business-standard.com/rss/markets-106.rss' },
+  { name:'NDTV Profit',     short:'NDTV',weight:2, url:'https://feeds.feedburner.com/ndtvprofit-latest' },
+  { name:'MoneyControl',    short:'MC',  weight:2, url:'https://www.moneycontrol.com/rss/buzzingstocks.xml' }
+];
+const KEYWORDS = {
+  critical:  { weight:5,   words:['rbi','rate cut','rate hike','sebi','ban','fraud','scam','crash','circuit','default','bankruptcy','insolvency','npa','fdi','gdp','inflation','cpi','budget','modi','nirmala','fed','powell','imf','world bank','war','sanction','emergency','halt','suspended','delisted','collapse','surge','plunge','soar'] },
+  major:     { weight:3,   words:['nifty','sensex','results','earnings','profit','revenue','acquisition','merger','ipo','listing','fii','dii','bulk deal','block deal','dividend','buyback','quarterly','q1','q2','q3','q4','mnc','nse','bse','mpc','repo rate','policy','reform','cabinet','supreme court','tribunal'] },
+  important: { weight:1.5, words:['stock','share','market','trade','invest','fund','mutual fund','sip','nav','etf','bond','yield','rupee','dollar','gold','silver','crude','oil','real estate','property','realty','bank','nbfc','insurance','fintech'] }
+};
+const BULL = ['surge','rally','gain','rise','up','high','bull','buy','positive','growth','profit','record','strong','boost','optimism','recovery','outperform','upgrade','green','breakout','momentum','expansion'];
+const BEAR = ['fall','drop','crash','decline','down','low','bear','sell','negative','loss','weak','concern','worry','recession','default','risk','plunge','tumble','underperform','downgrade','red','fear','contraction','slowdown'];
+const CATS = {
+  'Markets':['nifty','sensex','bse','nse','stock','equity','index','f&o','option','futures','derivative'],
+  'Banking':['bank','rbi','nbfc','lending','deposit','loan','credit','npa','emi'],
+  'Economy':['gdp','inflation','cpi','iip','budget','fiscal','reform','policy','rbi','mpc','repo'],
+  'MF & SIP':['mutual fund','mf','sip','nav','amc','folio','nfo','elss','fund house'],
+  'IPO':['ipo','listing','grey market','gmp','subscription','allotment','sme ipo'],
+  'Forex':['rupee','dollar','forex','currency','usd','inr','euro','yen','fed','exchange rate'],
+  'Commodities':['gold','silver','crude','oil','commodity','mcx','metal','copper','aluminium','zinc'],
+  'Realty':['real estate','realty','property','housing','reit','construction','home loan'],
+  'Corporate':['earnings','quarterly','results','profit','revenue','merger','acquisition','dividend','buyback']
+};
+const SECTORS = [
+  {name:'Banking',icon:'🏦',kw:['bank','nbfc','rbi','lender','credit']},
+  {name:'IT',     icon:'💻',kw:['it','tech','software','infosys','tcs','wipro','hcl']},
+  {name:'Pharma', icon:'💊',kw:['pharma','drug','healthcare','cipla','sun pharma']},
+  {name:'Auto',   icon:'🚗',kw:['auto','vehicle','car','ev','tata motors','maruti']},
+  {name:'FMCG',   icon:'🛒',kw:['fmcg','consumer','hindustan unilever','itc','nestle']},
+  {name:'Metal',  icon:'⚙️', kw:['metal','steel','tata steel','jsw','copper','aluminium']},
+  {name:'Energy', icon:'⚡',kw:['energy','power','ongc','reliance','ntpc','oil']},
+  {name:'Realty', icon:'🏗', kw:['realty','real estate','housing','dlf','godrej']},
+  {name:'PSU',    icon:'🏛', kw:['psu','public sector','bhel','hal','coal india','lic']}
+];
+const EVENTS = [
+  {date:new Date(2026,1,7), title:'RBI MPC Decision',        tag:'m'},
+  {date:new Date(2026,2,27),title:'March F&O Expiry',        tag:'e'},
+  {date:new Date(2026,3,4), title:'RBI MPC Decision',        tag:'m'},
+  {date:new Date(2026,3,14),title:'CPI Data Release',        tag:'d'},
+  {date:new Date(2026,3,24),title:'April F&O Expiry',        tag:'e'},
+  {date:new Date(2026,3,25),title:'Q4 Results Season Begins',tag:'d'},
+  {date:new Date(2026,4,5), title:'RBI MPC Decision',        tag:'m'},
+  {date:new Date(2026,4,14),title:'CPI Data Release',        tag:'d'},
+  {date:new Date(2026,4,28),title:'May F&O Expiry',          tag:'e'},
+  {date:new Date(2026,5,6), title:'RBI MPC Decision',        tag:'m'},
+  {date:new Date(2026,5,12),title:'CPI Data Release',        tag:'d'},
+  {date:new Date(2026,5,25),title:'June F&O Expiry',         tag:'e'},
+  {date:new Date(2026,6,30),title:'July F&O Expiry',         tag:'e'},
+  {date:new Date(2026,7,6), title:'RBI MPC Decision',        tag:'m'},
+  {date:new Date(2026,7,27),title:'August F&O Expiry',       tag:'e'},
+  {date:new Date(2026,8,30),title:'September F&O Expiry',    tag:'e'},
+  {date:new Date(2026,9,8), title:'RBI MPC Decision',        tag:'m'},
+  {date:new Date(2026,9,29),title:'October F&O Expiry',      tag:'e'},
+  {date:new Date(2026,10,26),title:'November F&O Expiry',    tag:'e'},
+  {date:new Date(2026,11,3),title:'RBI MPC Decision',        tag:'m'},
+  {date:new Date(2026,11,31),title:'December F&O Expiry',    tag:'e'}
+];
+
+// ─── STATE ───
+let allArticles=[], filteredArticles=[], currentCat='All', autoTimer=null, bannerTimer=null;
+
+// ─── CLOCK ───
+function tick(){
+  const ist=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+  document.getElementById('clockEl').textContent=
+    `IST ${String(ist.getHours()).padStart(2,'0')}:${String(ist.getMinutes()).padStart(2,'0')}:${String(ist.getSeconds()).padStart(2,'0')}`;
+}
+setInterval(tick,1000); tick();
+
+// ─── FETCH ───
+async function fetchFeed(src){
+  try{
+    const r=await fetch(`${CORS_PROXY}${encodeURIComponent(src.url)}`,{signal:AbortSignal.timeout(10000)});
+    const d=await r.json();
+    const xml=new DOMParser().parseFromString(d.contents,'text/xml');
+    return [...xml.querySelectorAll('item')].map(i=>({
+      title: i.querySelector('title')?.textContent?.trim()||'',
+      link:  i.querySelector('link')?.textContent?.trim()||i.querySelector('guid')?.textContent?.trim()||'#',
+      desc:  i.querySelector('description')?.textContent?.replace(/<[^>]+>/g,'').trim()||'',
+      pubDate: new Date(i.querySelector('pubDate')?.textContent||''),
+      source: src
+    })).filter(a=>a.title.length>10);
+  }catch(e){ console.warn(src.name,e.message); return []; }
+}
+
+function score(a){
+  const t=(a.title+' '+a.desc).toLowerCase();
+  let s=0;
+  KEYWORDS.critical.words.forEach(w=>{ if(t.includes(w)) s+=KEYWORDS.critical.weight*a.source.weight; });
+  KEYWORDS.major.words.forEach(w=>{    if(t.includes(w)) s+=KEYWORDS.major.weight*a.source.weight; });
+  KEYWORDS.important.words.forEach(w=>{ if(t.includes(w)) s+=KEYWORDS.important.weight*a.source.weight; });
+  const priority = s>=20?'Critical':s>=10?'Major':s>=4?'Important':'Minor';
+  let cat='Markets';
+  for(const [n,ws] of Object.entries(CATS)){ if(ws.some(w=>t.includes(w))){ cat=n; break; } }
+  return {...a,score:s,priority,category:cat};
+}
+
+function dedup(arr){
+  const seen=new Set();
+  return arr.filter(a=>{ const k=a.title.toLowerCase().slice(0,60); if(seen.has(k))return false; seen.add(k); return true; });
+}
+
+function moodSignals(arr){
+  let bull=0,bear=0;
+  arr.forEach(a=>{ const t=(a.title+' '+a.desc).toLowerCase(); BULL.forEach(w=>{ if(t.includes(w))bull++; }); BEAR.forEach(w=>{ if(t.includes(w))bear++; }); });
+  return {bull,bear};
+}
+
+function sectorSignals(arr){
+  return SECTORS.map(sec=>{
+    let bull=0,bear=0;
+    arr.forEach(a=>{ const t=(a.title+' '+a.desc).toLowerCase(); if(!sec.kw.some(k=>t.includes(k)))return; BULL.forEach(w=>{ if(t.includes(w))bull++; }); BEAR.forEach(w=>{ if(t.includes(w))bear++; }); });
+    const tot=bull+bear; let sent='neu';
+    if(tot>0){ const r=bull/tot; sent=r>=0.55?'bull':r<=0.45?'bear':'neu'; }
+    return {...sec,bull,bear,total:tot,sent};
+  });
+}
+
+// ─── IMPACT ───
+function impact(title,priority){
+  const t=title.toLowerCase();
+  if(t.includes('rbi')||t.includes('repo')||t.includes('rate')) return '⚡ Rate changes affect EMIs, bond yields, and overall market liquidity.';
+  if(t.includes('inflation')||t.includes('cpi'))  return '📊 Inflation data shapes RBI policy stance and equity valuations.';
+  if(t.includes('ipo')||t.includes('listing'))    return '🔔 IPO moves can offer listing gains — watch GMP and subscription levels.';
+  if(t.includes('sebi'))                          return '⚖️ Regulatory changes impact trading rules and market participants directly.';
+  if(t.includes('result')||t.includes('earning')) return '📈 Earnings results drive stock price movements in the near term.';
+  if(t.includes('rupee')||t.includes('dollar'))   return '💱 Currency moves affect import costs, IT revenues, and FII flows.';
+  if(t.includes('gold')||t.includes('silver'))    return '🪙 Precious metals — watch for FII and retail demand shifts.';
+  if(t.includes('crude')||t.includes('oil'))      return '🛢 Crude prices impact inflation, fuel costs, and energy sector margins.';
+  if(t.includes('fii')||t.includes('fpi'))        return '🌍 FII flows are a key driver of short-term market direction.';
+  if(t.includes('gdp')||t.includes('economy'))    return '🏛 Macro data influences long-term investment thesis and sector rotation.';
+  if(t.includes('merger')||t.includes('acquisition')) return '🤝 M&A activity can unlock value and trigger re-rating of related stocks.';
+  if(t.includes('budget')||t.includes('fiscal'))  return '📋 Fiscal policy shapes sector allocations and tax implications for investors.';
+  if(priority==='Critical') return '🚨 High-impact event — assess portfolio exposure immediately.';
+  if(priority==='Major')    return '📌 Notable development — monitor for position management.';
+  return '📰 Stay informed — track how this develops over the next session.';
+}
+
+// ─── RENDER HELPERS ───
+const PC = {Critical:'pt-crit',Major:'pt-major',Important:'pt-imp',Minor:'pt-minor'};
+const BC = {Critical:'bar-c',Major:'bar-m',Important:'bar-i',Minor:'bar-n'};
+const CC = {Critical:'var(--crit)',Major:'var(--major)',Important:'var(--imp)',Minor:'var(--minor)'};
+const CAT_COL = {'Markets':'#e8b84b','Banking':'#4e8ff0','Economy':'#34c98a','MF & SIP':'#a78bfa','IPO':'#f0564a','Forex':'#22d3ee','Commodities':'#fb923c','Realty':'#86efac','Corporate':'#94a3b8'};
+
+function ago(d){
+  if(!d||isNaN(d))return '';
+  const m=(Date.now()-d)/60000;
+  if(m<1)return 'just now';
+  if(m<60)return `${Math.round(m)}m ago`;
+  if(m<1440)return `${Math.round(m/60)}h ago`;
+  return `${Math.round(m/1440)}d ago`;
+}
+
+// ─── RENDER ───
+function renderHero(a){
+  if(!a){document.getElementById('heroBox').innerHTML='';return;}
+  const imp=impact(a.title,a.priority);
+  const col=CAT_COL[a.category]||'#e8b84b';
+  document.getElementById('heroBox').innerHTML=`
+  <a class="hero" href="${a.link}" target="_blank" rel="noopener">
+    <div class="hero-stripe"></div>
+    <div class="hero-body">
+      <div class="ptag ${PC[a.priority]}"><div class="ptag-dot" style="background:${CC[a.priority]}"></div>${a.priority}</div>
+      <div class="hero-title">${a.title}</div>
+      <div class="hero-impact">${imp}</div>
+      <div class="hero-foot">
+        <span class="src-chip">${a.source.short}</span>
+        <span class="ago">${ago(a.pubDate)}</span>
+        <span class="cat-chip" style="background:${col}22;color:${col};border:1px solid ${col}44">${a.category}</span>
+        <a class="share-wa" href="https://wa.me/?text=${encodeURIComponent(a.title+' — '+a.link)}" target="_blank" onclick="event.stopPropagation()">📤 Share</a>
+        <span class="read-link">Read →</span>
+      </div>
+    </div>
+  </a>`;
+}
+
+function renderFeed(arr){
+  const box=document.getElementById('feedBox');
+  if(!arr.length){box.innerHTML=`<div class="err">No stories for this filter. Try "All".</div>`;return;}
+  box.innerHTML=arr.slice(1).map(a=>{
+    const imp=impact(a.title,a.priority);
+    const col=CAT_COL[a.category]||'#e8b84b';
+    return `<a class="card" href="${a.link}" target="_blank" rel="noopener">
+      <div class="card-bar ${BC[a.priority]}"></div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="ptag ${PC[a.priority]}" style="margin-bottom:0;padding:2px 8px;">${a.priority}</span>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--t3)">${a.category}</span>
+        </div>
+        <div class="card-title">${a.title}</div>
+        <div class="card-impact">${imp}</div>
+        <div class="card-meta">
+          <span class="src-chip">${a.source.short}</span>
+          <span class="ago">${ago(a.pubDate)}</span>
+          <a class="share-wa" href="https://wa.me/?text=${encodeURIComponent(a.title+' — '+a.link)}" target="_blank" onclick="event.stopPropagation()">📤</a>
+        </div>
+      </div>
+      <div class="card-arrow">›</div>
+    </a>`;
+  }).join('');
+}
+
+function renderMood(arr){
+  const {bull,bear}=moodSignals(arr);
+  const tot=bull+bear||1;
+  const s=Math.round((bull/tot)*100);
+  let lbl,col;
+  if(s>=70){lbl='Extreme Greed';col='var(--green)';}
+  else if(s>=55){lbl='Greed';col='#90d47a';}
+  else if(s>=45){lbl='Neutral';col='var(--gold)';}
+  else if(s>=30){lbl='Fear';col='var(--major)';}
+  else{lbl='Extreme Fear';col='var(--crit)';}
+  document.getElementById('moodNum').textContent=s;
+  document.getElementById('moodNum').style.color=col;
+  document.getElementById('moodWord').textContent=lbl;
+  document.getElementById('moodWord').style.color=col;
+  document.getElementById('mthumb').style.left=s+'%';
+  document.getElementById('mbull').textContent=bull;
+  document.getElementById('mbear').textContent=bear;
+}
+
+function renderHeatmap(arr){
+  const secs=sectorSignals(arr);
+  document.getElementById('hmapBox').innerHTML=secs.map(s=>`
+  <div class="hc ${s.sent}">
+    <div class="hc-name">${s.icon} ${s.name}</div>
+    <div class="hc-sent">${s.total>0?(s.sent==='bull'?'▲ Bullish':s.sent==='bear'?'▼ Bearish':'→ Neutral'):'— No data'}</div>
+  </div>`).join('');
+}
+
+function renderBrief(arr){
+  const ist=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+  const h=ist.getHours(), m=ist.getMinutes();
+  const isPre=h<9||(h===9&&m<15), isPost=h>=15&&m>=30;
+  const top=arr.filter(a=>a.priority==='Critical'||a.priority==='Major').slice(0,3);
+  if(!top.length){document.getElementById('briefCard').style.display='none';return;}
+  const badge=isPre?'🌅 Pre-Market Brief':isPost?'🌇 Post-Market Wrap':'📡 Live Market Brief';
+  const when=isPre?'Before open · 9:15 AM IST':isPost?'Market closed · 3:30 PM IST':'Market session active';
+  document.getElementById('briefCard').innerHTML=`
+    <div class="brief-top"><span class="brief-badge">${badge}</span><span class="brief-when">${when}</span></div>
+    <div class="brief-body">${top.map((a,i)=>`
+      <div class="brief-row"><div class="brief-n">${i+1}</div><div class="brief-txt"><b>${a.source.short}:</b> ${a.title}</div></div>`).join('')}
+    </div>`;
+  document.getElementById('briefCard').style.display='';
+}
+
+function renderStats(arr){
+  document.getElementById('sc-crit').textContent=arr.filter(a=>a.priority==='Critical').length;
+  document.getElementById('sc-major').textContent=arr.filter(a=>a.priority==='Major').length;
+  document.getElementById('sc-imp').textContent=arr.filter(a=>a.priority==='Important').length;
+  document.getElementById('sc-total').textContent=arr.length;
+}
+
+function renderEvents(){
+  const now=new Date(); const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const TC={m:'et-m',e:'et-e',d:'et-d'};
+  const up=EVENTS.filter(e=>e.date>=today).sort((a,b)=>a.date-b.date).slice(0,6);
+  document.getElementById('evList').innerHTML=up.map(e=>{
+    const isTod=e.date.getTime()===today.getTime();
+    return `<div class="ev${isTod?' today':''}">
+      <div class="ev-date"><div class="ev-day">${e.date.getDate()}</div><div class="ev-mon">${MO[e.date.getMonth()]}</div></div>
+      <div class="ev-body">
+        <div class="ev-title">${e.title}</div>
+        <span class="ev-tag ${isTod?'et-tod':TC[e.tag]}">${isTod?'📌 TODAY':e.tag==='m'?'MPC':e.tag==='e'?'EXPIRY':'DATA'}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── FILTER ───
+function filterCat(cat,btn){
+  currentCat=cat;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  applyFilter();
+}
+function applyFilter(){
+  filteredArticles=currentCat==='All'?[...allArticles]:allArticles.filter(a=>a.category===currentCat);
+  filteredArticles.sort((a,b)=>b.score-a.score);
+  renderHero(filteredArticles[0]);
+  renderFeed(filteredArticles);
+  document.getElementById('feedCnt').textContent=filteredArticles.length;
+}
+
+// ─── LOAD ───
+async function loadAllFeeds(){
+  const btn=document.getElementById('refreshBtn');
+  btn.classList.add('loading');
+  document.getElementById('heroBox').innerHTML=`<div class="skel" style="height:170px;margin-bottom:12px;"></div>`;
+  document.getElementById('feedBox').innerHTML=Array(6).fill(`<div class="skel" style="height:80px;"></div>`).join('');
+  try{
+    const res=await Promise.allSettled(RSS_SOURCES.map(s=>fetchFeed(s)));
+    let arts=[];
+    res.forEach((r,i)=>{ if(r.status==='fulfilled') arts.push(...r.value); else console.warn(RSS_SOURCES[i].name,'failed'); });
+    arts=dedup(arts.map(score));
+    arts.sort((a,b)=>b.score-a.score||b.pubDate-a.pubDate);
+    allArticles=arts;
+    applyFilter();
+    renderMood(arts);
+    renderHeatmap(arts);
+    renderBrief(arts);
+    renderStats(arts);
+    clearTimeout(bannerTimer);
+    bannerTimer=setTimeout(()=>document.getElementById('banner').classList.add('show'),15*60*1000);
+  }catch(e){
+    console.error(e);
+    document.getElementById('feedBox').innerHTML=`<div class="err">⚠️ Could not load feeds. Try refreshing — feeds load correctly when hosted on Vercel.</div>`;
+  }
+  btn.classList.remove('loading');
+  clearTimeout(autoTimer);
+  autoTimer=setTimeout(loadAllFeeds,15*60*1000);
+}
+function handleBanner(){document.getElementById('banner').classList.remove('show');loadAllFeeds();}
+
+// ─── INIT ───
+renderEvents();
+loadAllFeeds();
+</script>
+</body>
+</html>
