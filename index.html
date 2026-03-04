@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="BazaarPulse — India's smartest finance news aggregator. Priority-ranked market news from ET, Mint, Business Standard, NDTV Profit & MoneyControl.">
+<meta property="og:title" content="BazaarPulse — Indian Finance News, Priority Ranked">
+<meta property="og:type" content="website">
+<title>BazaarPulse — Indian Finance News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #0d1117;
+  --bg2:   #13181f;
+  --bg3:   #1a2030;
+  --bg4:   #212840;
+  --bg5:   #283050;
+  --b1: rgba(255,255,255,0.05);
+  --b2: rgba(255,255,255,0.09);
+  --b3: rgba(255,255,255,0.15);
+  --t1: #eef0f6;
+  --t2: #8b94ae;
+  --t3: #52597a;
+  --t4: #353d58;
+  --gold:   #e9b84a;
+  --goldd:  rgba(233,184,74,0.1);
+  --goldb:  rgba(233,184,74,0.22);
+  --crit:  #f0564a; --critd: rgba(240,86,74,0.1);  --critb: rgba(240,86,74,0.22);
+  --major: #e8943a; --majord:rgba(232,148,58,0.1); --majorb:rgba(232,148,58,0.22);
+  --imp:   #5080f0; --impd:  rgba(80,128,240,0.1); --impb:  rgba(80,128,240,0.22);
+  --minor: #4a5272; --minord:rgba(74,82,114,0.1);  --minorb:rgba(74,82,114,0.2);
+  --green: #38c98a; --greend:rgba(56,201,138,0.1); --greenb:rgba(56,201,138,0.2);
+  --ff: 'Outfit', sans-serif;
+  --ffr: 'Lora', serif;
+  --ffm: 'JetBrains Mono', monospace;
+  --r: 10px; --rl: 14px; --rxl: 18px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff);background:var(--bg);color:var(--t1);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--ff);cursor:pointer;border:none;background:none}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:9px}
+
+/* TICKER */
+.ticker{height:36px;background:var(--bg2);border-bottom:1px solid var(--b1);display:flex;align-items:center;overflow:hidden;position:sticky;top:0;z-index:400}
+.t-badge{flex-shrink:0;height:100%;display:flex;align-items:center;gap:7px;padding:0 16px;background:var(--gold);font-family:var(--ffm);font-size:10px;font-weight:500;color:#1a0e00;letter-spacing:0.1em}
+.ldot{width:6px;height:6px;border-radius:50%;background:#1a0e00;animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
+.t-scroll{flex:1;overflow:hidden}
+.t-inner{display:inline-flex;white-space:nowrap;animation:roll 60s linear infinite}
+@keyframes roll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ti{display:inline-flex;align-items:center;gap:9px;padding:0 22px;border-right:1px solid var(--b1);font-family:var(--ffm);font-size:11.5px}
+.tn{color:var(--t3)}.tv{color:var(--t1);font-weight:500}
+.up{color:var(--green);font-weight:500}.dn{color:var(--crit);font-weight:500}
+
+/* TOP NAV — single bar: logo | scrollable tabs | controls */
+.topnav{
+  height:56px;background:var(--bg2);border-bottom:1px solid var(--b1);
+  display:flex;align-items:center;
+  position:sticky;top:36px;z-index:399;
+  padding:0;
+  gap:0;
+}
+.nav-logo{
+  flex-shrink:0;
+  display:flex;align-items:center;gap:10px;
+  padding:0 18px;
+  border-right:1px solid var(--b1);
+  height:100%;
+}
+.logo-sq{
+  width:28px;height:28px;border-radius:6px;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ffm);font-size:10px;font-weight:500;color:#1a0e00;
+}
+.logo-word{font-size:17px;font-weight:800;letter-spacing:-0.03em;color:var(--t1);white-space:nowrap}
+.logo-word em{color:var(--gold);font-style:normal}
+
+/* Scrollable tabs strip */
+.nav-tabs{
+  flex:1;
+  display:flex;align-items:center;
+  gap:4px;
+  overflow-x:auto;
+  padding:0 12px;
+  height:100%;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+.nav-tabs::-webkit-scrollbar{display:none}
+.ntab{
+  flex-shrink:0;
+  height:32px;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:0 13px;
+  border-radius:7px;
+  font-size:12.5px;font-weight:500;
+  color:var(--t3);
+  cursor:pointer;
+  transition:all 0.15s;
+  white-space:nowrap;
+  border:1px solid transparent;
+}
+.ntab:hover{color:var(--t2);background:var(--bg3);border-color:var(--b1)}
+.ntab.on{background:var(--gold);color:#1a0e00;border-color:var(--gold);font-weight:700}
+
+/* Clock + Refresh */
+.nav-right{
+  flex-shrink:0;
+  display:flex;align-items:center;gap:8px;
+  padding:0 16px;
+  border-left:1px solid var(--b1);
+  height:100%;
+}
+.clock{
+  font-family:var(--ffm);font-size:11px;color:var(--t3);
+  background:var(--bg3);border:1px solid var(--b1);
+  border-radius:7px;padding:5px 11px;white-space:nowrap;
+}
+.btn-ref{
+  display:flex;align-items:center;gap:6px;
+  background:var(--bg3);border:1px solid var(--b2);
+  color:var(--t2);padding:6px 14px;border-radius:8px;
+  font-size:12px;font-weight:500;transition:all 0.15s;white-space:nowrap;
+}
+.btn-ref:hover{background:var(--bg4);color:var(--t1);border-color:var(--b3)}
+.btn-ref.spin .ri{animation:spinit 0.7s linear infinite}
+@keyframes spinit{to{transform:rotate(360deg)}}
+@media(max-width:600px){
+  .nav-logo .logo-word{font-size:15px}
+  .clock{display:none}
+  .topnav{padding:0}
+}
+
+/* LAYOUT */
+.layout{max-width:1320px;margin:0 auto;padding:22px 18px;display:grid;grid-template-columns:1fr 356px;gap:20px;align-items:start}
+@media(max-width:980px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+
+/* BANNER */
+.banner{
+  display:none;align-items:center;justify-content:center;gap:8px;
+  background:var(--goldd);border:1px solid var(--goldb);
+  border-radius:var(--r);padding:10px 16px;margin-bottom:16px;
+  font-size:13px;font-weight:500;color:var(--gold);cursor:pointer;
+  animation:fsin 0.3s ease;
+}
+.banner.show{display:flex}
+@keyframes fsin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--rl);padding:14px 16px;transition:border-color 0.15s}
+.stat:hover{border-color:var(--b2)}
+.sv{font-size:28px;font-weight:800;letter-spacing:-0.04em;line-height:1;margin-bottom:4px}
+.sl{font-family:var(--ffm);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:0.08em}
+.sc{color:var(--crit)}.sm{color:var(--major)}.si{color:var(--imp)}.sg{color:var(--green)}
+
+/* BRIEF */
+.brief{background:var(--bg2);border:1px solid var(--goldb);border-radius:var(--rl);overflow:hidden;margin-bottom:18px}
+.brief-head{background:var(--goldd);border-bottom:1px solid var(--goldb);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.brief-badge{font-family:var(--ffm);font-size:9px;letter-spacing:0.13em;text-transform:uppercase;background:var(--gold);color:#1a0e00;padding:3px 9px;border-radius:5px;font-weight:500}
+.brief-when{font-family:var(--ffm);font-size:11px;color:var(--t3)}
+.brief-rows{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.brow{display:flex;gap:11px;align-items:flex-start}
+.bnum{flex-shrink:0;width:22px;height:22px;border-radius:6px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-family:var(--ffm);font-size:10px;color:var(--gold);margin-top:1px}
+.btxt{font-size:13px;color:var(--t2);line-height:1.5}
+.btxt b{color:var(--t1);font-weight:600}
+
+/* SECTION LABEL */
+.slbl{font-family:var(--ffm);font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--t4);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--b1)}
+.cnt{background:var(--bg3);color:var(--t3);font-size:10px;padding:1px 8px;border-radius:99px;border:1px solid var(--b1)}
+
+/* HERO */
+.hero{display:block;background:var(--bg2);border:1px solid var(--b2);border-radius:var(--rxl);overflow:hidden;margin-bottom:12px;transition:all 0.2s}
+.hero:hover{border-color:var(--b3);transform:translateY(-2px);box-shadow:0 10px 40px rgba(0,0,0,0.4)}
+.hero-top{height:3px;background:linear-gradient(90deg,var(--crit) 0%,var(--major) 55%,var(--gold) 100%)}
+.hero-body{padding:20px 22px 18px}
+.ptag{display:inline-flex;align-items:center;gap:6px;font-family:var(--ffm);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;padding:3px 10px;border-radius:5px;margin-bottom:11px}
+.pdot{width:6px;height:6px;border-radius:50%}
+.pc{background:var(--critd);color:var(--crit);border:1px solid var(--critb)}
+.pm{background:var(--majord);color:var(--major);border:1px solid var(--majorb)}
+.pi{background:var(--impd);color:var(--imp);border:1px solid var(--impb)}
+.pn{background:var(--minord);color:var(--minor);border:1px solid var(--minorb)}
+.hero-title{font-family:var(--ffr);font-size:21px;font-weight:600;line-height:1.35;color:var(--t1);margin-bottom:12px}
+.hero-impact{font-size:13px;color:var(--t2);line-height:1.65;background:var(--bg3);border-left:3px solid var(--gold);padding:9px 13px;border-radius:0 8px 8px 0;margin-bottom:15px}
+.hero-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--ffm);font-size:10px;background:var(--bg3);border:1px solid var(--b2);color:var(--t2);padding:2px 9px;border-radius:5px}
+.ago-txt{font-family:var(--ffm);font-size:10.5px;color:var(--t3)}
+.wa{display:inline-flex;align-items:center;gap:5px;font-family:var(--ffm);font-size:10px;background:var(--greend);border:1px solid var(--greenb);color:var(--green);padding:3px 10px;border-radius:6px;transition:background 0.15s}
+.wa:hover{background:rgba(56,201,138,0.18)}
+.rl{margin-left:auto;font-family:var(--ffm);font-size:11px;color:var(--gold)}
+
+/* NEWS CARDS */
+.card{display:flex;gap:14px;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--rl);padding:14px 16px;margin-bottom:8px;transition:all 0.15s;align-items:flex-start;color:inherit}
+.card:hover{background:var(--bg3);border-color:var(--b2)}
+.cbar{flex-shrink:0;width:3px;border-radius:2px;align-self:stretch;min-height:44px}
+.bc{background:var(--crit)}.bm{background:var(--major)}.bi{background:var(--imp)}.bn{background:var(--minor)}
+.cbody{flex:1;min-width:0}
+.ctags{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.ctag{font-family:var(--ffm);font-size:9px;color:var(--t3)}
+.ctitle{font-family:var(--ffr);font-size:15px;font-weight:500;color:var(--t1);line-height:1.45;margin-bottom:5px}
+.cimp{font-size:12px;color:var(--t3);line-height:1.45;margin-bottom:7px}
+.cmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.carrow{flex-shrink:0;color:var(--t4);font-size:16px;padding-top:2px}
+
+/* SKELETON */
+.skel{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--rl);margin-bottom:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.err{background:rgba(240,86,74,0.06);border:1px solid rgba(240,86,74,0.18);border-radius:var(--rl);padding:24px;text-align:center;color:var(--t2);font-size:13px;line-height:1.7}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:16px;position:sticky;top:112px}
+.widget{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden}
+.whead{padding:12px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:8px}
+.wicon{font-size:15px}.wtitle{font-size:13.5px;font-weight:700;color:var(--t1);letter-spacing:-0.01em}
+.wbody{padding:16px}
+
+/* Mood Meter */
+.mood-score{font-size:54px;font-weight:900;letter-spacing:-0.05em;line-height:1;text-align:center;margin-bottom:2px}
+.mood-label{font-family:var(--ffm);font-size:10.5px;letter-spacing:0.15em;text-transform:uppercase;text-align:center;margin-bottom:16px}
+.mbar-wrap{height:10px;border-radius:99px;background:linear-gradient(90deg,#f0564a 0%,#e8943a 28%,#e9b84a 50%,#86d87a 72%,#38c98a 100%);position:relative;margin-bottom:6px}
+.mthumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--bg2);box-shadow:0 2px 10px rgba(0,0,0,0.6);transition:left 1s cubic-bezier(0.34,1.56,0.64,1)}
+.mends{display:flex;justify-content:space-between;font-family:var(--ffm);font-size:9px;color:var(--t3);margin-bottom:14px}
+.mstats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ms{background:var(--bg3);border:1px solid var(--b1);border-radius:9px;padding:10px 12px;text-align:center}
+.msv{font-family:var(--ffm);font-size:16px;font-weight:500}
+.msl{font-size:10px;color:var(--t3);margin-top:2px}
+
+/* Heatmap — proper 3-col visual grid */
+.hmap{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.hcell{
+  border-radius:9px;padding:12px 8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:3px;
+  cursor:default;transition:transform 0.15s, box-shadow 0.15s;
+}
+.hcell:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.hcell.bull{background:rgba(56,201,138,0.12);border:1px solid rgba(56,201,138,0.25)}
+.hcell.bear{background:rgba(240,86,74,0.1); border:1px solid rgba(240,86,74,0.22)}
+.hcell.neu {background:var(--bg3);           border:1px solid var(--b1)}
+.hc-icon{font-size:22px;line-height:1;margin-bottom:2px}
+.hc-name{font-size:10px;font-weight:700;color:var(--t1);letter-spacing:0.01em}
+.hc-sent{font-family:var(--ffm);font-size:9px;font-weight:500;margin-top:1px}
+.hcell.bull .hc-sent{color:var(--green)}
+.hcell.bear .hc-sent{color:var(--crit)}
+.hcell.neu  .hc-sent{color:var(--t3)}
+
+/* Events */
+.evlist{display:flex;flex-direction:column}
+.ev{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--b1)}
+.ev:last-child{border-bottom:none}
+.evdate{flex-shrink:0;text-align:center;width:36px}
+.evday{font-size:18px;font-weight:800;line-height:1;color:var(--t1)}
+.evmon{font-family:var(--ffm);font-size:9px;text-transform:uppercase;color:var(--t3);letter-spacing:0.06em}
+.evbody{flex:1}
+.evtitle{font-size:12.5px;font-weight:500;color:var(--t1);line-height:1.4}
+.evtag{display:inline-block;font-family:var(--ffm);font-size:9px;padding:2px 8px;border-radius:4px;margin-top:4px}
+.et-m{background:var(--goldd);color:var(--gold);border:1px solid var(--goldb)}
+.et-e{background:var(--impd); color:var(--imp); border:1px solid var(--impb)}
+.et-d{background:var(--greend);color:var(--green);border:1px solid var(--greenb)}
+.et-t{background:var(--gold);color:#1a0e00}
+.ev.today .evday{color:var(--gold)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--b1);padding:28px 18px;text-align:center;max-width:1320px;margin:16px auto 0}
+.f-logo{font-size:16px;font-weight:700;letter-spacing:-0.02em;color:var(--t3);margin-bottom:8px}
+.f-logo em{color:var(--gold);font-style:normal}
+.f-txt{font-family:var(--ffm);font-size:10.5px;color:var(--t4);line-height:1.9}
+.f-txt a{color:var(--t3);transition:color 0.15s}
+.f-txt a:hover{color:var(--t1)}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="t-badge"><div class="ldot"></div>LIVE</div>
+  <div class="t-scroll"><div class="t-inner">
+    <span class="ti"><span class="tn">NIFTY 50</span><span class="tv">22,347.65</span><span class="up">▲ 0.42%</span></span>
+    <span class="ti"><span class="tn">SENSEX</span><span class="tv">73,812.18</span><span class="up">▲ 0.38%</span></span>
+    <span class="ti"><span class="tn">BANK NIFTY</span><span class="tv">48,233.40</span><span class="dn">▼ 0.15%</span></span>
+    <span class="ti"><span class="tn">NIFTY IT</span><span class="tv">38,941.55</span><span class="up">▲ 1.12%</span></span>
+    <span class="ti"><span class="tn">NIFTY PHARMA</span><span class="tv">21,187.30</span><span class="dn">▼ 0.31%</span></span>
+    <span class="ti"><span class="tn">GOLD (MCX)</span><span class="tv">₹88,420</span><span class="up">▲ 0.65%</span></span>
+    <span class="ti"><span class="tn">USD/INR</span><span class="tv">84.82</span><span class="dn">▼ 0.09%</span></span>
+    <span class="ti"><span class="tn">CRUDE OIL</span><span class="tv">$73.41</span><span class="up">▲ 0.28%</span></span>
+    <span class="ti"><span class="tn">NIFTY 50</span><span class="tv">22,347.65</span><span class="up">▲ 0.42%</span></span>
+    <span class="ti"><span class="tn">SENSEX</span><span class="tv">73,812.18</span><span class="up">▲ 0.38%</span></span>
+    <span class="ti"><span class="tn">BANK NIFTY</span><span class="tv">48,233.40</span><span class="dn">▼ 0.15%</span></span>
+    <span class="ti"><span class="tn">NIFTY IT</span><span class="tv">38,941.55</span><span class="up">▲ 1.12%</span></span>
+    <span class="ti"><span class="tn">NIFTY PHARMA</span><span class="tv">21,187.30</span><span class="dn">▼ 0.31%</span></span>
+    <span class="ti"><span class="tn">GOLD (MCX)</span><span class="tv">₹88,420</span><span class="up">▲ 0.65%</span></span>
+    <span class="ti"><span class="tn">USD/INR</span><span class="tv">84.82</span><span class="dn">▼ 0.09%</span></span>
+    <span class="ti"><span class="tn">CRUDE OIL</span><span class="tv">$73.41</span><span class="up">▲ 0.28%</span></span>
+  </div></div>
+</div>
+
+<!-- TOP NAV: logo | scrollable category tabs | clock + refresh -->
+<nav class="topnav">
+  <div class="nav-logo">
+    <div class="logo-sq">BP</div>
+    <div class="logo-word">Bazaar<em>Pulse</em></div>
+  </div>
+  <div class="nav-tabs">
+    <button class="ntab on"  onclick="filterCat('All',this)">All</button>
+    <button class="ntab" onclick="filterCat('Markets',this)">📈 Markets</button>
+    <button class="ntab" onclick="filterCat('Banking',this)">🏦 Banking</button>
+    <button class="ntab" onclick="filterCat('Economy',this)">🏛 Economy</button>
+    <button class="ntab" onclick="filterCat('MF & SIP',this)">💼 MF & SIP</button>
+    <button class="ntab" onclick="filterCat('IPO',this)">🔔 IPO</button>
+    <button class="ntab" onclick="filterCat('Forex',this)">💱 Forex</button>
+    <button class="ntab" onclick="filterCat('Commodities',this)">🛢 Commodities</button>
+    <button class="ntab" onclick="filterCat('Realty',this)">🏗 Realty</button>
+    <button class="ntab" onclick="filterCat('Corporate',this)">🏢 Corporate</button>
+  </div>
+  <div class="nav-right">
+    <div class="clock" id="clockEl">IST --:--:--</div>
+    <button class="btn-ref" id="refBtn" onclick="loadAllFeeds()">
+      <span class="ri" id="ri">↻</span> Refresh
+    </button>
+  </div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="layout">
+  <!-- FEED -->
+  <div>
+    <div class="banner" id="banner" onclick="handleBanner()">🔄 New stories available — click to refresh</div>
+    <div class="stats">
+      <div class="stat"><div class="sv sc" id="sc-crit">—</div><div class="sl">Critical</div></div>
+      <div class="stat"><div class="sv sm" id="sc-major">—</div><div class="sl">Major</div></div>
+      <div class="stat"><div class="sv si" id="sc-imp">—</div><div class="sl">Important</div></div>
+      <div class="stat"><div class="sv sg" id="sc-tot">—</div><div class="sl">Total Stories</div></div>
+    </div>
+    <div class="brief" id="briefEl" style="display:none"></div>
+    <div class="slbl">Top Story</div>
+    <div id="heroBox"><div class="skel" style="height:180px;margin-bottom:12px;"></div></div>
+    <div class="slbl" style="margin-top:20px;">All Stories <span class="cnt" id="fCnt">—</span></div>
+    <div id="feedBox">
+      <div class="skel" style="height:82px;"></div>
+      <div class="skel" style="height:82px;"></div>
+      <div class="skel" style="height:82px;"></div>
+      <div class="skel" style="height:82px;"></div>
+      <div class="skel" style="height:82px;"></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="widget">
+      <div class="whead"><span class="wicon">🧭</span><span class="wtitle">Market Mood Meter</span></div>
+      <div class="wbody">
+        <div class="mood-score" id="mScore" style="color:var(--gold)">—</div>
+        <div class="mood-label" id="mLabel" style="color:var(--t3)">Calculating…</div>
+        <div class="mbar-wrap"><div class="mthumb" id="mThumb" style="left:50%"></div></div>
+        <div class="mends"><span>😱 Panic</span><span>😤 Greed</span></div>
+        <div class="mstats">
+          <div class="ms"><div class="msv" id="mBull" style="color:var(--green)">—</div><div class="msl">Bullish</div></div>
+          <div class="ms"><div class="msv" id="mBear" style="color:var(--crit)">—</div><div class="msl">Bearish</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="whead"><span class="wicon">🔥</span><span class="wtitle">Sector Heatmap</span></div>
+      <div class="wbody">
+        <div class="hmap" id="hmapBox">
+          <div class="hcell neu" style="height:76px"></div>
+          <div class="hcell neu" style="height:76px"></div>
+          <div class="hcell neu" style="height:76px"></div>
+          <div class="hcell neu" style="height:76px"></div>
+          <div class="hcell neu" style="height:76px"></div>
+          <div class="hcell neu" style="height:76px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="whead"><span class="wicon">📅</span><span class="wtitle">Market Events 2026</span></div>
+      <div class="wbody" style="padding:0 16px 12px">
+        <div class="evlist" id="evList"></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer class="footer">
+  <div class="f-logo">Bazaar<em>Pulse</em></div>
+  <div class="f-txt">
+    News sourced via publicly published RSS feeds · Headlines &amp; summaries only · All articles link to original sources<br>
+    Not SEBI registered · For informational purposes only · Not financial advice<br>
+    <a href="https://economictimes.indiatimes.com" target="_blank">ET</a> ·
+    <a href="https://livemint.com" target="_blank">Mint</a> ·
+    <a href="https://business-standard.com" target="_blank">BS</a> ·
+    <a href="https://ndtvprofit.com" target="_blank">NDTV Profit</a> ·
+    <a href="https://moneycontrol.com" target="_blank">MoneyControl</a>
+  </div>
+</footer>
+
+<script>
+const CORS='https://api.allorigins.win/get?url=';
+const SOURCES=[
+  {name:'Economic Times',short:'ET',  w:3,url:'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms'},
+  {name:'LiveMint',       short:'Mint',w:3,url:'https://www.livemint.com/rss/markets'},
+  {name:'Business Standard',short:'BS',w:2,url:'https://www.business-standard.com/rss/markets-106.rss'},
+  {name:'NDTV Profit',    short:'NDTV',w:2,url:'https://feeds.feedburner.com/ndtvprofit-latest'},
+  {name:'MoneyControl',   short:'MC', w:2,url:'https://www.moneycontrol.com/rss/buzzingstocks.xml'}
+];
+const KW={
+  crit: {w:5, words:['rbi','rate cut','rate hike','sebi','ban','fraud','scam','crash','circuit','default','bankruptcy','insolvency','npa','fdi','gdp','inflation','cpi','budget','modi','nirmala','fed','powell','imf','world bank','war','sanction','emergency','halt','suspended','delisted','collapse','surge','plunge','soar']},
+  major:{w:3, words:['nifty','sensex','results','earnings','profit','revenue','acquisition','merger','ipo','listing','fii','dii','bulk deal','block deal','dividend','buyback','quarterly','q1','q2','q3','q4','nse','bse','mpc','repo rate','policy','reform','cabinet','supreme court']},
+  imp:  {w:1.5,words:['stock','share','market','trade','invest','fund','mutual fund','sip','nav','etf','bond','yield','rupee','dollar','gold','silver','crude','oil','real estate','property','realty','bank','nbfc','insurance','fintech']}
+};
+const BULL=['surge','rally','gain','rise','up','high','bull','buy','positive','growth','profit','record','strong','boost','optimism','recovery','outperform','upgrade','green','breakout','momentum','expansion'];
+const BEAR=['fall','drop','crash','decline','down','low','bear','sell','negative','loss','weak','concern','worry','recession','default','risk','plunge','tumble','underperform','downgrade','red','fear','contraction','slowdown'];
+const CATS={'Markets':['nifty','sensex','bse','nse','stock','equity','index','f&o','option','futures'],'Banking':['bank','rbi','nbfc','lending','deposit','loan','credit','npa','emi'],'Economy':['gdp','inflation','cpi','iip','budget','fiscal','reform','policy','mpc','repo'],'MF & SIP':['mutual fund','mf','sip','nav','amc','nfo','elss','fund house'],'IPO':['ipo','listing','grey market','gmp','subscription','allotment'],'Forex':['rupee','dollar','forex','currency','usd','inr','euro','yen','exchange rate'],'Commodities':['gold','silver','crude','oil','commodity','mcx','metal','copper','aluminium','zinc'],'Realty':['real estate','realty','property','housing','reit','construction','home loan'],'Corporate':['earnings','quarterly','results','profit','revenue','merger','acquisition','dividend','buyback']};
+const SECTORS=[{n:'Banking',ic:'🏦',kw:['bank','nbfc','rbi','lender','credit']},{n:'IT',ic:'💻',kw:['it','tech','software','infosys','tcs','wipro','hcl']},{n:'Pharma',ic:'💊',kw:['pharma','drug','healthcare','cipla','sun pharma']},{n:'Auto',ic:'🚗',kw:['auto','vehicle','car','ev','tata motors','maruti']},{n:'FMCG',ic:'🛒',kw:['fmcg','consumer','hindustan unilever','itc','nestle']},{n:'Metal',ic:'⚙️',kw:['metal','steel','tata steel','jsw','copper']},{n:'Energy',ic:'⚡',kw:['energy','power','ongc','reliance','ntpc','oil']},{n:'Realty',ic:'🏗',kw:['realty','real estate','housing','dlf','godrej']},{n:'PSU',ic:'🏛',kw:['psu','public sector','bhel','hal','coal india','lic']}];
+const EVENTS=[{d:new Date(2026,2,27),t:'March F&O Expiry',tag:'e'},{d:new Date(2026,3,4),t:'RBI MPC Decision',tag:'m'},{d:new Date(2026,3,14),t:'CPI Data Release',tag:'d'},{d:new Date(2026,3,24),t:'April F&O Expiry',tag:'e'},{d:new Date(2026,3,25),t:'Q4 Results Season Begins',tag:'d'},{d:new Date(2026,4,5),t:'RBI MPC Decision',tag:'m'},{d:new Date(2026,4,14),t:'CPI Data Release',tag:'d'},{d:new Date(2026,4,28),t:'May F&O Expiry',tag:'e'},{d:new Date(2026,5,6),t:'RBI MPC Decision',tag:'m'},{d:new Date(2026,5,12),t:'CPI Data Release',tag:'d'},{d:new Date(2026,5,25),t:'June F&O Expiry',tag:'e'},{d:new Date(2026,6,30),t:'July F&O Expiry',tag:'e'},{d:new Date(2026,7,6),t:'RBI MPC Decision',tag:'m'},{d:new Date(2026,7,27),t:'August F&O Expiry',tag:'e'}];
+const CAT_COL={'Markets':'#e9b84a','Banking':'#5080f0','Economy':'#38c98a','MF & SIP':'#a78bfa','IPO':'#f0564a','Forex':'#22d3ee','Commodities':'#fb923c','Realty':'#86efac','Corporate':'#94a3b8'};
+
+let all=[],filtered=[],cat='All',autoT=null,banT=null;
+
+function tick(){const ist=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));document.getElementById('clockEl').textContent=`IST ${String(ist.getHours()).padStart(2,'0')}:${String(ist.getMinutes()).padStart(2,'0')}:${String(ist.getSeconds()).padStart(2,'0')}`;}
+setInterval(tick,1000);tick();
+
+async function fetchSrc(src){
+  try{
+    const r=await fetch(`${CORS}${encodeURIComponent(src.url)}`,{signal:AbortSignal.timeout(10000)});
+    const data=await r.json();
+    const xml=new DOMParser().parseFromString(data.contents,'text/xml');
+    return[...xml.querySelectorAll('item')].map(i=>({
+      title:i.querySelector('title')?.textContent?.trim()||'',
+      link:i.querySelector('link')?.textContent?.trim()||i.querySelector('guid')?.textContent?.trim()||'#',
+      desc:i.querySelector('description')?.textContent?.replace(/<[^>]+>/g,'').trim()||'',
+      pub:new Date(i.querySelector('pubDate')?.textContent||''),
+      src
+    })).filter(a=>a.title.length>10);
+  }catch(e){console.warn(src.name,e.message);return[];}
+}
+
+function scoreArt(a){
+  const t=(a.title+' '+a.desc).toLowerCase();let s=0;
+  KW.crit.words.forEach(w=>{if(t.includes(w))s+=KW.crit.w*a.src.w;});
+  KW.major.words.forEach(w=>{if(t.includes(w))s+=KW.major.w*a.src.w;});
+  KW.imp.words.forEach(w=>{if(t.includes(w))s+=KW.imp.w*a.src.w;});
+  const pr=s>=20?'Critical':s>=10?'Major':s>=4?'Important':'Minor';
+  let c='Markets';for(const[n,ws]of Object.entries(CATS)){if(ws.some(w=>t.includes(w))){c=n;break;}}
+  return{...a,s,priority:pr,cat:c};
+}
+function dedup(arr){const seen=new Set();return arr.filter(a=>{const k=a.title.toLowerCase().slice(0,60);if(seen.has(k))return false;seen.add(k);return true;});}
+function moodSig(arr){let b=0,r=0;arr.forEach(a=>{const t=(a.title+' '+a.desc).toLowerCase();BULL.forEach(w=>{if(t.includes(w))b++;});BEAR.forEach(w=>{if(t.includes(w))r++;});});return{bull:b,bear:r};}
+function secSig(arr){return SECTORS.map(sec=>{let b=0,r=0;arr.forEach(a=>{const t=(a.title+' '+a.desc).toLowerCase();if(!sec.kw.some(k=>t.includes(k)))return;BULL.forEach(w=>{if(t.includes(w))b++;});BEAR.forEach(w=>{if(t.includes(w))r++;});});const tot=b+r;let sent='neu';if(tot>0){const ratio=b/tot;sent=ratio>=0.55?'bull':ratio<=0.45?'bear':'neu';}return{...sec,bull:b,bear:r,total:tot,sent};});}
+
+function impact(title,priority){
+  const t=title.toLowerCase();
+  if(t.includes('rbi')||t.includes('repo')||t.includes('rate'))return'⚡ Rate changes affect EMIs, bond yields, and overall market liquidity.';
+  if(t.includes('inflation')||t.includes('cpi'))return'📊 Inflation data shapes RBI policy stance and equity valuations.';
+  if(t.includes('ipo')||t.includes('listing'))return'🔔 IPO moves can offer listing gains — watch GMP and subscription levels.';
+  if(t.includes('sebi'))return'⚖️ Regulatory changes impact trading rules and market participants directly.';
+  if(t.includes('result')||t.includes('earning'))return'📈 Earnings results drive stock price movements in the near term.';
+  if(t.includes('rupee')||t.includes('dollar'))return'💱 Currency moves affect import costs, IT revenues, and FII flows.';
+  if(t.includes('gold')||t.includes('silver'))return'🪙 Precious metals — watch for FII and retail demand shifts.';
+  if(t.includes('crude')||t.includes('oil'))return'🛢 Crude prices impact inflation, fuel costs, and energy sector margins.';
+  if(t.includes('fii')||t.includes('fpi'))return'🌍 FII flows are a key driver of short-term market direction.';
+  if(t.includes('gdp')||t.includes('economy'))return'🏛 Macro data influences long-term investment thesis and sector rotation.';
+  if(t.includes('merger')||t.includes('acquisition'))return'🤝 M&A activity can unlock value and trigger re-rating of related stocks.';
+  if(t.includes('budget')||t.includes('fiscal'))return'📋 Fiscal policy shapes sector allocations and tax implications for investors.';
+  if(priority==='Critical')return'🚨 High-impact event — assess portfolio exposure immediately.';
+  if(priority==='Major')return'📌 Notable development — monitor for position management.';
+  return'📰 Stay informed — track how this develops over the next session.';
+}
+
+const PC={Critical:'pc',Major:'pm',Important:'pi',Minor:'pn'};
+const BC={Critical:'bc',Major:'bm',Important:'bi',Minor:'bn'};
+const CC={Critical:'var(--crit)',Major:'var(--major)',Important:'var(--imp)',Minor:'var(--minor)'};
+function ago(d){if(!d||isNaN(d))return'';const m=(Date.now()-d)/60000;if(m<1)return'just now';if(m<60)return`${Math.round(m)}m ago`;if(m<1440)return`${Math.round(m/60)}h ago`;return`${Math.round(m/1440)}d ago`;}
+
+function renderHero(a){
+  if(!a){document.getElementById('heroBox').innerHTML='';return;}
+  const imp=impact(a.title,a.priority);const col=CAT_COL[a.cat]||'#e9b84a';
+  document.getElementById('heroBox').innerHTML=`
+  <a class="hero" href="${a.link}" target="_blank" rel="noopener">
+    <div class="hero-top"></div>
+    <div class="hero-body">
+      <div class="ptag ${PC[a.priority]}"><div class="pdot" style="background:${CC[a.priority]}"></div>${a.priority}</div>
+      <div class="hero-title">${a.title}</div>
+      <div class="hero-impact">${imp}</div>
+      <div class="hero-foot">
+        <span class="chip">${a.src.short}</span>
+        <span class="ago-txt">${ago(a.pub)}</span>
+        <span style="font-family:var(--ffm);font-size:9px;background:${col}22;color:${col};border:1px solid ${col}44;padding:2px 9px;border-radius:5px;">${a.cat}</span>
+        <a class="wa" href="https://wa.me/?text=${encodeURIComponent(a.title+' — '+a.link)}" target="_blank" onclick="event.stopPropagation()">📤 Share</a>
+        <span class="rl">Read →</span>
+      </div>
+    </div>
+  </a>`;
+}
+
+function renderFeed(arr){
+  const box=document.getElementById('feedBox');
+  if(!arr.length){box.innerHTML=`<div class="err">No stories for this filter. Try "All".</div>`;return;}
+  box.innerHTML=arr.slice(1).map(a=>{
+    const imp=impact(a.title,a.priority);
+    return`<a class="card" href="${a.link}" target="_blank" rel="noopener">
+      <div class="cbar ${BC[a.priority]}"></div>
+      <div class="cbody">
+        <div class="ctags"><span class="ptag ${PC[a.priority]}" style="margin-bottom:0;padding:2px 8px;">${a.priority}</span><span class="ctag">${a.cat}</span></div>
+        <div class="ctitle">${a.title}</div>
+        <div class="cimp">${imp}</div>
+        <div class="cmeta"><span class="chip">${a.src.short}</span><span class="ago-txt">${ago(a.pub)}</span><a class="wa" href="https://wa.me/?text=${encodeURIComponent(a.title+' — '+a.link)}" target="_blank" onclick="event.stopPropagation()">📤</a></div>
+      </div>
+      <div class="carrow">›</div>
+    </a>`;
+  }).join('');
+}
+
+function renderMood(arr){
+  const{bull,bear}=moodSig(arr);const tot=bull+bear||1;const sc=Math.round((bull/tot)*100);
+  let lbl,col;
+  if(sc>=70){lbl='Extreme Greed';col='var(--green)';}else if(sc>=55){lbl='Greed';col='#86d87a';}else if(sc>=45){lbl='Neutral';col='var(--gold)';}else if(sc>=30){lbl='Fear';col='var(--major)';}else{lbl='Extreme Fear';col='var(--crit)';}
+  document.getElementById('mScore').textContent=sc;document.getElementById('mScore').style.color=col;
+  document.getElementById('mLabel').textContent=lbl;document.getElementById('mLabel').style.color=col;
+  document.getElementById('mThumb').style.left=sc+'%';
+  document.getElementById('mBull').textContent=bull;document.getElementById('mBear').textContent=bear;
+}
+
+function renderHeatmap(arr){
+  const secs=secSig(arr);
+  document.getElementById('hmapBox').innerHTML=secs.map(s=>`
+  <div class="hcell ${s.sent}">
+    <div class="hc-icon">${s.ic}</div>
+    <div class="hc-name">${s.n}</div>
+    <div class="hc-sent">${s.total>0?(s.sent==='bull'?'▲ Bull':s.sent==='bear'?'▼ Bear':'→ Neu'):'—'}</div>
+  </div>`).join('');
+}
+
+function renderBrief(arr){
+  const ist=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+  const h=ist.getHours(),m=ist.getMinutes();
+  const isPre=h<9||(h===9&&m<15),isPost=h>=15&&m>=30;
+  const top=arr.filter(a=>a.priority==='Critical'||a.priority==='Major').slice(0,3);
+  const el=document.getElementById('briefEl');
+  if(!top.length){el.style.display='none';return;}
+  const badge=isPre?'🌅 Pre-Market Brief':isPost?'🌇 Post-Market Wrap':'📡 Live Market Brief';
+  const when=isPre?'Before open · 9:15 AM IST':isPost?'Market closed · 3:30 PM IST':'Market session active';
+  el.innerHTML=`<div class="brief-head"><span class="brief-badge">${badge}</span><span class="brief-when">${when}</span></div><div class="brief-rows">${top.map((a,i)=>`<div class="brow"><div class="bnum">${i+1}</div><div class="btxt"><b>${a.src.short}:</b> ${a.title}</div></div>`).join('')}</div>`;
+  el.style.display='';
+}
+
+function renderStats(arr){
+  document.getElementById('sc-crit').textContent=arr.filter(a=>a.priority==='Critical').length;
+  document.getElementById('sc-major').textContent=arr.filter(a=>a.priority==='Major').length;
+  document.getElementById('sc-imp').textContent=arr.filter(a=>a.priority==='Important').length;
+  document.getElementById('sc-tot').textContent=arr.length;
+}
+
+function renderEvents(){
+  const now=new Date();const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const TC={m:'et-m',e:'et-e',d:'et-d'};
+  const up=EVENTS.filter(e=>e.d>=today).sort((a,b)=>a.d-b.d).slice(0,6);
+  document.getElementById('evList').innerHTML=up.map(e=>{
+    const isT=e.d.getTime()===today.getTime();
+    return`<div class="ev${isT?' today':''}"><div class="evdate"><div class="evday">${e.d.getDate()}</div><div class="evmon">${MO[e.d.getMonth()]}</div></div><div class="evbody"><div class="evtitle">${e.t}</div><span class="evtag ${isT?'et-t':TC[e.tag]}">${isT?'📌 TODAY':e.tag==='m'?'MPC':e.tag==='e'?'EXPIRY':'DATA'}</span></div></div>`;
+  }).join('');
+}
+
+function filterCat(c,btn){cat=c;document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');applyFilter();}
+function applyFilter(){filtered=cat==='All'?[...all]:all.filter(a=>a.cat===cat);filtered.sort((a,b)=>b.s-a.s);renderHero(filtered[0]);renderFeed(filtered);document.getElementById('fCnt').textContent=filtered.length;}
+
+async function loadAllFeeds(){
+  const btn=document.getElementById('refBtn');btn.classList.add('spin');
+  document.getElementById('heroBox').innerHTML=`<div class="skel" style="height:180px;margin-bottom:12px;"></div>`;
+  document.getElementById('feedBox').innerHTML=Array(5).fill(`<div class="skel" style="height:82px;"></div>`).join('');
+  try{
+    const res=await Promise.allSettled(SOURCES.map(s=>fetchSrc(s)));
+    let arts=[];res.forEach((r,i)=>{if(r.status==='fulfilled')arts.push(...r.value);else console.warn(SOURCES[i].name,'failed');});
+    arts=dedup(arts.map(scoreArt));arts.sort((a,b)=>b.s-a.s||b.pub-a.pub);
+    all=arts;applyFilter();renderMood(arts);renderHeatmap(arts);renderBrief(arts);renderStats(arts);
+    clearTimeout(banT);banT=setTimeout(()=>document.getElementById('banner').classList.add('show'),15*60*1000);
+  }catch(e){
+    console.error(e);
+    document.getElementById('feedBox').innerHTML=`<div class="err">⚠️ Could not load feeds. Feeds work when deployed on Vercel — try refreshing.</div>`;
+  }
+  btn.classList.remove('spin');clearTimeout(autoT);autoT=setTimeout(loadAllFeeds,15*60*1000);
+}
+function handleBanner(){document.getElementById('banner').classList.remove('show');loadAllFeeds();}
+
+renderEvents();
+loadAllFeeds();
+</script>
+</body>
+</html>
