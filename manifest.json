@@ -1,0 +1,51 @@
+{
+  "name": "BazaarPulse — Indian Finance News",
+  "short_name": "BazaarPulse",
+  "description": "Priority-ranked Indian stock market & finance news. Nifty, Sensex, RBI, IPO, global markets — all in one dashboard.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f1623",
+  "theme_color": "#0f1623",
+  "categories": ["finance", "news", "business"],
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "BazaarPulse Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Critical News",
+      "short_name": "Critical",
+      "description": "View only critical market-moving news",
+      "url": "/?priority=critical",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Markets",
+      "short_name": "Markets",
+      "description": "Markets category news",
+      "url": "/?cat=markets",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
