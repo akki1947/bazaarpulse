@@ -323,7 +323,22 @@ button{font-family:var(--ff);cursor:pointer;border:none;background:none;color:in
 .aff-strip{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px;background:var(--bg3);border-top:1px solid var(--b1);transition:background 0.25s}
 .aff-btn{display:inline-flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--b2);border-radius:8px;padding:7px 14px;font-size:11.5px;font-weight:600;color:var(--t2);cursor:pointer;transition:all 0.15s;text-decoration:none}
 .aff-btn:hover{border-color:var(--goldb);color:var(--gold);background:var(--goldd)}
-.aff-lbl{font-family:var(--ffm);font-size:8px;color:var(--t4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
+/* ── PHASE 3: Newsletter ── */
+.nl-widget{background:linear-gradient(135deg,var(--goldd),rgba(240,185,58,0.06));border:1px solid var(--goldb);border-radius:var(--rl);padding:18px 16px;margin-bottom:14px}
+.nl-title{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.nl-sub{font-size:12px;color:var(--t2);margin-bottom:14px;line-height:1.5}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-input{flex:1;min-width:160px;background:var(--bg2);border:1px solid var(--b2);border-radius:8px;padding:8px 12px;font-family:var(--ff);font-size:12.5px;color:var(--t1);outline:none;transition:border-color 0.15s}
+.nl-input::placeholder{color:var(--t3)}
+.nl-input:focus{border-color:var(--goldb)}
+.nl-btn{background:var(--gold);color:#1a0900;border:none;border-radius:8px;padding:8px 16px;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;transition:opacity 0.15s}
+.nl-btn:hover{opacity:0.88}
+.nl-fine{font-family:var(--ffm);font-size:8.5px;color:var(--t4);margin-top:8px}
+/* ── PHASE 3: AdSense ── */
+.ad-slot{background:var(--bg3);border:1px dashed var(--b2);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--t4);font-family:var(--ffm);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px}
+.ad-slot.leaderboard{height:90px;width:100%}
+.ad-slot.sidebar-ad{height:250px;width:100%}
+.ad-label{font-family:var(--ffm);font-size:8px;color:var(--t4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;display:block}
 </style>
 </head>
 <body>
@@ -499,11 +514,40 @@ button{font-family:var(--ff);cursor:pointer;border:none;background:none;color:in
             <span class="src-b loading">… Reuters</span><span class="src-b loading">… Bloomberg</span>
             <span class="src-b loading">… CNBC</span><span class="src-b loading">… FT</span>
             <span class="src-b loading">… WSJ</span><span class="src-b loading">… Yahoo</span>
-            <span class="src-b loading">… Investing</span>
+            <span class="src-b loading">… GNews</span>
           </div>
         </div>
+
+        <!-- ── PHASE 3: Newsletter signup ── -->
+        <div class="nl-widget">
+          <div class="nl-title">📬 Daily Market Digest</div>
+          <div class="nl-sub">Get top 5 critical stories delivered every morning before 9 AM IST — free forever.</div>
+          <div class="nl-form">
+            <input class="nl-input" type="email" id="nlEmail" placeholder="your@email.com" autocomplete="email">
+            <button class="nl-btn" onclick="nlSubscribe()">Subscribe Free</button>
+          </div>
+          <div class="nl-fine" id="nlMsg">Join traders & investors getting the edge every morning. Unsubscribe anytime.</div>
+        </div>
+
+        <!-- ── PHASE 3: AdSense sidebar slot ── -->
+        <span class="ad-label">Advertisement</span>
+        <div class="ad-slot sidebar-ad" id="adSidebar">
+          <!-- Google AdSense: replace this div with your ad unit code -->
+          <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto"></ins> -->
+          Ad · 300×250
+        </div>
+
       </div>
     </div>
+
+    <!-- ── PHASE 3: AdSense leaderboard between feed and footer ── -->
+    <span class="ad-label" style="margin-top:8px">Advertisement</span>
+    <div class="ad-slot leaderboard" id="adLeader">
+      <!-- Google AdSense: replace with your leaderboard ad unit -->
+      <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="horizontal"></ins> -->
+      Ad · 728×90
+    </div>
+
   </div>
 
   <!-- ══ AFFILIATE STRIP (Phase 2) ══ -->
@@ -540,7 +584,7 @@ button{font-family:var(--ff);cursor:pointer;border:none;background:none;color:in
       </span>
     </div>
     <div class="footer-row" style="color:var(--t4)">
-      <span>News from publicly published RSS feeds. Headlines link to original source. v2.0 · Phase 1+2 Complete</span>
+      <span>News from publicly published RSS feeds. Headlines link to original source. v3.0 · Phase 1+2+3 Complete</span>
       <span>
         <a href="https://bazaarpulse.vercel.app/sitemap.xml" target="_blank">Sitemap</a> ·
         <a href="/cdn-cgi/l/email-protection#ceacafb4afafbcbebba2bdab8ea9a3afa7a2e0ada1a3">Contact</a>
@@ -753,33 +797,55 @@ const EVENTS = [
   {d:new Date(2026,6,30),t:'July F&O Expiry',      tag:'e'},
 ];
 
-/* ════════ PROXIES — 6 options tried in order ════════ */
+/* ════════ SERVER-SIDE FEED FETCH via /api/feed ════════
+   Vercel serverless function fetches RSS server-side.
+   No CORS issues. Falls back to public proxies if API unavailable. */
+
+async function apiFetch(url, ms = 12000) {
+  const endpoint = `/api/feed?url=${encodeURIComponent(url)}`;
+  const ctrl = new AbortController();
+  const tid = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const r = await fetch(endpoint, { signal: ctrl.signal });
+    clearTimeout(tid);
+    if (!r.ok) return null;
+    const txt = await r.text();
+    return txt && txt.length > 100 ? txt : null;
+  } catch(e) {
+    clearTimeout(tid);
+    return null;
+  }
+}
+
+/* Proxy fallbacks (used only if serverless API fails) */
 const PROXIES = [
   u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,
   u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
   u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
-  u => `https://thingproxy.freeboard.io/fetch/${encodeURIComponent(u)}`,
-  u => `https://cors-anywhere.herokuapp.com/${u}`,
-  u => `https://proxy.cors.sh/${u}`,
 ];
 
-async function proxyFetch(url, ms=9000){
-  for(const mk of PROXIES){
-    try{
-      const ctrl=new AbortController();
-      const tid=setTimeout(()=>ctrl.abort(),ms);
-      const r=await fetch(mk(url),{signal:ctrl.signal});
+async function proxyFetch(url, ms = 9000) {
+  // 1. Try serverless API first (always preferred)
+  const apiResult = await apiFetch(url, ms);
+  if (apiResult) return apiResult;
+
+  // 2. Fallback to public CORS proxies
+  for (const mk of PROXIES) {
+    try {
+      const ctrl = new AbortController();
+      const tid = setTimeout(() => ctrl.abort(), ms);
+      const r = await fetch(mk(url), { signal: ctrl.signal });
       clearTimeout(tid);
-      if(!r.ok) continue;
-      const ct=r.headers.get('content-type')||'';
-      if(ct.includes('json')){
-        const j=await r.json();
-        if(j&&j.contents&&j.contents.length>100) return j.contents;
+      if (!r.ok) continue;
+      const ct = r.headers.get('content-type') || '';
+      if (ct.includes('json')) {
+        const j = await r.json();
+        if (j && j.contents && j.contents.length > 100) return j.contents;
         continue;
       }
-      const txt=await r.text();
-      if(txt&&txt.length>100) return txt;
-    }catch(e){}
+      const txt = await r.text();
+      if (txt && txt.length > 100) return txt;
+    } catch(e) {}
   }
   return null;
 }
@@ -1212,15 +1278,15 @@ async function loadAllFeeds(){
   if(!arts.length){
     document.getElementById('heroBox').innerHTML='';
     document.getElementById('feedBox').innerHTML=`<div class="err-box">
-      ⚠️ Could not load any feeds right now.<br>
-      All 4 CORS proxies were tried. Usually means proxies are temporarily rate-limited.<br>
-      <b>Retrying in 30 seconds automatically…</b>
+      ⚠️ Could not load feeds right now.<br>
+      The /api/feed serverless function may be cold-starting. <b>Retrying in 15 seconds…</b><br>
+      <small style="color:var(--t4)">If this persists, check Vercel function logs.</small>
     </div>`;
     document.getElementById('pageSub').textContent='Feed load failed — retrying in 30s';
     btn.classList.remove('spin');
     renderSrcStatus();
     clearTimeout(autoTimer);
-    autoTimer=setTimeout(loadAllFeeds, 30000);
+    autoTimer=setTimeout(loadAllFeeds, 15000);
     return;
   }
 
@@ -1257,3 +1323,34 @@ function handleBanner(){
 }
 
 /* ═══════
+/* ════════ PHASE 3: Newsletter subscribe ════════ */
+function nlSubscribe(){
+  const emailEl = document.getElementById('nlEmail');
+  const msgEl   = document.getElementById('nlMsg');
+  const email   = emailEl.value.trim();
+  if(!email || !email.includes('@')){
+    msgEl.textContent = '⚠️ Please enter a valid email address.';
+    msgEl.style.color = 'var(--crit)';
+    return;
+  }
+  // Opens Substack signup with email pre-filled
+  // Replace YOUR_SUBSTACK with your actual Substack publication name
+  const substackUrl = `https://bazaarpulse.substack.com/subscribe?email=${encodeURIComponent(email)}`;
+  window.open(substackUrl, '_blank');
+  emailEl.value = '';
+  msgEl.textContent = '✅ Opening Substack to confirm — check your inbox!';
+  msgEl.style.color = 'var(--green)';
+  setTimeout(()=>{ msgEl.textContent='Join traders & investors getting the edge every morning. Unsubscribe anytime.'; msgEl.style.color=''; }, 5000);
+}
+// Allow Enter key in email field
+document.getElementById('nlEmail')?.addEventListener('keydown', e => {
+  if(e.key === 'Enter') nlSubscribe();
+});
+
+/* ════════ INIT ════════ */
+renderEvents();
+document.getElementById('prio-all').classList.add('on');
+loadAllFeeds();
+</script>
+</body>
+</html>
