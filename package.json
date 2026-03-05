@@ -1,0 +1,9 @@
+{
+  "name": "bazaarpulse",
+  "version": "3.0.0",
+  "description": "BazaarPulse — Indian Finance News Dashboard",
+  "engines": {
+    "node": "18.x"
+  },
+  "private": true
+}
