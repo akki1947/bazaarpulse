@@ -1303,19 +1303,6 @@ setInterval(tick,1000); tick();
    Stooq CSV API (free, CORS-open). Shows last close + day change.
    Fallback = Mar 6 2026 closing prices shown immediately.          */
 
-const TICK_FALLBACK = {
-  'tk-n50':    {p:'22,337',   c:'▼ 1.14%', up:false},
-  'tk-snsx':   {p:'73,547',   c:'▼ 1.14%', up:false},
-  'tk-bnf':    {p:'47,863',   c:'▼ 0.82%', up:false},
-  'tk-nit':    {p:'34,918',   c:'▼ 1.76%', up:false},
-  'tk-dji':    {p:'43,840',   c:'▲ 1.14%', up:true},
-  'tk-spx':    {p:'5,954',    c:'▲ 0.55%', up:true},
-  'tk-ndx':    {p:'19,171',   c:'▲ 0.70%', up:true},
-  'tk-gold':   {p:'$2,911',   c:'▲ 0.23%', up:true},
-  'tk-usdinr': {p:'87.02',    c:'▼ 0.11%', up:false},
-  'tk-brent':  {p:'$70.36',   c:'▼ 1.82%', up:false},
-};
-
 const STOOQ = [
   {id:'tk-n50',   sym:'^nsei',  fmt:'idx'},
   {id:'tk-snsx',  sym:'^bsesn', fmt:'idx'},
@@ -1328,6 +1315,12 @@ const STOOQ = [
   {id:'tk-usdinr',sym:'usdinr', fmt:'fx'},
   {id:'tk-brent', sym:'lco.f',  fmt:'com'},
 ];
+
+// Load last known good ticker values from localStorage
+let lastTicks = {};
+try {
+  lastTicks = JSON.parse(localStorage.getItem('bp_last_ticks') || '{}');
+} catch(e) {}
 
 function applyTick(id, price, chgPct){
   const t = STOOQ.find(s=>s.id===id);
@@ -1342,13 +1335,31 @@ function applyTick(id, price, chgPct){
   el.textContent = ps;
   elc.textContent = (up?'▲ ':'▼ ')+Math.abs(chgPct).toFixed(2)+'%';
   elc.className = 'mkt-chg '+(up?'up':'dn');
+  
+  // Save to localStorage for future fallback
+  lastTicks[id] = {price, chgPct, up};
+  try { localStorage.setItem('bp_last_ticks', JSON.stringify(lastTicks)); } catch(e){}
 }
 
-function loadFallbackTicks(){
-  Object.entries(TICK_FALLBACK).forEach(([id,v])=>{
-    const el=document.getElementById(id), elc=document.getElementById(id+'c');
-    if(el) el.textContent=v.p;
-    if(elc){ elc.textContent=v.c; elc.className='mkt-chg '+(v.up?'up':'dn'); }
+function loadPersistedTicks() {
+  Object.entries(lastTicks).forEach(([id, v]) => {
+    const t = STOOQ.find(s => s.id === id);
+    if (!t) return;
+    const el = document.getElementById(id);
+    const elc = document.getElementById(id + 'c');
+    if (!el || !elc) return;
+
+    // Format price according to the ticker type (same as in applyTick)
+    let ps;
+    if (t.fmt === 'fx') ps = v.price.toFixed(2);
+    else if (t.fmt === 'com') ps = '$' + v.price.toFixed(2);
+    else if (t.fmt === 'us') ps = v.price.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    else ps = v.price.toLocaleString('en-IN', { maximumFractionDigits: 2 });
+
+    el.textContent = ps;
+    elc.textContent = (v.up ? '▲ ' : '▼ ') + Math.abs(v.chgPct).toFixed(2) + '%';
+    elc.className = 'mkt-chg ' + (v.up ? 'up' : 'dn');
+    
   });
 }
 
@@ -1372,7 +1383,9 @@ async function fetchOneTick(t){
 }
 
 async function fetchTickers(){
-  loadFallbackTicks(); // show Mar 6 values instantly
+  // First, show whatever we have in localStorage (if any)
+  if(Object.keys(lastTicks).length > 0) loadPersistedTicks();
+  
   const results = await Promise.allSettled(STOOQ.map(t=>fetchOneTick(t)));
   const ok = results.filter(r => r.status === 'fulfilled' && r.value === true).length;
   console.log(`Market bar: ${ok}/${STOOQ.length} live prices`);
