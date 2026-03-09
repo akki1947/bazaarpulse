@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+(function(){
+  if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(r){r.forEach(function(s){s.unregister();});});}
+  if('caches' in window){caches.keys().then(function(k){k.forEach(function(c){caches.delete(c);});});}
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BazaarPulse &#8212; India&#8217;s Financial Intelligence Hub</title>
+<meta name="description" content="BazaarPulse: Real-time Indian finance news, macro economy tracker, IPO calendar, market data and investment insights for serious investors.">
+<meta name="keywords" content="Indian stock market, Nifty, Sensex, BSE, NSE, RBI, macro economy, IPO, finance news India, market mood">
+<meta name="author" content="BazaarPulse">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bazaarpulse.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bazaarpulse.vercel.app/">
+<meta property="og:title" content="BazaarPulse &#8212; India&#8217;s Financial Intelligence Hub">
+<meta property="og:description" content="Real-time market intelligence, macro data, IPO tracker, and priority news for Indian investors.">
+<meta property="og:locale" content="en_IN">
+<meta property="og:site_name" content="BazaarPulse">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#080d18">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BazaarPulse">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ==============================================================
+   BAZAARPULSE v6.0 | PHASE 1 - DESIGN SYSTEM + SHELL
+   Aesthetic: "Editorial Finance" - Terminal meets print magazine
+   Fonts: Playfair Display (display) + DM Sans (body) + DM Mono (data)
+   ============================================================== */
+
+/* --- 1. DESIGN TOKENS --- */
+:root {
+  --topbar-h: 44px;
+  --nav-h: 52px;
+  --shell-top: 96px;
+
+  --bg:   #080d18;
+  --bg2:  #0d1525;
+  --bg3:  #111c30;
+  --bg4:  #162038;
+  --bg5:  #1b2740;
+  --bgh:  #162340;
+
+  --b1: rgba(255,255,255,0.055);
+  --b2: rgba(255,255,255,0.09);
+  --b3: rgba(255,255,255,0.15);
+
+  --t1: #e9eefa;
+  --t2: #8da3c0;
+  --t3: #4e6280;
+  --t4: #2e3f58;
+
+  --gold:  #e8b84b;
+  --gold2: #f5cc6a;
+  --goldd: rgba(232,184,75,0.10);
+  --goldb: rgba(232,184,75,0.26);
+  --goldg: linear-gradient(135deg,#e8b84b,#f5cc6a);
+
+  --green:  #30c98a;
+  --greend: rgba(48,201,138,0.10);
+  --greenb: rgba(48,201,138,0.26);
+
+  --red:   #e85252;
+  --redd:  rgba(232,82,82,0.10);
+  --redb:  rgba(232,82,82,0.26);
+
+  --blue:  #4e8df5;
+  --blued: rgba(78,141,245,0.10);
+  --blueb: rgba(78,141,245,0.26);
+
+  --orange:  #e8832e;
+  --oranged: rgba(232,131,46,0.10);
+  --orangeb: rgba(232,131,46,0.26);
+
+  --violet:  #9a6cf7;
+  --violetd: rgba(154,108,247,0.10);
+  --violetb: rgba(154,108,247,0.26);
+
+  --crit:  #e85252; --critd:  rgba(232,82,82,0.10);  --critb:  rgba(232,82,82,0.28);
+  --major: #e8832e; --majord: rgba(232,131,46,0.10); --majorb: rgba(232,131,46,0.26);
+  --imp:   #4e8df5; --impd:   rgba(78,141,245,0.10); --impb:   rgba(78,141,245,0.26);
+  --minor: #344860; --minord: rgba(52,72,96,0.12);   --minorb: rgba(52,72,96,0.22);
+
+  --ff:  'DM Sans', sans-serif;
+  --ffd: 'Playfair Display', serif;
+  --ffm: 'DM Mono', monospace;
+
+  --r:    8px;
+  --rl:  12px;
+  --rxl: 16px;
+  --rpill: 999px;
+
+  --sh-sm: 0 1px  8px rgba(0,0,0,0.40);
+  --sh-md: 0 4px 20px rgba(0,0,0,0.50);
+  --sh-lg: 0 8px 40px rgba(0,0,0,0.60);
+  --sh-gold: 0 0 20px rgba(232,184,75,0.12);
+
+  --tr-fast: 0.14s ease;
+  --tr-base: 0.22s ease;
+}
+
+body.light {
+  --bg:  #f0f5fd; --bg2: #ffffff; --bg3: #f7f9fe;
+  --bg4: #edf1fa; --bg5: #e3eaf8; --bgh: #eef2fb;
+  --b1: rgba(0,0,0,0.060); --b2: rgba(0,0,0,0.100); --b3: rgba(0,0,0,0.160);
+  --t1: #0d1624; --t2: #3d5570; --t3: #6a7f9a; --t4: #9aadc4;
+  --sh-sm: 0 1px 8px rgba(0,0,0,0.07); --sh-md: 0 4px 20px rgba(0,0,0,0.09);
+}
+
+/* --- 2. RESET + BASE --- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;scroll-behavior:smooth}
+body{
+  font-family:var(--ff);font-size:13.5px;line-height:1.6;
+  color:var(--t1);background:var(--bg);min-height:100vh;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  transition:background var(--tr-base),color var(--tr-base);
+}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--ff);cursor:pointer;border:none;background:none;color:inherit}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:var(--rpill)}
+::-webkit-scrollbar-thumb:hover{background:var(--b3)}
+
+/* --- 3. KEYFRAMES --- */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes livePulse{0%,100%{opacity:.4;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-600px 0}100%{background-position:600px 0}}
+@keyframes alertBlink{0%,100%{border-color:var(--critb)}50%{border-color:var(--crit);box-shadow:0 0 10px var(--critd)}}
+@keyframes tabGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* --- 4. TOPBAR --- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;
+  height:var(--topbar-h);z-index:800;
+  background:var(--bg);border-bottom:1px solid var(--b1);
+  display:flex;align-items:center;padding:0 20px;gap:12px;
+  box-shadow:0 2px 16px rgba(0,0,0,.30);
+  animation:fadeUp .35s ease both;
+}
+
+/* Logo */
+.tb-logo{display:flex;align-items:center;gap:9px;flex-shrink:0;text-decoration:none}
+.tb-logo-mark{
+  width:30px;height:30px;border-radius:var(--r);
+  background:var(--goldg);display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;box-shadow:var(--sh-gold);
+}
+.tb-logo-mark svg{width:16px;height:16px;fill:#080d18}
+.tb-logo-text{line-height:1}
+.tb-logo-name{
+  font-family:var(--ffd);font-size:17px;font-weight:700;
+  color:var(--t1);letter-spacing:-.02em;
+}
+.tb-logo-name em{color:var(--gold);font-style:normal}
+.tb-logo-tag{
+  font-family:var(--ffm);font-size:8.5px;color:var(--t3);
+  letter-spacing:.14em;text-transform:uppercase;margin-top:1px;
+}
+
+/* Divider */
+.tb-div{width:1px;height:20px;background:var(--b2);flex-shrink:0}
+
+/* Clock */
+.tb-clock-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.tb-pulse-dot{width:7px;height:7px;border-radius:var(--rpill);flex-shrink:0;animation:livePulse 2.2s ease-in-out infinite}
+.tb-pulse-dot.closed{background:var(--t3);animation:none}
+.tb-pulse-dot.pre{background:var(--blue)}
+.tb-pulse-dot.live{background:var(--green)}
+.tb-pulse-dot.post{background:var(--gold)}
+.tb-clock{font-family:var(--ffm);font-size:11.5px;color:var(--t2);letter-spacing:.04em}
+.tb-mkt-status{
+  font-family:var(--ffm);font-size:10px;letter-spacing:.10em;
+  text-transform:uppercase;padding:2px 8px;border-radius:var(--rpill);
+  border:1px solid;font-weight:600;transition:all var(--tr-base);
+}
+.tb-mkt-status.closed{color:var(--t3);background:var(--minord);border-color:var(--minorb)}
+.tb-mkt-status.pre{color:var(--blue);background:var(--blued);border-color:var(--blueb)}
+.tb-mkt-status.live{color:var(--green);background:var(--greend);border-color:var(--greenb)}
+.tb-mkt-status.post{color:var(--gold);background:var(--goldd);border-color:var(--goldb)}
+
+/* Search */
+.tb-search-wrap{position:relative;margin-left:auto}
+.tb-search-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t3);font-size:13px;pointer-events:none}
+.tb-search{
+  background:var(--bg3);border:1px solid var(--b2);border-radius:var(--rl);
+  padding:6px 12px 6px 32px;font-family:var(--ff);font-size:12.5px;
+  color:var(--t1);outline:none;width:220px;transition:all var(--tr-base);
+}
+.tb-search:focus{background:var(--bg4);border-color:var(--b3);width:280px;box-shadow:0 0 0 2px var(--blued)}
+.tb-search::placeholder{color:var(--t4)}
+
+/* Search dropdown */
+.tb-search-drop{
+  display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;
+  min-width:320px;background:var(--bg3);border:1px solid var(--b2);
+  border-radius:var(--rl);box-shadow:var(--sh-lg);z-index:999;overflow:hidden;
+}
+.tb-search-drop.open{display:block;animation:fadeUp .18s ease both}
+.sdr-item{padding:9px 14px;border-bottom:1px solid var(--b1);cursor:pointer;transition:background var(--tr-fast)}
+.sdr-item:hover{background:var(--bgh)}
+.sdr-item:last-child{border-bottom:none}
+.sdr-ttl{font-size:12.5px;color:var(--t1);line-height:1.4;margin-bottom:3px}
+.sdr-meta{font-family:var(--ffm);font-size:10px;color:var(--t3)}
+.sdr-empty{padding:14px;text-align:center;font-size:12px;color:var(--t3)}
+
+/* Topbar controls */
+.tb-controls{display:flex;align-items:center;gap:3px;flex-shrink:0}
+.tb-btn{
+  width:32px;height:32px;border-radius:var(--r);display:flex;
+  align-items:center;justify-content:center;font-size:15px;
+  color:var(--t2);cursor:pointer;transition:all var(--tr-fast);
+}
+.tb-btn:hover{background:var(--bgh);color:var(--t1)}
+.tb-btn.spinning svg{animation:spin .7s linear}
+.tb-status{font-family:var(--ffm);font-size:10.5px;color:var(--t3);flex-shrink:0;padding:0 8px;white-space:nowrap}
+.tb-status.ok{color:var(--green)}
+.tb-status.err{color:var(--red)}
+
+/* --- 5. MAIN NAV --- */
+.mainnav{
+  position:fixed;top:var(--topbar-h);left:0;right:0;
+  height:var(--nav-h);z-index:799;
+  background:var(--bg2);border-bottom:1px solid var(--b1);
+  display:flex;align-items:stretch;padding:0 12px;
+  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;gap:2px;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);
+  animation:fadeUp .42s ease both;
+}
+.mainnav::-webkit-scrollbar{display:none}
+
+.nav-item{
+  display:flex;align-items:center;gap:7px;
+  padding:0 16px;font-size:13px;font-weight:500;
+  color:var(--t2);cursor:pointer;
+  border-bottom:3px solid transparent;
+  white-space:nowrap;transition:all var(--tr-base);
+  flex-shrink:0;position:relative;margin-bottom:-1px;
+}
+.nav-item:hover{color:var(--t1);background:var(--bgh)}
+.nav-item.active{color:var(--t1);font-weight:600;border-bottom-color:var(--gold)}
+.nav-item.active::after{
+  content:'';position:absolute;bottom:-1px;left:16px;right:16px;
+  height:3px;background:var(--goldg);border-radius:3px 3px 0 0;
+  animation:tabGrow .22s ease both;transform-origin:left center;
+}
+
+.nav-ic{font-size:16px;line-height:1}
+.nav-sep{width:1px;height:20px;background:var(--b2);margin:auto 8px;flex-shrink:0}
+.nav-badge{font-family:var(--ffm);font-size:9px;font-weight:700;padding:1px 5px;border-radius:var(--rpill);letter-spacing:.04em;text-transform:uppercase}
+.nav-badge-live{background:var(--greend);color:var(--green);border:1px solid var(--greenb)}
+.nav-badge-num{background:var(--critd);color:var(--crit);border:1px solid var(--critb);animation:alertBlink 1.8s ease-in-out infinite}
+
+/* --- 6. SHELL + PANELS --- */
+.shell{margin-top:var(--shell-top);min-height:calc(100vh - var(--shell-top))}
+.panel{display:none;width:100%;min-height:calc(100vh - var(--shell-top));animation:fadeUp .28s ease both}
+.panel.active{display:block}
+
+/* --- 7. LAYOUT PRIMITIVES --- */
+.layout-two-col{display:grid;grid-template-columns:1fr 316px;min-height:calc(100vh - var(--shell-top))}
+.col-main{padding:20px 22px;border-right:1px solid var(--b1);min-width:0}
+.col-aside{padding:16px 14px;overflow-y:auto}
+
+/* Section label */
+.slbl{display:flex;align-items:center;gap:10px;font-family:var(--ffm);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:12px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--b1)}
+.slbl-pill{font-size:9px;background:var(--bg4);color:var(--t3);padding:1px 7px;border-radius:var(--rpill);font-family:var(--ffm);letter-spacing:.04em;text-transform:uppercase}
+
+/* Card / Widget */
+.card{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--rl);box-shadow:var(--sh-sm);transition:all var(--tr-base)}
+.card:hover{border-color:var(--b2);box-shadow:var(--sh-md)}
+.widget{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden;margin-bottom:12px;box-shadow:var(--sh-sm)}
+.widget-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--b1);background:var(--bg3)}
+.wh-ic{font-size:15px;line-height:1}
+.wh-title{font-size:13px;font-weight:700;color:var(--t1);letter-spacing:-.01em;flex:1}
+.wh-badge{font-family:var(--ffm);font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:var(--rpill);letter-spacing:.06em;text-transform:uppercase;border:1px solid}
+.wh-badge-live{color:var(--green);background:var(--greend);border-color:var(--greenb)}
+.wh-badge-crit{color:var(--crit);background:var(--critd);border-color:var(--critb)}
+
+/* Skeleton */
+.skel{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:600px 100%;border-radius:var(--r);animation:shimmer 1.7s ease-in-out infinite}
+
+/* Priority chips */
+.ptag{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:var(--rpill);font-family:var(--ffm);font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid}
+.ptag-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.pt-c{background:var(--critd);color:var(--crit);border-color:var(--critb)}
+.pt-m{background:var(--majord);color:var(--major);border-color:var(--majorb)}
+.pt-i{background:var(--impd);color:var(--imp);border-color:var(--impb)}
+.pt-n{background:var(--minord);color:var(--minor);border-color:var(--minorb)}
+
+.chip{padding:3px 9px;background:var(--bg4);border-radius:6px;font-size:10.5px;color:var(--t2);font-family:var(--ffm)}
+.up{color:var(--green)!important}
+.dn{color:var(--red)!important}
+
+/* Progress bar */
+.prog-bar{position:fixed;bottom:0;left:0;height:2px;background:var(--goldg);z-index:9999;transition:width 1s linear;pointer-events:none}
+
+/* Overlay */
+.overlay{display:none;position:fixed;inset:0;background:rgba(8,13,24,.70);z-index:700;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.overlay.show{display:block}
+
+/* --- 8. PLACEHOLDER PANEL STYLES (Phase 1 only) --- */
+.ph-wrap{padding:28px 28px;max-width:720px}
+.ph-heading{font-family:var(--ffd);font-size:28px;font-weight:700;color:var(--t1);margin-bottom:12px;letter-spacing:-.02em;line-height:1.2}
+.ph-heading em{color:var(--gold);font-style:normal}
+.ph-sub{font-size:13.5px;color:var(--t2);line-height:1.7;margin-bottom:20px;max-width:480px}
+.ph-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.ph-chip{padding:5px 13px;border-radius:var(--rpill);border:1px solid var(--b2);font-family:var(--ffm);font-size:11px;color:var(--t2);background:var(--bg3)}
+.ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ph-card{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--rl);padding:16px;transition:all var(--tr-base);cursor:default}
+.ph-card:hover{background:var(--bgh);border-color:var(--b2);transform:translateY(-2px);box-shadow:var(--sh-md)}
+.ph-card-ic{font-size:24px;margin-bottom:10px}
+.ph-card-title{font-family:var(--ffd);font-size:14px;font-weight:700;color:var(--t1);margin-bottom:5px;line-height:1.3}
+.ph-card-desc{font-size:11.5px;color:var(--t2);line-height:1.6}
+.ph-card-tag{display:inline-block;margin-top:8px;font-family:var(--ffm);font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;background:var(--goldd);padding:2px 7px;border-radius:4px}
+.coming-soon{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:var(--rpill);background:var(--goldd);border:1px solid var(--goldb);color:var(--gold);font-family:var(--ffm);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+
+/* --- 9. AFFILIATE + FOOTER --- */
+.aff-strip{background:var(--bg2);border-top:1px solid var(--b1);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.aff-lbl{font-family:var(--ffm);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;flex-shrink:0}
+.aff-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:var(--r);background:var(--bg3);border:1px solid var(--b2);font-family:var(--ffm);font-size:11.5px;font-weight:600;color:var(--t1);cursor:pointer;transition:all var(--tr-base);text-decoration:none}
+.aff-btn:hover{background:var(--bg4);border-color:var(--b3);transform:translateY(-1px)}
+.aff-note{margin-left:auto;font-family:var(--ffm);font-size:8.5px;color:var(--t4)}
+.footer{background:var(--bg2);border-top:1px solid var(--b1);padding:16px 20px;font-family:var(--ffm);font-size:11px;color:var(--t3)}
+.footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.footer-row:last-child{margin-bottom:0}
+.footer-row a{color:var(--t3);transition:color var(--tr-fast)}
+.footer-row a:hover{color:var(--t1)}
+.footer-sources{display:flex;gap:8px;flex-wrap:wrap}
+
+/* --- 10. RESPONSIVE --- */
+@media(max-width:860px){.layout-two-col{grid-template-columns:1fr}.col-aside{display:none}.ph-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){:root{--topbar-h:48px;--nav-h:48px;--shell-top:96px}.tb-logo-tag,.tb-status{display:none}.tb-search{width:130px}.tb-search:focus{width:160px}.nav-lbl{display:none}.nav-item{padding:0 12px}.ph-grid{grid-template-columns:1fr}.col-main{padding:16px 14px}}
+</style>
+</head>
+
+<body>
+
+<!-- ====================================================
+     TOPBAR
+     ==================================================== -->
+<header class="topbar" id="topbar">
+
+  <a class="tb-logo" href="/" title="BazaarPulse Home">
+    <div class="tb-logo-mark">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 2h5c2 0 3.2 1 3.2 2.6 0 .9-.4 1.6-1.1 2 .9.3 1.6 1.2 1.6 2.3C11.7 10.7 10.4 12 8.3 12H2V2zm2 2v2.4h2.6c.8 0 1.2-.4 1.2-1.2S7.4 4 6.6 4H4zm0 4.2v2.6h2.8c.9 0 1.4-.5 1.4-1.3s-.5-1.3-1.4-1.3H4z"/>
+        <circle cx="12.5" cy="11" r="2.5"/>
+      </svg>
+    </div>
+    <div class="tb-logo-text">
+      <div class="tb-logo-name">Bazaar<em>Pulse</em></div>
+      <div class="tb-logo-tag">India &middot; Finance &middot; Intelligence</div>
+    </div>
+  </a>
+
+  <div class="tb-div"></div>
+
+  <div class="tb-clock-wrap">
+    <div class="tb-pulse-dot closed" id="pulseDot"></div>
+    <span class="tb-clock" id="clockEl">--:--:-- IST</span>
+    <span class="tb-mkt-status closed" id="mktStatus">Closed</span>
+  </div>
+
+  <div class="tb-search-wrap">
+    <span class="tb-search-ico">&#9906;</span>
+    <input class="tb-search" id="searchBox" type="search" placeholder="Search headlines&#8230;" autocomplete="off"
+      oninput="handleSearch(this.value)" onblur="setTimeout(closeSearch,200)">
+    <div class="tb-search-drop" id="searchDrop"></div>
+  </div>
+
+  <div class="tb-controls">
+    <div class="tb-div"></div>
+    <button class="tb-btn" id="refBtn" onclick="manualRefresh()" title="Refresh feeds">
+      <svg id="refIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+      </svg>
+    </button>
+    <button class="tb-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">
+      <span id="themeIcon">&#127769;</span>
+    </button>
+    <div class="tb-div"></div>
+    <span class="tb-status" id="feedStatus">Connecting&#8230;</span>
+  </div>
+
+</header>
+
+<!-- ====================================================
+     MAIN NAV
+     ==================================================== -->
+<nav class="mainnav" id="mainnav">
+
+  <div class="nav-item active" id="nav-news" onclick="setPanel('news',this)" title="News Feed">
+    <span class="nav-ic">&#128240;</span>
+    <span class="nav-lbl">News</span>
+    <span class="nav-badge nav-badge-num" id="critBadge" style="display:none">!</span>
+  </div>
+
+  <div class="nav-sep"></div>
+
+  <div class="nav-item" id="nav-macro" onclick="setPanel('macro',this)" title="Macro Economy">
+    <span class="nav-ic">&#127963;</span>
+    <span class="nav-lbl">Macro Economy</span>
+  </div>
+
+  <div class="nav-item" id="nav-markets" onclick="setPanel('markets',this)" title="Markets">
+    <span class="nav-ic">&#128200;</span>
+    <span class="nav-lbl">Markets</span>
+    <span class="nav-badge nav-badge-live">Live</span>
+  </div>
+
+  <div class="nav-item" id="nav-invest" onclick="setPanel('invest',this)" title="Investments">
+    <span class="nav-ic">&#128188;</span>
+    <span class="nav-lbl">Investments</span>
+  </div>
+
+  <div class="nav-item" id="nav-pro" onclick="setPanel('pro',this)" title="Professional Data">
+    <span class="nav-ic">&#127919;</span>
+    <span class="nav-lbl">Professional</span>
+  </div>
+
+  <div class="nav-sep"></div>
+
+  <div class="nav-item" id="nav-know" onclick="setPanel('know',this)" title="Knowledge">
+    <span class="nav-ic">&#129504;</span>
+    <span class="nav-lbl">Knowledge</span>
+  </div>
+
+  <div class="nav-item" id="nav-world" onclick="setPanel('world',this)" title="World News">
+    <span class="nav-ic">&#127758;</span>
+    <span class="nav-lbl">World</span>
+  </div>
+
+  <div class="nav-item" id="nav-util" onclick="setPanel('util',this)" title="Utilities">
+    <span class="nav-ic">&#9881;&#65039;</span>
+    <span class="nav-lbl">Utilities</span>
+  </div>
+
+</nav>
+
+<!-- ====================================================
+     APP SHELL  (8 panels — content added Phase 2+)
+     ==================================================== -->
+<div class="shell">
+
+  <!-- PANEL: NEWS -->
+  <div class="panel active" id="panel-news">
+    <div class="layout-two-col">
+      <div class="col-main">
+        <div class="ph-wrap">
+          <div class="ph-heading">&#128240; News <em>Feed</em></div>
+          <p class="ph-sub">Priority-ranked Indian &amp; global finance headlines from 12 RSS sources. Critical alerts, category filters, market mood &mdash; all in one view.</p>
+          <div class="ph-chips">
+            <span class="ph-chip">&#128308; Critical</span>
+            <span class="ph-chip">&#128992; Major</span>
+            <span class="ph-chip">&#128994; Important</span>
+            <span class="ph-chip">&#128200; Markets</span>
+            <span class="ph-chip">&#127960; Banking</span>
+            <span class="ph-chip">&#127963; Economy</span>
+            <span class="ph-chip">&#128276; IPO</span>
+            <span class="ph-chip">&#128178; Forex</span>
+            <span class="ph-chip">&#127760; Global</span>
+          </div>
+          <span class="coming-soon">&#128679; Phase 2 &mdash; Building Next</span>
+        </div>
+      </div>
+      <div class="col-aside">
+        <div class="widget">
+          <div class="widget-head"><span class="wh-ic">&#129517;</span><span class="wh-title">Market Mood</span><span class="wh-badge wh-badge-live">Live</span></div>
+          <div style="padding:16px;color:var(--t3);font-family:var(--ffm);font-size:11.5px">Computed from feed sentiment &mdash; Phase 2</div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="wh-ic">&#9889;</span><span class="wh-title">F&amp;O Alerts</span><span class="wh-badge wh-badge-crit">Traders</span></div>
+          <div style="padding:16px;color:var(--t3);font-family:var(--ffm);font-size:11.5px">Real-time F&amp;O signals &mdash; Phase 2</div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="wh-ic">&#127919;</span><span class="wh-title">Broker Calls</span></div>
+          <div style="padding:16px;color:var(--t3);font-family:var(--ffm);font-size:11.5px">Analyst recommendations &mdash; Phase 2</div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="wh-ic">&#128293;</span><span class="wh-title">Sector Heatmap</span></div>
+          <div style="padding:16px;color:var(--t3);font-family:var(--ffm);font-size:11.5px">Sentiment heatmap &mdash; Phase 2</div>
+        </div>
+        <div class="widget">
+          <div class="widget-head"><span class="wh-ic">&#128197;</span><span class="wh-title">Market Events 2026</span></div>
+          <div style="padding:16px;color:var(--t3);font-family:var(--ffm);font-size:11.5px">RBI, FOMC, F&amp;O dates &mdash; Phase 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: MACRO ECONOMY -->
+  <div class="panel" id="panel-macro">
+    <div class="col-main" style="max-width:100%">
+      <div class="ph-wrap">
+        <div class="ph-heading">&#127963; Macro <em>Economy</em></div>
+        <p class="ph-sub">India&rsquo;s key macroeconomic indicators sourced from RBI, MoSPI, World Bank, and IMF.</p>
+        <div class="ph-grid">
+          <div class="ph-card"><div class="ph-card-ic">&#127919;</div><div class="ph-card-title">CPI Inflation Rate</div><div class="ph-card-desc">Latest CPI vs RBI&rsquo;s 4% &#177;2% target band</div><span class="ph-card-tag">MoSPI</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128202;</div><div class="ph-card-title">GDP Growth Rate</div><div class="ph-card-desc">Quarterly &amp; annual GDP with trend analysis</div><span class="ph-card-tag">NSO</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#127960;</div><div class="ph-card-title">Repo Rate</div><div class="ph-card-desc">RBI policy rate &amp; MPC decisions timeline</div><span class="ph-card-tag">RBI</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#127760;</div><div class="ph-card-title">Forex Reserves</div><div class="ph-card-desc">Weekly RBI foreign exchange reserve data</div><span class="ph-card-tag">RBI</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128200;</div><div class="ph-card-title">Govt Debt to GDP</div><div class="ph-card-desc">Central + state fiscal sustainability metrics</div><span class="ph-card-tag">IMF</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128176;</div><div class="ph-card-title">Revenue vs Expenditure</div><div class="ph-card-desc">Union Budget fiscal deficit tracking</div><span class="ph-card-tag">CGA</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128717;</div><div class="ph-card-title">Household Spending</div><div class="ph-card-desc">HCES consumer expenditure growth rate</div><span class="ph-card-tag">MoSPI</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128230;</div><div class="ph-card-title">Consumer Growth Rate</div><div class="ph-card-desc">IIP, PMI &amp; consumer confidence indices</div><span class="ph-card-tag">MoSPI</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128101;</div><div class="ph-card-title">Employment vs Unemployment</div><div class="ph-card-desc">PLFS labour force participation &amp; jobless rate</div><span class="ph-card-tag">PLFS</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#127975;</div><div class="ph-card-title">India vs World Population</div><div class="ph-card-desc">India&rsquo;s share of global population &amp; growth</div><span class="ph-card-tag">UN</span></div>
+        </div>
+        <br><span class="coming-soon">&#128679; Phase 3 &mdash; Building Next</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: MARKETS -->
+  <div class="panel" id="panel-markets">
+    <div class="col-main" style="max-width:100%">
+      <div class="ph-wrap">
+        <div class="ph-heading">&#128200; <em>Markets</em></div>
+        <p class="ph-sub">Tabbed news streams filtered by market segment &mdash; US, Global, Forex, Crypto, and Futures.</p>
+        <div class="ph-chips">
+          <span class="ph-chip">&#127482;&#127480; US Market</span>
+          <span class="ph-chip">&#127758; Global Markets</span>
+          <span class="ph-chip">&#128178; Forex News</span>
+          <span class="ph-chip">&#8383; Crypto News</span>
+          <span class="ph-chip">&#128202; Futures News</span>
+        </div>
+        <span class="coming-soon">&#128679; Phase 4 &mdash; Building Next</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: INVESTMENTS -->
+  <div class="panel" id="panel-invest">
+    <div class="col-main" style="max-width:100%">
+      <div class="ph-wrap">
+        <div class="ph-heading">&#128188; <em>Investments</em></div>
+        <p class="ph-sub">IPO calendar, top funds &amp; ETFs, best FD rates, and broker comparison &mdash; plan your money here.</p>
+        <div class="ph-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div class="ph-card"><div class="ph-card-ic">&#128276;</div><div class="ph-card-title">IPO Calendar</div><div class="ph-card-desc">Upcoming, open &amp; listed IPOs with GMP, dates, issue size</div><span class="ph-card-tag">NSE / BSE</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128200;</div><div class="ph-card-title">Top Funds &amp; ETFs</div><div class="ph-card-desc">Best performing mutual funds &amp; ETFs ranked by 1Y &amp; 3Y returns</div><span class="ph-card-tag">AMFI</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#127960;</div><div class="ph-card-title">Fixed Deposit Rates</div><div class="ph-card-desc">Compare FD rates across major Indian banks &mdash; best offers highlighted</div><span class="ph-card-tag">Banks</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#127942;</div><div class="ph-card-title">Top Brokers Comparison</div><div class="ph-card-desc">Side-by-side: Zerodha, Groww, Upstox, Angel One &amp; more</div><span class="ph-card-tag">SEBI</span></div>
+        </div>
+        <br><span class="coming-soon">&#128679; Phase 4 &mdash; Building Next</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: PROFESSIONAL -->
+  <div class="panel" id="panel-pro">
+    <div class="col-main" style="max-width:100%">
+      <div class="ph-wrap">
+        <div class="ph-heading">&#127919; <em>Professional</em> Data</div>
+        <p class="ph-sub">Institutional-grade data for serious investors &mdash; insider transactions &amp; earnings call search.</p>
+        <div class="ph-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div class="ph-card"><div class="ph-card-ic">&#128065;</div><div class="ph-card-title">Insider Buying</div><div class="ph-card-desc">SEBI-disclosed promoter &amp; director buy/sell transactions</div><span class="ph-card-tag">NSE SEBI</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#127897;</div><div class="ph-card-title">Concall &amp; Earnings</div><div class="ph-card-desc">Search quarterly earnings calls, investor presentations &amp; annual reports</div><span class="ph-card-tag">NSE / BSE</span></div>
+        </div>
+        <br><span class="coming-soon">&#128679; Phase 5 &mdash; Building Next</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: KNOWLEDGE -->
+  <div class="panel" id="panel-know">
+    <div class="col-main" style="max-width:100%">
+      <div class="ph-wrap">
+        <div class="ph-heading">&#129504; <em>Knowledge</em> Hub</div>
+        <p class="ph-sub">Free financial education for every Indian investor &mdash; from basics to advanced, explained simply.</p>
+        <div class="ph-chips">
+          <span class="ph-chip">&#128218; Learning</span>
+          <span class="ph-chip">&#9997;&#65039; Blog</span>
+          <span class="ph-chip">&#129504; Decoded Explainers</span>
+        </div>
+        <span class="coming-soon">&#128679; Phase 5 &mdash; Building Next</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: WORLD NEWS -->
+  <div class="panel" id="panel-world">
+    <div class="col-main" style="max-width:100%">
+      <div class="ph-wrap">
+        <div class="ph-heading">&#127758; <em>World</em> News</div>
+        <p class="ph-sub">Non-finance news that still matters to investors &mdash; geopolitics, conflict, sports, entertainment.</p>
+        <div class="ph-chips">
+          <span class="ph-chip">&#9876;&#65039; War Zone</span>
+          <span class="ph-chip">&#127944; Sports</span>
+          <span class="ph-chip">&#127916; Entertainment</span>
+          <span class="ph-chip">&#127758; World</span>
+        </div>
+        <span class="coming-soon">&#128679; Phase 5 &mdash; Building Next</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: UTILITIES -->
+  <div class="panel" id="panel-util">
+    <div class="col-main" style="max-width:100%">
+      <div class="ph-wrap">
+        <div class="ph-heading">&#9881;&#65039; <em>Utilities</em></div>
+        <p class="ph-sub">Practical everyday tools for Indian investors &amp; consumers.</p>
+        <div class="ph-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div class="ph-card"><div class="ph-card-ic">&#9981;</div><div class="ph-card-title">Petrol &amp; Diesel Prices</div><div class="ph-card-desc">Today&rsquo;s fuel prices across major Indian cities &mdash; updated daily</div><span class="ph-card-tag">PPAC</span></div>
+          <div class="ph-card"><div class="ph-card-ic">&#128202;</div><div class="ph-card-title">Market Breadth Stats</div><div class="ph-card-desc">NSE / BSE advance-decline, 52-week highs &amp; lows</div><span class="ph-card-tag">NSE</span></div>
+        </div>
+        <br><span class="coming-soon">&#128679; Phase 5 &mdash; Building Next</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+<!-- Affiliate strip -->
+<div class="aff-strip">
+  <span class="aff-lbl">Open a free demat account &rarr;</span>
+  <a class="aff-btn" href="https://zerodha.com/" target="_blank" rel="noopener">&#129001; Zerodha</a>
+  <a class="aff-btn" href="https://groww.in/open-demat-account" target="_blank" rel="noopener">&#129000; Groww</a>
+  <a class="aff-btn" href="https://upstox.com/open-account/" target="_blank" rel="noopener">&#128998; Upstox</a>
+  <a class="aff-btn" href="https://www.angelone.in/open-demat-account" target="_blank" rel="noopener">&#128992; Angel One</a>
+  <span class="aff-note">Affiliate links &middot; Commission earned</span>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-row">
+    <span>&copy; 2026 BazaarPulse &middot; Not SEBI registered &middot; Not financial advice &middot; Informational only</span>
+    <div class="footer-sources">
+      <a href="https://economictimes.indiatimes.com" target="_blank">ET</a>
+      <a href="https://livemint.com" target="_blank">Mint</a>
+      <a href="https://business-standard.com" target="_blank">BS</a>
+      <a href="https://ndtvprofit.com" target="_blank">NDTV</a>
+      <a href="https://moneycontrol.com" target="_blank">MC</a>
+      <a href="https://reuters.com" target="_blank">Reuters</a>
+      <a href="https://bloomberg.com" target="_blank">Bloomberg</a>
+      <a href="https://wsj.com" target="_blank">WSJ</a>
+    </div>
+  </div>
+  <div class="footer-row" style="color:var(--t4)">
+    <span>News from publicly published RSS feeds. Links open original sources. v6.0 &mdash; Phase 1 Foundation</span>
+    <a href="https://bazaarpulse.vercel.app/sitemap.xml" target="_blank">Sitemap</a>
+  </div>
+</footer>
+
+<div class="prog-bar" id="progBar" style="width:0%"></div>
+<div class="overlay" id="overlay" onclick="closeOverlay()"></div>
+
+<!-- ====================================================
+     JAVASCRIPT FOUNDATION
+     ==================================================== -->
+<script>
+'use strict';
+
+/* --- State --- */
+let isDark      = true;
+let activePanel = 'news';
+let allArticles = [];
+
+/* --- Theme (persisted to localStorage) --- */
+function toggleTheme(){
+  isDark = !isDark;
+  document.body.classList.toggle('light', !isDark);
+  document.getElementById('themeIcon').textContent = isDark ? '\u{1F319}' : '\u2600\uFE0F';
+  try{ localStorage.setItem('bp-theme', isDark ? 'dark' : 'light'); }catch(e){}
+}
+(function initTheme(){
+  try{
+    if(localStorage.getItem('bp-theme') === 'light'){
+      isDark = false;
+      document.body.classList.add('light');
+      document.getElementById('themeIcon').textContent = '\u2600\uFE0F';
+    }
+  }catch(e){}
+})();
+
+/* --- Clock + Market Status --- */
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function updateClock(){
+  const ist = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+  const hh  = String(ist.getHours()).padStart(2,'0');
+  const mm  = String(ist.getMinutes()).padStart(2,'0');
+  const ss  = String(ist.getSeconds()).padStart(2,'0');
+  const cl  = document.getElementById('clockEl');
+  if(cl) cl.textContent = hh+':'+mm+':'+ss+' IST';
+
+  const mins = ist.getHours()*60 + ist.getMinutes();
+  const dow  = ist.getDay();
+  let status = 'closed', label = 'Closed';
+  if(dow !== 0 && dow !== 6){
+    if     (mins >= 555 && mins < 930)  { status='live';  label='NSE Live'; }
+    else if(mins >= 480 && mins < 555)  { status='pre';   label='Pre-Market'; }
+    else if(mins >= 930 && mins < 1080) { status='post';  label='Post-Close'; }
+  }
+  const dot = document.getElementById('pulseDot');
+  const sts = document.getElementById('mktStatus');
+  if(dot){ dot.className = 'tb-pulse-dot ' + status; }
+  if(sts){ sts.className = 'tb-mkt-status ' + status; sts.textContent = label; }
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+/* --- Panel Router --- */
+function setPanel(id, navEl){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var panel = document.getElementById('panel-' + id);
+  if(panel) panel.classList.add('active');
+  if(navEl) navEl.classList.add('active');
+  activePanel = id;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* --- Search stub (fully wired in Phase 2) --- */
+function handleSearch(query){
+  var drop = document.getElementById('searchDrop');
+  if(!drop) return;
+  var q = query.trim().toLowerCase();
+  if(!q){ drop.classList.remove('open'); drop.innerHTML=''; return; }
+  if(!allArticles.length){
+    drop.innerHTML = '<div class="sdr-empty">Feeds load in Phase 2 &mdash; try again shortly</div>';
+    drop.classList.add('open');
+    return;
+  }
+  var hits = allArticles.filter(function(a){
+    return a.title.toLowerCase().indexOf(q) > -1 || (a.cat||'').toLowerCase().indexOf(q) > -1;
+  }).slice(0,7);
+  if(!hits.length){
+    drop.innerHTML = '<div class="sdr-empty">No results for &ldquo;' + esc(query) + '&rdquo;</div>';
+  } else {
+    drop.innerHTML = hits.map(function(a){
+      return '<div class="sdr-item" onclick="window.open(\''+a.link+'\',\'_blank\')">'
+        +'<div class="sdr-ttl">'+esc(a.title)+'</div>'
+        +'<div class="sdr-meta">'+(a.src&&a.src.short||'')+' &middot; '+relTime(a.pub)+'</div>'
+        +'</div>';
+    }).join('');
+  }
+  drop.classList.add('open');
+}
+function closeSearch(){
+  var drop = document.getElementById('searchDrop');
+  if(drop) drop.classList.remove('open');
+}
+
+/* --- Refresh stub (wired in Phase 2) --- */
+function manualRefresh(){
+  var btn = document.getElementById('refBtn');
+  if(btn) btn.classList.add('spinning');
+  setTimeout(function(){ if(btn) btn.classList.remove('spinning'); }, 750);
+  console.log('[BazaarPulse] Refresh triggered \u2014 feeds wire in Phase 2.');
+}
+
+/* --- Overlay --- */
+function closeOverlay(){
+  document.getElementById('overlay').classList.remove('show');
+}
+
+/* --- Utility helpers (used across all phases) --- */
+function esc(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function relTime(date){
+  if(!date || isNaN(date)) return '';
+  var diff = Math.floor((Date.now() - date)/1000);
+  if(diff < 60)    return diff+'s ago';
+  if(diff < 3600)  return Math.floor(diff/60)+'m ago';
+  if(diff < 86400) return Math.floor(diff/3600)+'h ago';
+  return Math.floor(diff/86400)+'d ago';
+}
+function fmtDateIST(d){
+  var ist = new Date(d.toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+  return String(ist.getDate()).padStart(2,'0')+'-'+MONTHS[ist.getMonth()]+'-'+ist.getFullYear();
+}
+function setFeedStatus(txt, state){
+  var el = document.getElementById('feedStatus');
+  if(!el) return;
+  el.textContent = txt;
+  el.className   = 'tb-status ' + (state||'');
+}
+
+/* --- PWA install --- */
+var deferredPWA = null;
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault(); deferredPWA = e;
+});
+
+console.log('%cBazaarPulse v6.0 \u2014 Phase 1 Foundation \u2713', 'color:#e8b84b;font-size:13px;font-weight:700');
+console.log('%cPhase 2 (News Feed) coming next.', 'color:#4e8df5;font-size:11px');
+</script>
+</body>
+</html>
