@@ -14,8 +14,13 @@ export default function Layout({ children, title='BazaarPulse', desc='India-cent
     try {
       const t = localStorage.getItem('bp-theme');
       const l = localStorage.getItem('bp-lang');
-      if (t === 'light') { setIsDark(false); document.documentElement.classList.remove('dark'); }
-      else { document.documentElement.classList.add('dark'); }
+      const dark = t !== 'light'; // default dark
+      setIsDark(dark);
+      if (dark) {
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.add('light');
+      }
       if (l) setLang(l);
     } catch {}
   }, []);
@@ -23,21 +28,24 @@ export default function Layout({ children, title='BazaarPulse', desc='India-cent
   const toggleTheme = () => {
     const next = !isDark;
     setIsDark(next);
-    try { localStorage.setItem('bp-theme', next?'dark':'light'); } catch {}
-    if (next) document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
+    try { localStorage.setItem('bp-theme', next ? 'dark' : 'light'); } catch {}
+    if (next) {
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.add('light');
+    }
   };
 
   const toggleLang = () => {
-    const next = lang==='en'?'hi':'en';
+    const next = lang === 'en' ? 'hi' : 'en';
     setLang(next);
     try { localStorage.setItem('bp-lang', next); } catch {}
   };
 
   if (!mounted) return (
-    <div style={{background:'var(--bg)',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
-      <span style={{fontFamily:'var(--font-mono)',fontSize:'0.72rem',color:'var(--muted)',letterSpacing:'0.1em'}}>
-        BAZAARPULSE<span className="cursor-blink"> </span>
+    <div style={{background:'#080c10',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
+      <span style={{fontFamily:"'IBM Plex Mono',monospace",fontSize:'0.72rem',color:'#6e7681',letterSpacing:'0.1em'}}>
+        BAZAARPULSE▋
       </span>
     </div>
   );
@@ -60,7 +68,7 @@ export default function Layout({ children, title='BazaarPulse', desc='India-cent
       <footer className="site-footer">
         <div style={{maxWidth:1440,margin:'0 auto',display:'flex',flexWrap:'wrap',justifyContent:'space-between',gap:12}}>
           <span style={{color:'var(--body)',fontWeight:600}}>BazaarPulse v2.0</span>
-          <span>Not SEBI registered · Not financial advice · Informational only · News from public RSS feeds · © 2026</span>
+          <span>Not SEBI registered · Not financial advice · Informational only · © 2026</span>
         </div>
       </footer>
     </>
