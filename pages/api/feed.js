@@ -1,67 +1,65 @@
-const xml2js = require('xml2js');
-const sources = require('../../data/sources.json');
-const { processArticle } = require('../../lib/scorer');
+﻿// BazaarPulse /api/feed â€” server-side RSS fetcher
+// Usage: GET /api/feed?url=<encoded_rss_url>
 
-let cache = { articles:[], ts:0 };
-const TTL = 5 * 60 * 1000;
+const https = require('https');
+const http  = require('http');
 
-function clean(s='') {
-  return s.replace(/<!\[CDATA\[/gi,'').replace(/\]\]>/gi,'')
-    .replace(/<[^>]+>/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<')
-    .replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'")
-    .replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();
-}
+module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
-async function fetchFeed(src) {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 9000);
-  try {
-    const res = await fetch(src.url, {
-      signal: ctrl.signal,
-      headers: { 'User-Agent': 'BazaarPulse/2.0 (+https://bazaarpulse.vercel.app)' },
-    });
-    if (!res.ok) return [];
-    const xml = await res.text();
-    const parsed = await xml2js.parseStringPromise(xml, { explicitArray:false, ignoreAttrs:false });
-    const channel = parsed?.rss?.channel || parsed?.feed || {};
-    const items = channel.item || channel.entry || [];
-    const arr = Array.isArray(items) ? items : [items];
-    return arr.slice(0,12).map(item => {
-      const title = clean(item.title||'');
-      const desc  = clean(item.description||item.summary||item['content:encoded']||'');
-      const rawLink = item.link || '';
-      const link = typeof rawLink==='object' ? (rawLink?.$?.href || rawLink?._ || '') : rawLink;
-      const pub = item.pubDate || item.published || item.updated || '';
-      return processArticle({ title, desc, link:String(link).trim(), pub, source:src.name }, src.id);
-    }).filter(a => a.title.length > 10);
-  } catch { return []; } finally { clearTimeout(t); }
-}
+  const raw = req.query && req.query.url;
+  if (!raw) return res.status(400).send('Missing url param');
 
-export default async function handler(req, res) {
-  res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
-  if (cache.ts && Date.now()-cache.ts < TTL && cache.articles.length > 0) {
-    return res.json({ ok:true, cached:true, count:cache.articles.length, articles:cache.articles });
+  const url = decodeURIComponent(raw);
+
+  if (!/^https?:\/\//i.test(url)) {
+    return res.status(400).send('Invalid url');
   }
+
   try {
-    const top = sources.sources.slice(0, 12);
-    const results = await Promise.allSettled(top.map(s => fetchFeed(s)));
-    let all = results
-      .filter(r => r.status==='fulfilled').flatMap(r => r.value)
-      .filter(a => a.title)
-      .sort((a,b) => new Date(b.pub) - new Date(a.pub));
-
-    // Deduplicate
-    const seen = new Set();
-    all = all.filter(a => {
-      const k = a.title.toLowerCase().replace(/\s+/g,'').slice(0,40);
-      if (seen.has(k)) return false; seen.add(k); return true;
-    }).slice(0, 100);
-
-    cache = { articles:all, ts:Date.now() };
-    return res.json({ ok:true, cached:false, count:all.length, articles:all });
+    const xml = await get(url);
+    res.setHeader('Content-Type', 'text/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, s-maxage=300');
+    return res.status(200).send(xml);
   } catch(e) {
-    return res.status(500).json({ ok:false, error:e.message, articles:[] });
+    console.error('feed fetch error:', e.message, url);
+    return res.status(502).send('Feed unavailable: ' + e.message);
   }
+};
+
+function get(url, redirects) {
+  redirects = redirects || 0;
+  return new Promise((resolve, reject) => {
+    if (redirects > 4) return reject(new Error('Too many redirects'));
+    const lib = url.startsWith('https') ? https : http;
+    const req = lib.get(url, {
+      timeout: 12000,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; BazaarPulse/3.0)',
+        'Accept': 'application/rss+xml,application/xml,text/xml,*/*',
+        'Accept-Encoding': 'identity'
+      }
+    }, function(r) {
+      if ([301,302,303,307,308].indexOf(r.statusCode) !== -1 && r.headers.location) {
+        var next = r.headers.location.startsWith('http')
+          ? r.headers.location
+          : new URL(r.headers.location, url).href;
+        r.resume();
+        return resolve(get(next, redirects + 1));
+      }
+      if (r.statusCode !== 200) {
+        r.resume();
+        return reject(new Error('HTTP ' + r.statusCode));
+      }
+      var chunks = [];
+      r.on('data', function(c) { chunks.push(c); });
+      r.on('end', function() { resolve(Buffer.concat(chunks).toString('utf8')); });
+      r.on('error', reject);
+    });
+    req.on('timeout', function() { req.destroy(); reject(new Error('Timeout')); });
+    req.on('error', reject);
+  });
 }
 
-export const config = { api:{ responseLimit:'8mb' } };
