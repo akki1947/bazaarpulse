@@ -1,0 +1,217 @@
+{
+  "version": "2.0",
+  "categories": [
+    {
+      "id": "banking",
+      "label": "Banking & Finance",
+      "labelHi": "बैंकिंग",
+      "icon": "🏦",
+      "color": "#1a1a1a",
+      "accent": "#ffffff",
+      "keywords": [
+        "rbi rate", "rbi policy", "rbi governor", "rbi mpc", "mpc meeting",
+        "repo rate", "reverse repo", "crr", "slr", "rbi circular",
+        "hdfc bank", "icici bank", "sbi", "axis bank", "kotak", "yes bank",
+        "indusind", "pnb", "bob", "canara", "union bank", "federal bank",
+        "idfc first", "rbl bank", "au small finance", "bandhan bank",
+        "microfinance", "nbfc", "npa", "gross npa", "net npa", "nim", "casa",
+        "credit growth", "deposit growth", "bank results", "loan growth",
+        "banking sector", "bank nifty"
+      ]
+    },
+    {
+      "id": "economy",
+      "label": "Economy & Macro",
+      "labelHi": "अर्थव्यवस्था",
+      "icon": "🏛",
+      "color": "#1a1a1a",
+      "accent": "#e5e5e5",
+      "keywords": [
+        "gdp", "india gdp", "cpi", "wpi", "iip data", "pmi data",
+        "trade deficit", "current account", "fiscal deficit", "fiscal policy",
+        "union budget", "gst collection", "income tax", "direct tax",
+        "advance tax", "tax revenue", "remittance", "forex reserve",
+        "msme", "niti aayog", "economic survey", "capex", "disinvestment",
+        "privatisation", "external debt", "trade balance", "import export",
+        "india inflation", "core inflation", "food inflation",
+        "rbi intervention", "current account deficit"
+      ]
+    },
+    {
+      "id": "markets",
+      "label": "Markets",
+      "labelHi": "बाज़ार",
+      "icon": "📈",
+      "color": "#1a1a1a",
+      "accent": "#f0f0f0",
+      "keywords": [
+        "nifty 50", "sensex", "nifty bank", "nifty it", "nifty pharma",
+        "nifty auto", "nifty metal", "nifty realty", "nifty fmcg",
+        "stock market", "share market", "equity market", "indices",
+        "bull run", "bear market", "market rally", "market crash",
+        "52-week high", "52-week low", "all-time high", "circuit",
+        "fii buy", "fii sell", "dii", "institutional buying",
+        "advance decline", "market breadth", "delivery volume",
+        "technical", "support", "resistance", "breakout", "breakdown",
+        "smallcap", "midcap", "largecap"
+      ]
+    },
+    {
+      "id": "corporate",
+      "label": "Corporate",
+      "labelHi": "कॉर्पोरेट",
+      "icon": "🏢",
+      "color": "#1a1a1a",
+      "accent": "#d4d4d4",
+      "keywords": [
+        "quarterly results", "q1 results", "q2 results", "q3 results", "q4 results",
+        "earnings", "net profit", "revenue growth", "operating profit", "ebitda",
+        "board meeting", "merger", "acquisition", "takeover", "demerger",
+        "dividend declared", "bonus share", "stock split", "rights issue", "buyback",
+        "ceo resign", "md appoint", "promoter", "block deal", "bulk deal",
+        "open offer", "delisting", "reliance", "tata", "wipro", "infosys", "tcs",
+        "adani", "bajaj", "hul", "itc", "l&t", "ultratech", "nestle",
+        "asian paints", "zomato", "paytm"
+      ]
+    },
+    {
+      "id": "government",
+      "label": "Govt & Policy",
+      "labelHi": "सरकार",
+      "icon": "🏛️",
+      "color": "#1a1a1a",
+      "accent": "#c8c8c8",
+      "keywords": [
+        "finance minister", "pib release", "cabinet approves", "parliament passes",
+        "lok sabha", "rajya sabha", "ordinance", "government scheme",
+        "pli scheme", "production linked", "subsidy", "import duty", "export ban",
+        "custom duty", "anti-dumping", "fdi policy", "make in india",
+        "sebi order", "sebi ban", "sebi circular", "sebi norms",
+        "irdai", "pfrda", "trai", "cci order", "competition commission",
+        "rbi framework", "rbi guidelines", "modi", "pm modi",
+        "government india", "central government"
+      ]
+    },
+    {
+      "id": "forex",
+      "label": "Forex & Currency",
+      "labelHi": "विदेशी मुद्रा",
+      "icon": "💱",
+      "color": "#1a1a1a",
+      "accent": "#b8b8b8",
+      "keywords": [
+        "rupee", "inr", "usd/inr", "dollar vs rupee", "rupee falls", "rupee rises",
+        "rupee hits", "rupee weakens", "rupee strengthens", "dollar index", "dxy",
+        "rbi dollar", "fx reserve", "currency swap", "euro/inr", "gbp/inr",
+        "yen", "yuan", "currency market", "forex market", "capital flows"
+      ]
+    },
+    {
+      "id": "commodities",
+      "label": "Commodities",
+      "labelHi": "जिंस",
+      "icon": "🛢",
+      "color": "#1a1a1a",
+      "accent": "#a8a8a8",
+      "keywords": [
+        "crude oil", "brent crude", "wti crude", "opec", "oil price",
+        "gold price", "silver price", "mcx gold", "mcx silver",
+        "aluminium", "copper", "zinc", "lead", "nickel", "iron ore",
+        "natural gas", "commodity market", "agri commodity",
+        "wheat price", "rice price", "sugar price", "cotton price"
+      ]
+    },
+    {
+      "id": "mfsip",
+      "label": "MF & SIP",
+      "labelHi": "म्यूचुअल फंड",
+      "icon": "💼",
+      "color": "#1a1a1a",
+      "accent": "#989898",
+      "keywords": [
+        "mutual fund", "nav", "sip", "aum", "amfi", "etf", "nfo", "redemption",
+        "folio", "fund house", "fund manager", "scheme", "smallcap fund",
+        "midcap fund", "index fund", "thematic fund", "flexi cap", "hybrid fund"
+      ]
+    },
+    {
+      "id": "global",
+      "label": "Global",
+      "labelHi": "वैश्विक",
+      "icon": "🌍",
+      "color": "#1a1a1a",
+      "accent": "#888888",
+      "keywords": [
+        "us market", "wall street", "dow jones", "s&p 500", "nasdaq",
+        "federal reserve", "fed rate", "fomc", "us cpi", "us gdp", "us jobs",
+        "treasury yield", "10-year yield", "dollar index",
+        "china economy", "pboc", "china pmi", "europe", "ecb", "boe",
+        "world bank", "imf forecast", "global recession", "emerging market",
+        "russia ukraine", "middle east", "geopolitical"
+      ]
+    }
+  ],
+  "severity": {
+    "CRITICAL": {
+      "threshold": 12,
+      "label": "Critical",
+      "labelHi": "अत्यावश्यक",
+      "description": "Systemic, immediate market impact",
+      "color": "#000000",
+      "bg": "#ffffff",
+      "border": "#000000"
+    },
+    "MAJOR": {
+      "threshold": 6,
+      "label": "Major",
+      "labelHi": "महत्वपूर्ण",
+      "description": "Significant market-moving event",
+      "color": "#1a1a1a",
+      "bg": "#f5f5f5",
+      "border": "#1a1a1a"
+    },
+    "MINOR": {
+      "threshold": 0,
+      "label": "Minor",
+      "labelHi": "सामान्य",
+      "description": "Routine financial news",
+      "color": "#555555",
+      "bg": "#fafafa",
+      "border": "#d4d4d4"
+    }
+  },
+  "keywords": {
+    "critical": {
+      "weight": 15,
+      "words": [
+        "rbi rate cut", "rbi rate hike", "repo rate cut", "repo rate hike",
+        "rbi mpc decision", "rate decision", "circuit breaker",
+        "market crash", "nifty crash", "sensex crash", "trading halt",
+        "sebi ban", "sebi suspend", "default", "bankruptcy", "insolvency",
+        "credit downgrade", "rating downgrade", "sovereign downgrade",
+        "union budget", "budget announcement", "fm presents budget",
+        "fed rate decision", "fomc statement", "election result",
+        "gdp data", "cpi data", "wpi data", "fii outflow massive"
+      ]
+    },
+    "major": {
+      "weight": 8,
+      "words": [
+        "nifty", "sensex", "nifty bank", "rbi", "sebi", "repo rate",
+        "mpc meeting", "fii", "dii", "ipo listing", "merger", "acquisition",
+        "quarterly earnings", "quarterly revenue", "net profit",
+        "inflation", "crude oil", "gold price", "rupee", "us cpi",
+        "fed minutes", "gst collection", "fiscal", "trade deficit"
+      ]
+    },
+    "minor": {
+      "weight": 3,
+      "words": [
+        "stock", "share", "market", "sector", "company", "mutual fund",
+        "sip", "etf", "banking", "pharma", "fmcg", "auto", "metal",
+        "realty", "it sector", "government", "ministry", "scheme",
+        "global", "international", "analyst", "target price"
+      ]
+    }
+  }
+}

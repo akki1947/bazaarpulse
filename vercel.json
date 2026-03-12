@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "pages/api/feed.js":   { "maxDuration": 30, "memory": 512 },
+    "pages/api/market.js": { "maxDuration": 15, "memory": 256 }
+  },
+  "headers": [
+    { "source": "/api/(.*)", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }
+  ]
+}

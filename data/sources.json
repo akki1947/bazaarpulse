@@ -1,0 +1,27 @@
+{
+  "version": "2.0",
+  "updated": "2026-03-12",
+  "sources": [
+    { "id": "et-markets",   "name": "Economic Times Markets", "short": "ET",   "region": "IN", "tier": 1, "url": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" },
+    { "id": "et-economy",   "name": "Economic Times Economy", "short": "ET",   "region": "IN", "tier": 1, "url": "https://economictimes.indiatimes.com/news/economy/rssfeeds/20472687.cms" },
+    { "id": "mint-markets", "name": "LiveMint Markets",       "short": "Mint", "region": "IN", "tier": 1, "url": "https://www.livemint.com/rss/markets" },
+    { "id": "mint-economy", "name": "LiveMint Economy",       "short": "Mint", "region": "IN", "tier": 1, "url": "https://www.livemint.com/rss/economy" },
+    { "id": "bs-markets",   "name": "Business Standard Markets","short":"BS",  "region": "IN", "tier": 1, "url": "https://www.business-standard.com/rss/markets-106.rss" },
+    { "id": "bs-economy",   "name": "Business Standard Economy","short":"BS",  "region": "IN", "tier": 1, "url": "https://www.business-standard.com/rss/economy-policy-10306.rss" },
+    { "id": "mc-markets",   "name": "MoneyControl Markets",  "short": "MC",   "region": "IN", "tier": 1, "url": "https://www.moneycontrol.com/rss/marketreports.xml" },
+    { "id": "mc-news",      "name": "MoneyControl News",     "short": "MC",   "region": "IN", "tier": 1, "url": "https://www.moneycontrol.com/rss/business.xml" },
+    { "id": "fe-markets",   "name": "Financial Express",     "short": "FE",   "region": "IN", "tier": 1, "url": "https://www.financialexpress.com/market/feed/" },
+    { "id": "ndtv-profit",  "name": "NDTV Profit",           "short": "NDTV", "region": "IN", "tier": 1, "url": "https://feeds.feedburner.com/ndtvprofit-latest" },
+    { "id": "reuters-in",   "name": "Reuters India",         "short": "Reuters","region":"IN", "tier": 1, "url": "https://feeds.reuters.com/reuters/INtopNews" },
+    { "id": "rbi-press",    "name": "RBI Press Releases",    "short": "RBI",  "region": "IN", "tier": 1, "url": "https://rbi.org.in/scripts/rss.aspx" },
+    { "id": "sebi-press",   "name": "SEBI Press Releases",   "short": "SEBI", "region": "IN", "tier": 1, "url": "https://www.sebi.gov.in/sebirss.aspx" },
+    { "id": "pib-finance",  "name": "PIB Finance Ministry",  "short": "PIB",  "region": "IN", "tier": 1, "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3" },
+    { "id": "bq-prime",     "name": "BQ Prime",              "short": "BQ",   "region": "IN", "tier": 2, "url": "https://www.bqprime.com/feeds/rss" },
+    { "id": "cnbc-tv18",    "name": "CNBC TV18",             "short": "CNBC", "region": "IN", "tier": 2, "url": "https://www.cnbctv18.com/commonfeeds/v1/eng/rss/market.xml" },
+    { "id": "reuters-biz",  "name": "Reuters Business",      "short": "Reuters","region":"GL","tier": 2, "url": "https://feeds.reuters.com/reuters/businessNews" },
+    { "id": "bloomberg-in", "name": "Bloomberg Quint",       "short": "BQ",   "region": "IN", "tier": 2, "url": "https://www.bloomberg.com/feed/podcast/bloomberg-india.xml" },
+    { "id": "yahoo-finance","name": "Yahoo Finance",         "short": "YF",   "region": "GL", "tier": 2, "url": "https://finance.yahoo.com/rss/topfinstories" },
+    { "id": "inc42",        "name": "Inc42 Startup",         "short": "Inc42","region": "IN", "tier": 3, "url": "https://inc42.com/feed/" },
+    { "id": "entrackr",     "name": "Entrackr",              "short": "Entrackr","region":"IN","tier": 3, "url": "https://entrackr.com/feed/" }
+  ]
+}

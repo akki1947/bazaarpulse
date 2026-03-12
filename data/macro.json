@@ -1,0 +1,118 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-12",
+  "indicators": [
+    {
+      "id": "cpi",
+      "label": "CPI Inflation",
+      "labelHi": "मुद्रास्फीति",
+      "value": "4.31%",
+      "prev": "5.22%",
+      "trend": "down",
+      "source": "MoSPI",
+      "period": "Jan 2026",
+      "target": "4.0% (±2%)",
+      "status": "normal",
+      "note": "Within RBI comfort band"
+    },
+    {
+      "id": "gdp",
+      "label": "GDP Growth",
+      "labelHi": "जीडीपी वृद्धि",
+      "value": "6.4%",
+      "prev": "7.2%",
+      "trend": "down",
+      "source": "MoSPI",
+      "period": "Q3 FY26 (Adv. Est.)",
+      "target": "NSO FY26: 6.4%",
+      "status": "normal",
+      "note": "Moderated from prior year"
+    },
+    {
+      "id": "repo",
+      "label": "Repo Rate",
+      "labelHi": "रेपो दर",
+      "value": "6.25%",
+      "prev": "6.50%",
+      "trend": "down",
+      "source": "RBI",
+      "period": "Feb 2026 MPC",
+      "target": "Neutral stance",
+      "status": "easing",
+      "note": "25bps cut in Feb 2026"
+    },
+    {
+      "id": "forex-reserve",
+      "label": "Forex Reserves",
+      "labelHi": "विदेशी मुद्रा भंडार",
+      "value": "$620.7B",
+      "prev": "$617.3B",
+      "trend": "up",
+      "source": "RBI",
+      "period": "Week ending Mar 7",
+      "target": "~11 months import cover",
+      "status": "strong",
+      "note": "Near all-time highs"
+    },
+    {
+      "id": "fiscal-deficit",
+      "label": "Fiscal Deficit",
+      "labelHi": "राजकोषीय घाटा",
+      "value": "4.4%",
+      "prev": "5.1%",
+      "trend": "down",
+      "source": "Ministry of Finance",
+      "period": "FY26 Target",
+      "target": "4.4% of GDP",
+      "status": "normal",
+      "note": "On glide path"
+    },
+    {
+      "id": "gst",
+      "label": "GST Collection",
+      "labelHi": "जीएसटी संग्रह",
+      "value": "₹1.84L Cr",
+      "prev": "₹1.77L Cr",
+      "trend": "up",
+      "source": "Finance Ministry",
+      "period": "Feb 2026",
+      "target": "₹1.75L Cr/month avg",
+      "status": "strong",
+      "note": "+4% YoY growth"
+    },
+    {
+      "id": "wpi",
+      "label": "WPI Inflation",
+      "labelHi": "थोक मुद्रास्फीति",
+      "value": "2.31%",
+      "prev": "2.37%",
+      "trend": "down",
+      "source": "DPIIT",
+      "period": "Jan 2026",
+      "target": "Moderate",
+      "status": "normal",
+      "note": "Easing trend"
+    },
+    {
+      "id": "iip",
+      "label": "IIP Growth",
+      "labelHi": "औद्योगिक उत्पादन",
+      "value": "5.0%",
+      "prev": "4.2%",
+      "trend": "up",
+      "source": "MoSPI",
+      "period": "Dec 2025",
+      "target": "5%+",
+      "status": "normal",
+      "note": "Manufacturing driving growth"
+    }
+  ],
+  "rbiTimeline": [
+    { "date": "Feb 7, 2026",  "event": "MPC Rate Cut",       "detail": "Repo: 6.50% → 6.25%. Neutral stance. Unanimous 6-0.", "type": "cut" },
+    { "date": "Dec 6, 2025",  "event": "MPC Hold",           "detail": "Repo held at 6.50%. Withdrawal of accommodation.", "type": "hold" },
+    { "date": "Oct 9, 2025",  "event": "MPC Hold",           "detail": "Repo held at 6.50%. CRR cut 50bps to 4.0%.", "type": "hold" },
+    { "date": "Aug 8, 2025",  "event": "MPC Hold",           "detail": "Repo held at 6.50%. Focus on inflation.", "type": "hold" },
+    { "date": "Jun 7, 2025",  "event": "MPC Hold",           "detail": "Repo held at 6.50%. Withdrawal of accommodation.", "type": "hold" },
+    { "date": "Apr 9, 2025",  "event": "MPC Rate Cut",       "detail": "Repo: 6.25% → 6.50%? Check latest. First cut in 5yr.", "type": "cut" }
+  ]
+}
