@@ -143,7 +143,7 @@ const IMPACT_MATRIX = [
   { sector:'Fertilisers',       exposure:'HIGH RISK','note':'Russia–Ukraine disrupts potash/urea. Input cost inflation for agri sector.',                          col:'var(--red)'    },
   { sector:'Shipping/Ports',    exposure:'HIGH RISK','note':'Red Sea rerouting adding 2 weeks + 25% freight. Adani Ports partially resilient.',                   col:'var(--red)'    },
   { sector:'IT / TCS / Infosys',exposure:'NEUTRAL',  note:'USD revenue hedge. Weak INR = earnings tailwind. Client caution on budgets.',                          col:'var(--yellow)' },
-  { sector:'FII Flows',         exposure:'HIGH RISK','note:'₹33,680 Cr outflow since conflict. Nifty weak. FII positioning at 5-year low.',                       col:'var(--red)'    },
+  { sector:'FII Flows',         exposure:'HIGH RISK', note:'Rs 33,680 Cr outflow since conflict. Nifty weak. FII positioning at 5-year low.',                      col:'var(--red)'    },
   { sector:'Remittances',       exposure:'AT RISK',  note:'$125B+ Gulf remittances. 3M+ Indian workers in conflict-adjacent zones.',                              col:'var(--yellow)' },
   { sector:'Semiconductors',    exposure:'WATCH',    note:'Taiwan escalation tail risk. India chip fab plan a long-term hedge.',                                   col:'var(--dim)'    },
 ];
