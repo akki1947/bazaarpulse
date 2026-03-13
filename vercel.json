@@ -1,17 +1,29 @@
 {
   "framework": "nextjs",
-  "crons": [
+  "headers": [
     {
-      "path": "/api/market?refresh=1",
-      "schedule": "15 3 * * 1-5"
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options",    "value": "nosniff"          },
+        { "key": "X-Frame-Options",           "value": "DENY"             },
+        { "key": "X-XSS-Protection",          "value": "1; mode=block"    },
+        { "key": "Referrer-Policy",           "value": "strict-origin-when-cross-origin" }
+      ]
     },
     {
-      "path": "/api/market?refresh=1",
-      "schedule": "30 7 * * 1-5"
-    },
-    {
-      "path": "/api/market?refresh=1",
-      "schedule": "15 10 * * 1-5"
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, s-maxage=300, stale-while-revalidate=600" }
+      ]
     }
+  ],
+  "crons": [
+    { "path": "/api/feed?refresh=1",   "schedule": "0 3 * * 1-5"  },
+    { "path": "/api/feed?refresh=1",   "schedule": "15 3 * * 1-5" },
+    { "path": "/api/feed?refresh=1",   "schedule": "30 7 * * 1-5" },
+    { "path": "/api/feed?refresh=1",   "schedule": "15 10 * * 1-5"},
+    { "path": "/api/market?refresh=1", "schedule": "45 3 * * 1-5" },
+    { "path": "/api/market?refresh=1", "schedule": "30 7 * * 1-5" },
+    { "path": "/api/market?refresh=1", "schedule": "15 10 * * 1-5"}
   ]
 }

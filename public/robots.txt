@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bazaarpulse.vercel.app/sitemap.xml
