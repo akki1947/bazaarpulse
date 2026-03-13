@@ -1,18 +1,12 @@
 ﻿import { get } from '@vercel/edge-config';
 
-// Finnhub free tier - US ETFs as index proxies + NSE large caps as India proxy
+// Only sources confirmed working from Vercel serverless
 const FINNHUB_QUOTES = [
-  // US Indices via ETFs
-  { symbol: "SPY",    name: "S&P 500",    type: "index",     scale: 1 },
-  { symbol: "QQQ",    name: "NASDAQ 100", type: "index",     scale: 1 },
-  { symbol: "DIA",    name: "Dow Jones",  type: "index",     scale: 1 },
-  // India via NSE-listed ETFs on Finnhub (exchange: NSE)
-  { symbol: "NSE:NIFTYBEES", name: "NIFTY 50",   type: "index", scale: 100 },
-  { symbol: "NSE:BANKBEES",  name: "NIFTY Bank", type: "index", scale: 100 },
-  { symbol: "NSE:ICICIB22",  name: "SENSEX",     type: "index", scale: 100 },
-  // Commodities via ETFs
-  { symbol: "GLD",    name: "Gold",       type: "commodity", scale: 1 },
-  { symbol: "USO",    name: "Crude Oil",  type: "commodity", scale: 1 },
+  { symbol: "SPY",  name: "S&P 500",    type: "index"     },
+  { symbol: "QQQ",  name: "NASDAQ 100", type: "index"     },
+  { symbol: "DIA",  name: "Dow Jones",  type: "index"     },
+  { symbol: "GLD",  name: "Gold",       type: "commodity" },
+  { symbol: "USO",  name: "Crude Oil",  type: "commodity" },
 ];
 
 async function fetchFinnhubQuote(item, apiKey) {
@@ -21,19 +15,10 @@ async function fetchFinnhubQuote(item, apiKey) {
   if (!res.ok) throw new Error("Finnhub " + res.status + " " + item.symbol);
   const d = await res.json();
   if (!d.c || d.c === 0) throw new Error("Zero: " + item.symbol);
-  const scale = item.scale || 1;
-  return {
-    name: item.name, type: item.type,
-    price: parseFloat((d.c * scale).toFixed(2)),
-    open: parseFloat(((d.o||0) * scale).toFixed(2)),
-    high: parseFloat(((d.h||0) * scale).toFixed(2)),
-    low: parseFloat(((d.l||0) * scale).toFixed(2)),
-    prevClose: parseFloat(((d.pc||0) * scale).toFixed(2)),
-    change: parseFloat(((d.d||0) * scale).toFixed(2)),
-    changePct: parseFloat((d.dp||0).toFixed(2)),
-    up: (d.d||0) >= 0,
-    source: "finnhub",
-  };
+  return { name: item.name, type: item.type,
+    price: parseFloat(d.c.toFixed(2)), open: parseFloat((d.o||0).toFixed(2)),
+    change: parseFloat((d.d||0).toFixed(2)), changePct: parseFloat((d.dp||0).toFixed(2)),
+    up: (d.d||0) >= 0, source: "finnhub" };
 }
 
 async function fetchForex(apiKey) {
@@ -42,12 +27,11 @@ async function fetchForex(apiKey) {
   if (!res.ok) throw new Error("Forex " + res.status);
   const d = await res.json();
   const q = d.quote || {};
-  const usdInr = q.INR;
-  if (!usdInr) throw new Error("No INR rate");
+  if (!q.INR) throw new Error("No INR rate");
   return [
-    { name: "USD/INR", type: "forex", price: parseFloat(usdInr.toFixed(4)),          change: 0, changePct: 0, up: true, source: "finnhub" },
-    { name: "EUR/INR", type: "forex", price: parseFloat((usdInr / (q.EUR||1)).toFixed(4)), change: 0, changePct: 0, up: true, source: "finnhub" },
-    { name: "GBP/INR", type: "forex", price: parseFloat((usdInr / (q.GBP||1)).toFixed(4)), change: 0, changePct: 0, up: true, source: "finnhub" },
+    { name: "USD/INR", type: "forex", price: parseFloat(q.INR.toFixed(4)),                    change: 0, changePct: 0, up: true, source: "finnhub" },
+    { name: "EUR/INR", type: "forex", price: parseFloat((q.INR / (q.EUR||1)).toFixed(4)),     change: 0, changePct: 0, up: true, source: "finnhub" },
+    { name: "GBP/INR", type: "forex", price: parseFloat((q.INR / (q.GBP||1)).toFixed(4)),     change: 0, changePct: 0, up: true, source: "finnhub" },
   ];
 }
 
@@ -77,16 +61,15 @@ function getSession() {
 async function fetchAll(apiKey) {
   const [quotesRes, forexData] = await Promise.all([
     Promise.allSettled(FINNHUB_QUOTES.map(s => fetchFinnhubQuote(s, apiKey))),
-    fetchForex(apiKey).catch(e => { console.warn("Forex failed:", e.message); return []; }),
+    fetchForex(apiKey).catch(e => { console.warn("Forex:", e.message); return []; }),
   ]);
   const quotes = quotesRes.filter(r => r.status === "fulfilled").map(r => r.value);
-  const failed = quotesRes.filter(r => r.status === "rejected");
-  failed.forEach(r => console.warn("Quote failed:", r.reason?.message));
+  quotesRes.filter(r => r.status === "rejected").forEach(r => console.warn(r.reason?.message));
   let crypto = [];
   try { crypto = await fetchCrypto(); } catch(e) { console.warn("Crypto:", e.message); }
   const all = [...quotes, ...forexData, ...crypto];
   return { quotes: all, session: getSession(), fetched: new Date().toISOString(),
-    meta: { total: FINNHUB_QUOTES.length + 3 + 3, loaded: all.length, failed: failed.length } };
+    meta: { total: FINNHUB_QUOTES.length + 3 + 3, loaded: all.length } };
 }
 
 async function writeEdge(data) {
