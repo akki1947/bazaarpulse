@@ -18,59 +18,6 @@ function SkeletonCard() {
   );
 }
 
-function MarketSnapshot() {
-  const { data, isLoading } = useSWR('/api/market?type=indices', fetcher, { refreshInterval:180000 });
-  const items = data?.data?.slice(0,8) || [];
-
-  const fmtPrice = (p) => {
-    if (!p) return '—';
-    if (p >= 1000) return p.toLocaleString('en-IN', {maximumFractionDigits:0});
-    if (p >= 10)   return p.toFixed(2);
-    return p.toFixed(4);
-  };
-  const fmtChg = (cp) => {
-    if (cp == null) return '—';
-    return `${cp >= 0 ? '+' : ''}${cp.toFixed(2)}%`;
-  };
-
-  return (
-    <div className="widget">
-      <div className="w-head">
-        <span style={{color:'var(--green)'}}>●</span> Market Snapshot
-        <span style={{marginLeft:'auto',color:'var(--dim)',fontSize:'0.56rem'}}>via API · 3-min</span>
-      </div>
-      <div className="w-body" style={{padding:0}}>
-        <table className="ptable" style={{margin:0}}>
-          <thead>
-            <tr>
-              <th style={{paddingLeft:12}}>Index</th>
-              <th style={{textAlign:'right'}}>Price</th>
-              <th style={{textAlign:'right',paddingRight:12}}>Chg%</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading || !items.length ? (
-              [1,2,3,4,5,6].map(i => (
-                <tr key={i}>
-                  <td style={{paddingLeft:12}}><div className="skel" style={{height:9,width:80}}/></td>
-                  <td><div className="skel" style={{height:9,width:55,marginLeft:'auto'}}/></td>
-                  <td style={{paddingRight:12}}><div className="skel" style={{height:9,width:38,marginLeft:'auto'}}/></td>
-                </tr>
-              ))
-            ) : items.map((q,i) => (
-              <tr key={i}>
-                <td style={{color:'var(--muted)',paddingLeft:12}}>{q.name}</td>
-                <td style={{textAlign:'right',fontWeight:500,color:'var(--bright)'}}>{fmtPrice(q.price)}</td>
-                <td style={{textAlign:'right',paddingRight:12}} className={q.up?'up':'dn'}>{fmtChg(q.changePct)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
 export default function NewsPage() {
   const [sev, setSev] = useState('ALL');
   const [cat, setCat] = useState('ALL');
@@ -114,8 +61,9 @@ export default function NewsPage() {
           <FilterBar sev={sev} cat={cat} onSev={setSev} onCat={setCat} counts={counts} />
 
           {error && (
-            <div style={{padding:14,background:'var(--raised)',border:'1px solid var(--border)',borderLeft:'3px solid var(--red)',color:'var(--red)',fontSize:'0.72rem',marginBottom:16}}>
-              ⚠ Feed failed to load. Check API route /api/feed
+            <div style={{padding:14,background:'var(--raised)',border:'1px solid var(--border)',
+              borderLeft:'3px solid var(--red)',color:'var(--red)',fontSize:'0.72rem',marginBottom:16}}>
+              ⚠ Feed failed to load. Try refreshing.
             </div>
           )}
 
@@ -135,13 +83,12 @@ export default function NewsPage() {
 
         {/* Aside */}
         <div className="shell-aside">
-          <MarketSnapshot />
-
           <div className="widget">
             <div className="w-head">📊 Priority Breakdown</div>
             <div className="w-body">
               {[['CRITICAL','var(--red)'],['MAJOR','var(--yellow)'],['MINOR','var(--dim)']].map(([s,col]) => (
-                <div key={s} style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'6px 0',borderBottom:'1px solid var(--border)'}}>
+                <div key={s} style={{display:'flex',alignItems:'center',justifyContent:'space-between',
+                  padding:'6px 0',borderBottom:'1px solid var(--border)'}}>
                   <span style={{fontSize:'0.65rem',letterSpacing:'0.1em',textTransform:'uppercase',color:col}}>{s}</span>
                   <span style={{fontFamily:'var(--font-mono)',fontWeight:600,color:'var(--bright)',fontSize:'0.82rem'}}>{counts[s]||0}</span>
                 </div>
@@ -155,11 +102,12 @@ export default function NewsPage() {
               {Object.entries(counts)
                 .filter(([k]) => !['ALL','CRITICAL','MAJOR','MINOR'].includes(k))
                 .sort((a,b) => b[1]-a[1])
-                .slice(0,7)
+                .slice(0,8)
                 .map(([id,cnt]) => {
                   const c = catsData.categories.find(x => x.id===id);
                   return c ? (
-                    <div key={id} style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'5px 0',borderBottom:'1px solid var(--border)'}}>
+                    <div key={id} style={{display:'flex',alignItems:'center',justifyContent:'space-between',
+                      padding:'5px 0',borderBottom:'1px solid var(--border)'}}>
                       <span style={{fontSize:'0.7rem',color:'var(--body)'}}>{c.icon} {c.label}</span>
                       <span style={{fontFamily:'var(--font-mono)',fontSize:'0.7rem',color:'var(--dim)'}}>{cnt}</span>
                     </div>
@@ -168,9 +116,12 @@ export default function NewsPage() {
             </div>
           </div>
 
-          <div style={{padding:12,background:'var(--raised)',border:'1px solid var(--border)',fontSize:'0.62rem',color:'var(--dim)',lineHeight:1.9}}>
-            <div style={{color:'var(--muted)',fontWeight:600,marginBottom:6,letterSpacing:'0.1em',textTransform:'uppercase',fontSize:'0.58rem'}}>About</div>
-            Aggregates India finance news from ET, Mint, BS, NDTV, RBI, SEBI and 15+ sources. Auto-scored for severity. "Retail Impact" summaries are system-generated, not financial advice.
+          <div style={{padding:12,background:'var(--raised)',border:'1px solid var(--border)',
+            fontSize:'0.62rem',color:'var(--dim)',lineHeight:1.9}}>
+            <div style={{color:'var(--muted)',fontWeight:600,marginBottom:6,letterSpacing:'0.1em',
+              textTransform:'uppercase',fontSize:'0.58rem'}}>About</div>
+            Aggregates India finance news from ET, Mint, BS, NDTV, RBI, SEBI and 15+ sources.
+            Auto-scored for severity. "Retail Impact" summaries are system-generated, not financial advice.
           </div>
         </div>
       </div>
