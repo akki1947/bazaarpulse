@@ -82,7 +82,7 @@ export default function GovernmentPage() {
             {TABS.map(t => (
               <button key={t.id} onClick={() => setTab(t.id)}
                 style={{padding:'7px 14px',background:'none',border:'none',whiteSpace:'nowrap',
-                  fontSize:'0.65rem',fontWeight:500,letterSpacing:'0.08em',textTransform:'uppercase',
+                  fontSize:'var(--fs-xs)',fontWeight:500,letterSpacing:'0.08em',textTransform:'uppercase',
                   color:tab===t.id?'var(--bright)':'var(--muted)',
                   borderBottom:tab===t.id?'2px solid var(--blue)':'2px solid transparent',
                   cursor:'pointer',transition:'all 0.12s'}}>
@@ -95,7 +95,7 @@ export default function GovernmentPage() {
           {tab === 'budget' && (
             <div>
               <div style={{padding:'8px 12px',background:'var(--raised)',borderLeft:'2px solid var(--yellow)',
-                fontSize:'0.7rem',color:'var(--muted)',lineHeight:1.6,marginBottom:16}}>
+                fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.6,marginBottom:16}}>
                 📅 Union Budget 2025-26 presented by FM Nirmala Sitharaman on Feb 1, 2025. Full FY26 in effect.
               </div>
               <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:10}}>
@@ -105,11 +105,11 @@ export default function GovernmentPage() {
                     onMouseEnter={e=>e.currentTarget.style.borderColor='var(--border2)'}
                     onMouseLeave={e=>e.currentTarget.style.borderColor='var(--border)'}>
                     <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
-                      <span style={{fontSize:'0.58rem',letterSpacing:'0.1em',textTransform:'uppercase',color:'var(--yellow)'}}>{item.cat}</span>
-                      <span style={{fontSize:'0.56rem',background:'var(--raised)',color:'var(--dim)',padding:'1px 5px',borderRadius:2}}>{item.tag}</span>
+                      <span style={{fontSize:'var(--fs-label)',letterSpacing:'0.1em',textTransform:'uppercase',color:'var(--yellow)'}}>{item.cat}</span>
+                      <span style={{fontSize:'var(--fs-label)',background:'var(--raised)',color:'var(--muted)',padding:'1px 5px',borderRadius:2}}>{item.tag}</span>
                     </div>
-                    <div style={{fontSize:'0.82rem',fontWeight:600,color:'var(--bright)',marginBottom:5,fontFamily:'var(--font-sans)'}}>{item.item}</div>
-                    <div style={{fontSize:'0.72rem',color:'var(--muted)',lineHeight:1.5}}>{item.detail}</div>
+                    <div style={{fontSize:'var(--fs-base)',fontWeight:600,color:'var(--bright)',marginBottom:5,fontFamily:'var(--font-sans)'}}>{item.item}</div>
+                    <div style={{fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.5}}>{item.detail}</div>
                   </div>
                 ))}
               </div>
@@ -122,13 +122,13 @@ export default function GovernmentPage() {
               {SEBI_ACTIONS.map((a,i) => (
                 <div key={i} style={{padding:'13px 0',borderBottom:'1px solid var(--border)'}}>
                   <div style={{display:'flex',flexWrap:'wrap',gap:6,alignItems:'center',marginBottom:5}}>
-                    <span style={{fontSize:'0.6rem',color:'var(--dim)'}}>{a.date}</span>
-                    <span style={{fontSize:'0.58rem',letterSpacing:'0.1em',textTransform:'uppercase',
+                    <span style={{fontSize:'var(--fs-xs)',color:'var(--muted)'}}>{a.date}</span>
+                    <span style={{fontSize:'var(--fs-label)',letterSpacing:'0.1em',textTransform:'uppercase',
                       color:TYPE_COL[a.type]||'var(--muted)',background:'var(--raised)',padding:'1px 5px',borderRadius:2,
                       border:`1px solid ${TYPE_COL[a.type]||'var(--border)'}`}}>{a.type}</span>
-                    <span style={{fontSize:'0.82rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{a.title}</span>
+                    <span style={{fontSize:'var(--fs-base)',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{a.title}</span>
                   </div>
-                  <div style={{fontSize:'0.72rem',color:'var(--muted)',lineHeight:1.5}}>{a.detail}</div>
+                  <div style={{fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.5}}>{a.detail}</div>
                 </div>
               ))}
             </div>
@@ -140,13 +140,13 @@ export default function GovernmentPage() {
               {RBI_ACTIONS.map((a,i) => (
                 <div key={i} style={{padding:'13px 0',borderBottom:'1px solid var(--border)'}}>
                   <div style={{display:'flex',flexWrap:'wrap',gap:6,alignItems:'center',marginBottom:5}}>
-                    <span style={{fontSize:'0.6rem',color:'var(--dim)'}}>{a.date}</span>
-                    <span style={{fontSize:'0.58rem',letterSpacing:'0.1em',textTransform:'uppercase',
+                    <span style={{fontSize:'var(--fs-xs)',color:'var(--muted)'}}>{a.date}</span>
+                    <span style={{fontSize:'var(--fs-label)',letterSpacing:'0.1em',textTransform:'uppercase',
                       color:TYPE_COL[a.type]||'var(--muted)',background:'var(--raised)',padding:'1px 5px',borderRadius:2,
                       border:`1px solid ${TYPE_COL[a.type]||'var(--border)'}`}}>{a.type}</span>
-                    <span style={{fontSize:'0.82rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{a.title}</span>
+                    <span style={{fontSize:'var(--fs-base)',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{a.title}</span>
                   </div>
-                  <div style={{fontSize:'0.72rem',color:'var(--muted)',lineHeight:1.5}}>{a.detail}</div>
+                  <div style={{fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.5}}>{a.detail}</div>
                 </div>
               ))}
             </div>
@@ -161,11 +161,11 @@ export default function GovernmentPage() {
                   <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',
                     borderLeft:`3px solid ${col}`,padding:14}}>
                     <div style={{display:'flex',justifyContent:'space-between',marginBottom:5}}>
-                      <span style={{fontSize:'0.58rem',color:'var(--dim)',letterSpacing:'0.08em',textTransform:'uppercase'}}>{p.ministry}</span>
-                      <span style={{fontSize:'0.58rem',color:col,letterSpacing:'0.08em',textTransform:'uppercase'}}>{p.status}</span>
+                      <span style={{fontSize:'var(--fs-label)',color:'var(--muted)',letterSpacing:'0.08em',textTransform:'uppercase'}}>{p.ministry}</span>
+                      <span style={{fontSize:'var(--fs-label)',color:col,letterSpacing:'0.08em',textTransform:'uppercase'}}>{p.status}</span>
                     </div>
-                    <div style={{fontSize:'0.82rem',fontWeight:600,color:'var(--bright)',marginBottom:5,fontFamily:'var(--font-sans)'}}>{p.scheme}</div>
-                    <div style={{fontSize:'0.72rem',color:'var(--muted)',lineHeight:1.5}}>{p.detail}</div>
+                    <div style={{fontSize:'var(--fs-base)',fontWeight:600,color:'var(--bright)',marginBottom:5,fontFamily:'var(--font-sans)'}}>{p.scheme}</div>
+                    <div style={{fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.5}}>{p.detail}</div>
                   </div>
                 );
               })}
@@ -202,8 +202,8 @@ export default function GovernmentPage() {
                 { date:'Jul 2026',     event:'Union Budget FY27 prep',  type:'fiscal'   },
               ].map((e,i) => (
                 <div key={i} style={{padding:'8px 12px',borderBottom:'1px solid var(--border)'}}>
-                  <div style={{fontSize:'0.6rem',color:'var(--dim)',marginBottom:2}}>{e.date}</div>
-                  <div style={{fontSize:'0.7rem',color:'var(--body)',fontWeight:500}}>{e.event}</div>
+                  <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',marginBottom:2}}>{e.date}</div>
+                  <div style={{fontSize:'var(--fs-sm)',color:'var(--body)',fontWeight:500}}>{e.event}</div>
                 </div>
               ))}
             </div>
@@ -223,10 +223,10 @@ export default function GovernmentPage() {
                 <div key={i} style={{padding:'7px 12px',borderBottom:'1px solid var(--border)',
                   display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                   <div>
-                    <div style={{fontSize:'0.68rem',fontWeight:600,color:'var(--bright)'}}>{b.name}</div>
-                    <div style={{fontSize:'0.6rem',color:'var(--dim)'}}>{b.full}</div>
+                    <div style={{fontSize:'var(--fs-xs)',fontWeight:600,color:'var(--bright)'}}>{b.name}</div>
+                    <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)'}}>{b.full}</div>
                   </div>
-                  <span style={{fontSize:'0.58rem',color:'var(--blue)'}}>{b.url}</span>
+                  <span style={{fontSize:'var(--fs-label)',color:'var(--blue)'}}>{b.url}</span>
                 </div>
               ))}
             </div>

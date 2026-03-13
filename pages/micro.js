@@ -115,16 +115,16 @@ function SectorCard({ sector }) {
       <div style={{padding:'12px 14px',cursor:'pointer'}} onClick={() => setExp(e => !e)}>
         <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:6}}>
           <span style={{fontSize:'1.1rem'}}>{sector.icon}</span>
-          <span style={{fontSize:'0.88rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{sector.label}</span>
-          <span style={{marginLeft:'auto',fontSize:'0.6rem',letterSpacing:'0.1em',textTransform:'uppercase',
+          <span style={{fontSize:'var(--fs-md)',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{sector.label}</span>
+          <span style={{marginLeft:'auto',fontSize:'var(--fs-xs)',letterSpacing:'0.1em',textTransform:'uppercase',
             color:outCol,border:`1px solid ${outCol}`,padding:'2px 7px',borderRadius:2}}>{sector.outlook}</span>
-          <span style={{fontSize:'0.7rem',color:'var(--dim)'}}>{exp?'▲':'▼'}</span>
+          <span style={{fontSize:'var(--fs-sm)',color:'var(--muted)'}}>{exp?'▲':'▼'}</span>
         </div>
         <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:6}}>
           {sector.metrics.slice(0,2).map((m,i) => (
             <div key={i} style={{padding:'6px 8px',background:'var(--raised)',borderRadius:2}}>
-              <div style={{fontSize:'0.58rem',color:'var(--dim)',marginBottom:2,letterSpacing:'0.06em',textTransform:'uppercase'}}>{m.label}</div>
-              <div style={{fontSize:'0.82rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-mono)'}}>{m.val}</div>
+              <div style={{fontSize:'var(--fs-label)',color:'var(--muted)',marginBottom:2,letterSpacing:'0.06em',textTransform:'uppercase'}}>{m.label}</div>
+              <div style={{fontSize:'var(--fs-base)',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-mono)'}}>{m.val}</div>
             </div>
           ))}
         </div>
@@ -134,20 +134,20 @@ function SectorCard({ sector }) {
           <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:6,marginBottom:10}}>
             {sector.metrics.map((m,i) => (
               <div key={i} style={{padding:'7px 9px',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:2}}>
-                <div style={{fontSize:'0.58rem',color:'var(--dim)',marginBottom:2,letterSpacing:'0.06em',textTransform:'uppercase'}}>{m.label}</div>
-                <div style={{fontSize:'0.78rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-mono)',marginBottom:2}}>{m.val}</div>
-                <div style={{fontSize:'0.62rem',color:'var(--muted)',lineHeight:1.4}}>{m.note}</div>
+                <div style={{fontSize:'var(--fs-label)',color:'var(--muted)',marginBottom:2,letterSpacing:'0.06em',textTransform:'uppercase'}}>{m.label}</div>
+                <div style={{fontSize:'var(--fs-base)',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-mono)',marginBottom:2}}>{m.val}</div>
+                <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',lineHeight:1.4}}>{m.note}</div>
               </div>
             ))}
           </div>
           <div style={{padding:'7px 10px',background:'var(--surface)',borderLeft:'2px solid '+outCol,
-            fontSize:'0.7rem',color:'var(--muted)',lineHeight:1.6,marginBottom:8}}>
+            fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.6,marginBottom:8}}>
             💡 {sector.note}
           </div>
           <div style={{display:'flex',flexWrap:'wrap',gap:4}}>
-            <span style={{fontSize:'0.58rem',color:'var(--dim)',marginRight:2}}>Stocks:</span>
+            <span style={{fontSize:'var(--fs-label)',color:'var(--muted)',marginRight:2}}>Stocks:</span>
             {sector.stocks.map(s => (
-              <span key={s} style={{fontSize:'0.6rem',background:'var(--surface)',color:'var(--blue)',
+              <span key={s} style={{fontSize:'var(--fs-xs)',background:'var(--surface)',color:'var(--blue)',
                 padding:'2px 6px',borderRadius:2,border:'1px solid var(--border)',fontFamily:'var(--font-mono)'}}>{s}</span>
             ))}
           </div>
@@ -179,7 +179,7 @@ export default function MicroPage() {
             ].map(t => (
               <button key={t.id} onClick={() => setActiveTab(t.id)}
                 style={{padding:'6px 14px',background:'none',border:'none',
-                  fontSize:'0.68rem',fontWeight:500,letterSpacing:'0.08em',textTransform:'uppercase',
+                  fontSize:'var(--fs-xs)',fontWeight:500,letterSpacing:'0.08em',textTransform:'uppercase',
                   color:activeTab===t.id?'var(--bright)':'var(--muted)',
                   borderBottom:activeTab===t.id?'2px solid var(--blue)':'2px solid transparent',
                   cursor:'pointer',transition:'all 0.12s'}}>
@@ -191,7 +191,7 @@ export default function MicroPage() {
           {activeTab === 'sectors' && (
             <div>
               <div style={{padding:'8px 12px',background:'var(--raised)',borderLeft:'2px solid var(--dim)',
-                fontSize:'0.7rem',color:'var(--muted)',lineHeight:1.6,marginBottom:16}}>
+                fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.6,marginBottom:16}}>
                 Click any sector card to expand metrics, analyst notes and key stocks. Outlook reflects 3–6 month view.
               </div>
               {SECTORS.map(s => <SectorCard key={s.id} sector={s}/>)}
@@ -222,8 +222,8 @@ export default function MicroPage() {
                 return (
                   <div key={s.id} style={{padding:'7px 12px',borderBottom:'1px solid var(--border)',
                     display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                    <span style={{fontSize:'0.7rem',color:'var(--body)'}}>{s.icon} {s.label}</span>
-                    <span style={{fontSize:'0.6rem',color:col,letterSpacing:'0.08em',textTransform:'uppercase'}}>{s.outlook}</span>
+                    <span style={{fontSize:'var(--fs-sm)',color:'var(--body)'}}>{s.icon} {s.label}</span>
+                    <span style={{fontSize:'var(--fs-xs)',color:col,letterSpacing:'0.08em',textTransform:'uppercase'}}>{s.outlook}</span>
                   </div>
                 );
               })}
@@ -231,9 +231,9 @@ export default function MicroPage() {
           </div>
 
           <div style={{padding:12,background:'var(--raised)',border:'1px solid var(--border)',
-            fontSize:'0.62rem',color:'var(--dim)',lineHeight:1.9,marginTop:12}}>
+            fontSize:'var(--fs-xs)',color:'var(--muted)',lineHeight:1.9,marginTop:12}}>
             <div style={{color:'var(--muted)',fontWeight:600,marginBottom:6,letterSpacing:'0.1em',
-              textTransform:'uppercase',fontSize:'0.58rem'}}>About Micro</div>
+              textTransform:'uppercase',fontSize:'var(--fs-label)'}}>About Micro</div>
             Sector-level analysis covering earnings, metrics and stock watchlists. Data sourced from company filings, SEBI, NSE/BSE disclosures.
           </div>
         </div>

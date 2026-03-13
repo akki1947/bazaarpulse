@@ -179,7 +179,7 @@ export default function WarzonePage() {
             ].map((s,i) => (
               <div key={i} style={{padding:'10px 12px',background:'var(--surface)',border:'1px solid var(--border)',textAlign:'center'}}>
                 <div style={{fontSize:'1.6rem',fontWeight:700,color:s.col,fontFamily:'var(--font-mono)',lineHeight:1}}>{s.val}</div>
-                <div style={{fontSize:'0.6rem',color:'var(--muted)',letterSpacing:'0.1em',textTransform:'uppercase',marginTop:4}}>{s.label}</div>
+                <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',letterSpacing:'0.1em',textTransform:'uppercase',marginTop:4}}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -201,29 +201,29 @@ export default function WarzonePage() {
                   onClick={() => toggle(c.id)}>
                   <div style={{flex:1}}>
                     <div style={{display:'flex',flexWrap:'wrap',alignItems:'center',gap:8,marginBottom:5}}>
-                      <span style={{fontSize:'0.9rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{c.region}</span>
-                      <span style={{fontSize:'0.55rem',letterSpacing:'0.1em',textTransform:'uppercase',
+                      <span style={{fontSize:'var(--fs-lg)',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{c.region}</span>
+                      <span style={{fontSize:'var(--fs-label)',letterSpacing:'0.1em',textTransform:'uppercase',
                         color:statusCol,background:'var(--raised)',padding:'2px 6px',borderRadius:2,border:`1px solid ${statusCol}`}}>
                         {c.status}
                       </span>
-                      <span style={{fontSize:'0.55rem',letterSpacing:'0.1em',textTransform:'uppercase',
+                      <span style={{fontSize:'var(--fs-label)',letterSpacing:'0.1em',textTransform:'uppercase',
                         color:impactCol,marginLeft:'auto'}}>India Impact: {c.impact}</span>
                     </div>
-                    <div style={{fontSize:'0.72rem',color:'var(--muted)',lineHeight:1.55}}>{c.summary}</div>
+                    <div style={{fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.55}}>{c.summary}</div>
                     <div style={{display:'flex',flexWrap:'wrap',gap:4,marginTop:6}}>
-                      <span style={{fontSize:'0.58rem',color:'var(--dim)'}}>Since {c.started} ·</span>
+                      <span style={{fontSize:'var(--fs-label)',color:'var(--muted)'}}>Since {c.started} ·</span>
                       {c.parties.map(p => (
-                        <span key={p} style={{fontSize:'0.58rem',background:'var(--raised)',color:'var(--muted)',
+                        <span key={p} style={{fontSize:'var(--fs-label)',background:'var(--raised)',color:'var(--muted)',
                           padding:'1px 5px',borderRadius:2}}>{p}</span>
                       ))}
                     </div>
                   </div>
-                  <span style={{fontSize:'0.7rem',color:'var(--dim)',flexShrink:0,marginTop:2}}>{isOpen?'▲':'▼'}</span>
+                  <span style={{fontSize:'var(--fs-sm)',color:'var(--muted)',flexShrink:0,marginTop:2}}>{isOpen?'▲':'▼'}</span>
                 </div>
 
                 {isOpen && (
                   <div style={{borderTop:'1px solid var(--border)',padding:'12px 14px',background:'var(--raised)'}}>
-                    <div style={{fontSize:'0.62rem',color:'var(--muted)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:10}}>
+                    <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:10}}>
                       India Market Impact
                     </div>
                     <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:8,marginBottom:10}}>
@@ -231,16 +231,16 @@ export default function WarzonePage() {
                         <div key={i} style={{padding:'8px 10px',background:'var(--surface)',border:'1px solid var(--border)',borderRadius:2}}>
                           <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:4}}>
                             <span style={{fontSize:'1rem'}}>{imp.icon}</span>
-                            <span style={{fontSize:'0.65rem',fontWeight:600,color:'var(--bright)'}}>{imp.label}</span>
-                            <span style={{marginLeft:'auto',fontSize:'0.65rem',fontWeight:600,color:impactCol}}>{imp.val}</span>
+                            <span style={{fontSize:'var(--fs-xs)',fontWeight:600,color:'var(--bright)'}}>{imp.label}</span>
+                            <span style={{marginLeft:'auto',fontSize:'var(--fs-xs)',fontWeight:600,color:impactCol}}>{imp.val}</span>
                           </div>
-                          <div style={{fontSize:'0.62rem',color:'var(--dim)',lineHeight:1.5}}>{imp.note}</div>
+                          <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',lineHeight:1.5}}>{imp.note}</div>
                         </div>
                       ))}
                     </div>
                     <div style={{display:'flex',flexWrap:'wrap',gap:4}}>
                       {c.tags.map(tag => (
-                        <span key={tag} style={{fontSize:'0.58rem',background:'var(--surface)',color:'var(--blue)',
+                        <span key={tag} style={{fontSize:'var(--fs-label)',background:'var(--surface)',color:'var(--blue)',
                           padding:'2px 7px',borderRadius:2,border:'1px solid var(--border)'}}>{tag}</span>
                       ))}
                     </div>
@@ -259,13 +259,36 @@ export default function WarzonePage() {
               <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',padding:'12px 14px',
                 borderTop:`2px solid ${impactCols[item.exposure]||'var(--dim)'}`}}>
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5}}>
-                  <span style={{fontSize:'0.75rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{item.sector}</span>
-                  <span style={{fontSize:'0.55rem',letterSpacing:'0.08em',textTransform:'uppercase',
+                  <span style={{fontSize:'var(--fs-sm)',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{item.sector}</span>
+                  <span style={{fontSize:'var(--fs-label)',letterSpacing:'0.08em',textTransform:'uppercase',
                     color:impactCols[item.exposure]||'var(--dim)'}}>{item.exposure}</span>
                 </div>
-                <div style={{fontSize:'0.7rem',color:'var(--muted)',lineHeight:1.5}}>{item.note}</div>
+                <div style={{fontSize:'var(--fs-sm)',color:'var(--muted)',lineHeight:1.5}}>{item.note}</div>
               </div>
             ))}
+          </div>
+
+          {/* Live war impact panel — moved from Macro */}
+          <div style={{padding:'14px 16px',background:'var(--raised)',border:'1px solid var(--border)',
+            borderLeft:'3px solid var(--red)',marginBottom:24}}>
+            <div style={{fontSize:'var(--fs-label)',fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',
+              color:'var(--red)',marginBottom:12}}>⚠ Middle East War — Live Market Watch</div>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(180px,1fr))',gap:10}}>
+              {[
+                { label:'Crude Brent',    val:'~$100/bbl', note:'+40% since conflict start', col:'var(--red)'    },
+                { label:'INR/USD',        val:'₹92.3',     note:'Near record lows',           col:'var(--red)'    },
+                { label:'FII Outflow',    val:'₹33,680 Cr',note:'Since Mar 1, 2026',          col:'var(--red)'    },
+                { label:'Gold MCX',       val:'₹87,450',   note:'Safe haven demand surge',    col:'var(--green)'  },
+                { label:'LPG',            val:'Shortage',  note:'Domestic rationing in place',col:'var(--red)'    },
+                { label:'Nifty 50',       val:'-8.4%',     note:'From pre-war high',          col:'var(--red)'    },
+              ].map((w,i) => (
+                <div key={i} style={{padding:'10px 12px',background:'var(--surface)',border:'1px solid var(--border)'}}>
+                  <div style={{fontSize:'var(--fs-label)',color:'var(--muted)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:5}}>{w.label}</div>
+                  <div style={{fontSize:'var(--fs-lg)',fontWeight:700,color:w.col,fontFamily:'var(--font-mono)',marginBottom:3}}>{w.val}</div>
+                  <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)'}}>{w.note}</div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="slbl">
@@ -295,8 +318,8 @@ export default function WarzonePage() {
                 return (
                   <div key={c.id} style={{padding:'8px 12px',borderBottom:'1px solid var(--border)'}}>
                     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:4}}>
-                      <span style={{fontSize:'0.68rem',color:'var(--body)',fontWeight:500}}>{c.region}</span>
-                      <span style={{fontSize:'0.55rem',color:col}}>{c.status}</span>
+                      <span style={{fontSize:'var(--fs-xs)',color:'var(--body)',fontWeight:500}}>{c.region}</span>
+                      <span style={{fontSize:'var(--fs-label)',color:col}}>{c.status}</span>
                     </div>
                     <div style={{display:'flex',gap:2}}>
                       {[1,2,3,4,5].map(n => (
@@ -321,19 +344,19 @@ export default function WarzonePage() {
               ].map((w,i) => (
                 <div key={i} style={{padding:'8px 12px',borderBottom:'1px solid var(--border)'}}>
                   <div style={{display:'flex',justifyContent:'space-between'}}>
-                    <span style={{fontSize:'0.68rem',color:'var(--muted)'}}>{w.label}</span>
-                    <span style={{fontSize:'0.72rem',fontWeight:600,color:w.col,fontFamily:'var(--font-mono)'}}>{w.val}</span>
+                    <span style={{fontSize:'var(--fs-xs)',color:'var(--muted)'}}>{w.label}</span>
+                    <span style={{fontSize:'var(--fs-sm)',fontWeight:600,color:w.col,fontFamily:'var(--font-mono)'}}>{w.val}</span>
                   </div>
-                  <div style={{fontSize:'0.6rem',color:'var(--dim)',marginTop:2}}>{w.note}</div>
+                  <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',marginTop:2}}>{w.note}</div>
                 </div>
               ))}
             </div>
           </div>
 
           <div style={{padding:12,background:'var(--raised)',border:'1px solid var(--border)',
-            fontSize:'0.62rem',color:'var(--dim)',lineHeight:1.9}}>
+            fontSize:'var(--fs-xs)',color:'var(--muted)',lineHeight:1.9}}>
             <div style={{color:'var(--muted)',fontWeight:600,marginBottom:6,letterSpacing:'0.1em',
-              textTransform:'uppercase',fontSize:'0.58rem'}}>Disclaimer</div>
+              textTransform:'uppercase',fontSize:'var(--fs-label)'}}>Disclaimer</div>
             Conflict data is for informational purposes. Market impact assessments are analyst perspectives, not investment advice. Situations change rapidly.
           </div>
         </div>
