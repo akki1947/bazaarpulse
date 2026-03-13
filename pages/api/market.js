@@ -1,12 +1,10 @@
-import { get } from '@vercel/edge-config';
-
+﻿import { get } from '@vercel/edge-config';
 const STOOQ_INDIA = [
   { sym: '%5Ensei',    name: 'NIFTY 50',   type: 'index' },
   { sym: '%5Ebsesn',  name: 'SENSEX',     type: 'index' },
   { sym: '%5Ensebank',name: 'NIFTY Bank', type: 'index' },
   { sym: '%5Ecnxit',  name: 'NIFTY IT',   type: 'index' },
 ];
-
 const FINNHUB_SYMBOLS = [
   { fh: 'OANDA:SPX500_USD', name: 'S&P 500',     type: 'index'     },
   { fh: 'OANDA:NAS100_USD', name: 'NASDAQ 100',  type: 'index'     },
@@ -17,14 +15,10 @@ const FINNHUB_SYMBOLS = [
   { fh: 'OANDA:XAU_USD',    name: 'Gold',        type: 'commodity' },
   { fh: 'OANDA:BCO_USD',    name: 'Crude Brent', type: 'commodity' },
 ];
-
 async function fetchStooq(item) {
-  const url = `https://stooq.com/q/l/?s=${item.sym}&f=sd2t2ohlcv&h&e=csv`;
-  const res = await fetch(url, {
-    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
-    signal: AbortSignal.timeout(9000),
-  });
-  if (!res.ok) throw new Error(`Stooq ${res.status}`);
+  const url = \https://stooq.com/q/l/?s=\&f=sd2t2ohlcv&h&e=csv\;
+  const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(9000) });
+  if (!res.ok) throw new Error(\Stooq \\);
   const lines = (await res.text()).trim().split('\n');
   if (lines.length < 2) throw new Error('Empty Stooq');
   const p = lines[1].split(',');
@@ -34,21 +28,16 @@ async function fetchStooq(item) {
   const changePct = open > 0 ? parseFloat(((change / open) * 100).toFixed(2)) : 0;
   return { name: item.name, type: item.type, price: close, open, change, changePct, up: change >= 0, source: 'stooq' };
 }
-
 async function fetchFinnhub(sym, apiKey) {
-  const url = `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(sym.fh)}&token=${apiKey}`;
+  const url = \https://finnhub.io/api/v1/quote?symbol=\&token=\\;
   const res = await fetch(url, { signal: AbortSignal.timeout(9000) });
-  if (!res.ok) throw new Error(`Finnhub ${res.status}`);
+  if (!res.ok) throw new Error(\Finnhub \\);
   const d = await res.json();
-  if (!d.c || d.c === 0) throw new Error(`Zero: ${sym.fh}`);
-  return {
-    name: sym.name, type: sym.type, price: d.c, open: d.o, high: d.h, low: d.l,
-    prevClose: d.pc, change: parseFloat((d.d||0).toFixed(4)),
-    changePct: parseFloat((d.dp||0).toFixed(4)),
-    up: (d.d||0) >= 0, source: 'finnhub',
-  };
+  if (!d.c || d.c === 0) throw new Error(\Zero: \\);
+  return { name: sym.name, type: sym.type, price: d.c, open: d.o, high: d.h, low: d.l,
+    prevClose: d.pc, change: parseFloat((d.d||0).toFixed(4)), changePct: parseFloat((d.dp||0).toFixed(4)),
+    up: (d.d||0) >= 0, source: 'finnhub' };
 }
-
 async function fetchCrypto() {
   const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true';
   const res = await fetch(url, { signal: AbortSignal.timeout(7000) });
@@ -60,7 +49,6 @@ async function fetchCrypto() {
     { name:'Solana',   price:d.solana?.usd,   changePct:d.solana?.usd_24h_change   },
   ].map(c => ({ ...c, type:'crypto', change:parseFloat(((c.price||0)*(c.changePct||0)/100).toFixed(4)), up:(c.changePct||0)>=0, source:'coingecko' }));
 }
-
 function getSession() {
   const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
   const m = now.getHours() * 60 + now.getMinutes();
@@ -69,7 +57,6 @@ function getSession() {
   if (m >= 930) return 'close';
   return 'pre-market';
 }
-
 async function fetchAll(apiKey) {
   const [stooqRes, fhRes] = await Promise.all([
     Promise.allSettled(STOOQ_INDIA.map(s => fetchStooq(s))),
@@ -77,44 +64,33 @@ async function fetchAll(apiKey) {
   ]);
   const india  = stooqRes.filter(r => r.status === 'fulfilled').map(r => r.value);
   const global = fhRes.filter(r => r.status === 'fulfilled').map(r => r.value);
-  const failed = fhRes.filter(r => r.status === 'rejected').map(r => r.reason?.message);
-  if (failed.length) console.warn('Finnhub failures:', failed);
+  const failed = fhRes.filter(r => r.status === 'rejected').length;
   let crypto = [];
   try { crypto = await fetchCrypto(); } catch(e) { console.warn('Crypto:', e.message); }
   const quotes = [...india, ...global, ...crypto];
-  return {
-    quotes, session: getSession(), fetched: new Date().toISOString(),
-    meta: { total: STOOQ_INDIA.length + FINNHUB_SYMBOLS.length + 3, loaded: quotes.length, failed: failed.length },
-  };
+  return { quotes, session: getSession(), fetched: new Date().toISOString(),
+    meta: { total: 15, loaded: quotes.length, failed } };
 }
-
 async function writeEdge(data) {
   const id = process.env.EDGE_CONFIG_ID, token = process.env.VERCEL_API_TOKEN;
   if (!id || !token) return;
-  await fetch(`https://api.vercel.com/v1/edge-config/${id}/items`, {
+  await fetch(\https://api.vercel.com/v1/edge-config/\/items\, {
     method: 'PATCH',
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: \Bearer \\, 'Content-Type': 'application/json' },
     body: JSON.stringify({ items: [{ operation: 'upsert', key: 'market', value: data }] }),
   });
 }
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   const apiKey = process.env.FINNHUB_API_KEY;
-
-  // Cron/manual refresh — no secret required, market data is public
   if (req.query.refresh === '1') {
     if (!apiKey) return res.status(500).json({ ok: false, error: 'FINNHUB_API_KEY not set' });
     try {
       const data = await fetchAll(apiKey);
       await writeEdge(data);
       return res.json({ ok: true, refreshed: true, ...data });
-    } catch(e) {
-      return res.status(500).json({ ok: false, error: e.message });
-    }
+    } catch(e) { return res.status(500).json({ ok: false, error: e.message }); }
   }
-
-  // Regular GET — try Edge Config first, fall back to live fetch
   res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
   try {
     const cached = await get('market');
@@ -123,13 +99,10 @@ export default async function handler(req, res) {
       return res.json({ ok: true, cached: true, age, ...cached });
     }
   } catch(e) { console.warn('Edge Config:', e.message); }
-
   if (!apiKey) return res.json({ ok: false, error: 'No cache, no API key', quotes: [] });
   try {
     const data = await fetchAll(apiKey);
     try { await writeEdge(data); } catch {}
     return res.json({ ok: true, cached: false, age: 0, ...data });
-  } catch(e) {
-    return res.status(500).json({ ok: false, error: e.message, quotes: [] });
-  }
+  } catch(e) { return res.status(500).json({ ok: false, error: e.message, quotes: [] }); }
 }
