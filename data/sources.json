@@ -1,27 +1,159 @@
 {
   "version": "2.1",
   "sources": [
-    { "id":"et-markets",    "name":"Economic Times Markets",  "url":"https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",           "lang":"en", "priority":1 },
-    { "id":"et-economy",    "name":"Economic Times Economy",  "url":"https://economictimes.indiatimes.com/news/economy/rssfeeds/1373380680.cms",       "lang":"en", "priority":1 },
-    { "id":"mint-markets",  "name":"LiveMint Markets",        "url":"https://www.livemint.com/rss/markets",                                           "lang":"en", "priority":1 },
-    { "id":"mint-economy",  "name":"LiveMint Economy",        "url":"https://www.livemint.com/rss/economy",                                           "lang":"en", "priority":1 },
-    { "id":"mint-companies","name":"LiveMint Companies",      "url":"https://www.livemint.com/rss/companies",                                         "lang":"en", "priority":2 },
-    { "id":"ndtv-profit",   "name":"NDTV Profit",             "url":"https://www.ndtvprofit.com/rss",                                                  "lang":"en", "priority":1 },
-    { "id":"bs-markets",    "name":"Business Standard",       "url":"https://www.business-standard.com/rss/markets-106.rss",                          "lang":"en", "priority":1 },
-    { "id":"bs-economy",    "name":"Business Standard Economy","url":"https://www.business-standard.com/rss/economy-policy-102.rss",                  "lang":"en", "priority":1 },
-    { "id":"bs-finance",    "name":"Business Standard Finance","url":"https://www.business-standard.com/rss/finance-108.rss",                         "lang":"en", "priority":2 },
-    { "id":"moneycontrol",  "name":"MoneyControl",            "url":"https://www.moneycontrol.com/rss/business.xml",                                  "lang":"en", "priority":1 },
-    { "id":"mc-markets",    "name":"MoneyControl Markets",    "url":"https://www.moneycontrol.com/rss/marketsnews.xml",                               "lang":"en", "priority":1 },
-    { "id":"financial-exp", "name":"Financial Express",       "url":"https://www.financialexpress.com/market/feed/",                                  "lang":"en", "priority":2 },
-    { "id":"fe-economy",    "name":"Financial Express Economy","url":"https://www.financialexpress.com/economy/feed/",                                "lang":"en", "priority":2 },
-    { "id":"zeebiz",        "name":"Zee Business",            "url":"https://www.zeebiz.com/rss/markets.xml",                                        "lang":"en", "priority":2 },
-    { "id":"reuters-india", "name":"Reuters India",           "url":"https://feeds.reuters.com/reuters/INbusinessNews",                               "lang":"en", "priority":1 },
-    { "id":"reuters-mkts",  "name":"Reuters Markets",         "url":"https://feeds.reuters.com/reuters/businessNews",                                 "lang":"en", "priority":2 },
-    { "id":"rbi-press",     "name":"RBI Press Releases",      "url":"https://www.rbi.org.in/scripts/rss.aspx?Id=6",                                  "lang":"en", "priority":1 },
-    { "id":"sebi-press",    "name":"SEBI Press Releases",     "url":"https://www.sebi.gov.in/sebi_data/rss_feeds/sebirss.xml",                       "lang":"en", "priority":1 },
-    { "id":"pib-finance",   "name":"PIB Finance Ministry",    "url":"https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",                        "lang":"en", "priority":2 },
-    { "id":"mc-mf",         "name":"MoneyControl Mutual Fund","url":"https://www.moneycontrol.com/rss/mutualfunds.xml",                              "lang":"en", "priority":2 },
-    { "id":"techcrunch-ai", "name":"TechCrunch AI",           "url":"https://techcrunch.com/category/artificial-intelligence/feed/",                 "lang":"en", "priority":2 },
-    { "id":"venturebeat-ai","name":"VentureBeat AI",          "url":"https://venturebeat.com/ai/feed/",                                              "lang":"en", "priority":2 }
+    {
+      "id": "et-markets",
+      "name": "Economic Times Markets",
+      "url": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "et-economy",
+      "name": "Economic Times Economy",
+      "url": "https://economictimes.indiatimes.com/news/economy/rssfeeds/1373380680.cms",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "mint-markets",
+      "name": "LiveMint Markets",
+      "url": "https://www.livemint.com/rss/markets",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "mint-economy",
+      "name": "LiveMint Economy",
+      "url": "https://www.livemint.com/rss/economy",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "mint-companies",
+      "name": "LiveMint Companies",
+      "url": "https://www.livemint.com/rss/companies",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "ndtv-profit",
+      "name": "NDTV Profit",
+      "url": "https://www.ndtvprofit.com/rss",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "bs-markets",
+      "name": "Business Standard",
+      "url": "https://www.business-standard.com/rss/markets-106.rss",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "bs-economy",
+      "name": "Business Standard Economy",
+      "url": "https://www.business-standard.com/rss/economy-policy-102.rss",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "bs-finance",
+      "name": "Business Standard Finance",
+      "url": "https://www.business-standard.com/rss/finance-108.rss",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "moneycontrol",
+      "name": "MoneyControl",
+      "url": "https://www.moneycontrol.com/rss/business.xml",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "mc-markets",
+      "name": "MoneyControl Markets",
+      "url": "https://www.moneycontrol.com/rss/marketsnews.xml",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "financial-exp",
+      "name": "Financial Express",
+      "url": "https://www.financialexpress.com/market/feed/",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "fe-economy",
+      "name": "Financial Express Economy",
+      "url": "https://www.financialexpress.com/economy/feed/",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "zeebiz",
+      "name": "Zee Business",
+      "url": "https://www.zeebiz.com/rss/markets.xml",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "reuters-india",
+      "name": "Reuters India",
+      "url": "https://feeds.reuters.com/reuters/INbusinessNews",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "reuters-mkts",
+      "name": "Reuters Markets",
+      "url": "https://feeds.reuters.com/reuters/businessNews",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "rbi-press",
+      "name": "RBI Press Releases",
+      "url": "https://www.rbi.org.in/scripts/rss.aspx?Id=6",
+      "lang": "en",
+      "priority": 3
+    },
+    {
+      "id": "sebi-press",
+      "name": "SEBI Press Releases",
+      "url": "https://www.sebi.gov.in/sebi_data/rss_feeds/sebirss.xml",
+      "lang": "en",
+      "priority": 1
+    },
+    {
+      "id": "pib-finance",
+      "name": "PIB Finance Ministry",
+      "url": "https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3",
+      "lang": "en",
+      "priority": 3
+    },
+    {
+      "id": "mc-mf",
+      "name": "MoneyControl Mutual Fund",
+      "url": "https://www.moneycontrol.com/rss/mutualfunds.xml",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch AI",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "lang": "en",
+      "priority": 2
+    },
+    {
+      "id": "venturebeat-ai",
+      "name": "VentureBeat AI",
+      "url": "https://venturebeat.com/ai/feed/",
+      "lang": "en",
+      "priority": 2
+    }
   ]
 }

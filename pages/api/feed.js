@@ -36,7 +36,7 @@ async function fetchFeed(src) {
     });
     if (!res.ok) { console.warn(`[Feed] ${src.id} HTTP ${res.status}`); return []; }
     const xml    = await res.text();
-    const parsed = await xml2js.parseStringPromise(xml, { explicitArray:false, ignoreAttrs:false });
+    const parsed = await xml2js.parseStringPromise(xml, { explicitArray:false, ignoreAttrs:false, strict:false, normalize:true, normalizeTags:false });
     const channel = parsed?.rss?.channel || parsed?.feed || {};
     const items   = channel.item || channel.entry || [];
     const arr     = Array.isArray(items) ? items : [items];
