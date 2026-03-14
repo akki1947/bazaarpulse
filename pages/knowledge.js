@@ -3,302 +3,333 @@ import Layout from '../components/layout/Layout';
 
 const TOPICS = [
   {
-    id:'rbi', icon:'🏦', title:'RBI & Monetary Policy', level:'Beginner',
-    summary:'The Reserve Bank of India controls money supply, interest rates and inflation.',
-    content:`The RBI is India's central bank, established in 1935. It has three core mandates:
-
-1. **Price Stability** — Keep CPI inflation near 4% (±2% band)
-2. **Growth Support** — Ensure adequate credit flow to the economy
-3. **Financial Stability** — Regulate banks and payment systems
-
-**Monetary Policy Committee (MPC):** 6-member body that meets every 2 months to set the Repo Rate — the rate at which banks borrow from RBI overnight.
-
-**Key Rates:**
-- Repo Rate: 6.25% (Feb 2026)
-- Reverse Repo: 3.35%
-- CRR (Cash Reserve Ratio): 4%
-- SLR (Statutory Liquidity Ratio): 18%
-
-**Why it matters for investors:** When RBI cuts rates, borrowing becomes cheaper → businesses invest more → corporate earnings grow → equity markets often rally. Bond prices rise (yields fall). FD rates eventually decrease. The opposite happens on rate hikes.`,
-    tags:['Macro','Banking','Rates']
+    id:'rbi', icon:'🏦', title:'RBI & Monetary Policy', level:'Beginner', tag:'Macro',
+    summary:'The Reserve Bank of India controls money supply, interest rates and inflation targeting.',
+    points:[
+      'RBI is India\'s central bank, established 1935. Core mandates: price stability, growth support, financial stability.',
+      'Monetary Policy Committee (MPC): 6-member body meets every 2 months to set the Repo Rate.',
+      'Repo Rate (6.25%) = rate at which banks borrow from RBI overnight. Lower rate → cheaper loans → more investment.',
+      'CRR (4%): Cash banks must keep with RBI. Cut = more money in system. SLR (18%): Bonds banks must hold.',
+      'For investors: Rate cuts → bond prices rise, FD rates fall, equities often rally. Rate hikes = opposite.',
+      'RBI also manages INR via forex intervention, regulates all banks, NBFCs, and payment systems.',
+    ],
+    keyRates:[
+      { label:'Repo Rate',   val:'6.25%', note:'Feb 2026 cut' },
+      { label:'Reverse Repo',val:'3.35%', note:'Standing deposit' },
+      { label:'CRR',         val:'4.0%',  note:'Cash reserve' },
+      { label:'SLR',         val:'18%',   note:'Liquidity ratio' },
+    ],
+    tags:['Macro','Banking','Rates'],
   },
   {
-    id:'sebi', icon:'⚖️', title:'SEBI & Market Regulation', level:'Beginner',
-    summary:'SEBI is the watchdog for Indian capital markets — stocks, mutual funds, brokers.',
-    content:`Securities and Exchange Board of India (SEBI) was established in 1992.
-
-**What SEBI regulates:**
-- Stock exchanges (NSE, BSE)
-- Brokers and sub-brokers
-- Mutual fund houses (AMCs)
-- FIIs/FPIs (foreign investors)
-- Insider trading and price manipulation
-- IPOs and takeovers
-
-**Key SEBI frameworks:**
-- SEBI (PIT) Regulations — Prohibition of Insider Trading
-- Takeover Code — 26% trigger for open offer
-- LODR — Listing obligations and disclosure norms
-- MF Categorisation — Standardised 36-category scheme structure
-
-**For retail investors:** SEBI's investor protection fund covers up to ₹25 lakh if broker defaults. Always check if your broker is SEBI-registered at sebi.gov.in`,
-    tags:['Regulation','Stocks','MF']
+    id:'sebi', icon:'⚖️', title:'SEBI & Market Regulation', level:'Beginner', tag:'Regulation',
+    summary:'SEBI is the watchdog for Indian capital markets — stocks, mutual funds, brokers, and FIIs.',
+    points:[
+      'SEBI (est. 1992) regulates: stock exchanges (NSE/BSE), brokers, mutual funds, FIIs, investment advisors.',
+      'SEBI\'s 3 functions: Investor protection, market development, regulation of intermediaries.',
+      'Key powers: Can ban traders, impose fines, freeze accounts, order disgorgement of illegal gains.',
+      'SEBI categories for investors: Retail (< ₹2L per IPO), HNI (₹2–10L), QIB (FIIs, MFs, banks).',
+      'Recent crackdowns: F&O lot size increase, finfluencer regulations, algo trading framework.',
+      'SCORES portal: File complaints against SEBI-regulated entities. 30-day resolution target.',
+    ],
+    keyRates:[
+      { label:'IPO Retail Limit', val:'₹2L',   note:'Per application' },
+      { label:'LTCG (Equity)',    val:'12.5%',  note:'Above ₹1.25L' },
+      { label:'STCG (Equity)',    val:'20%',    note:'< 1 year hold' },
+      { label:'STT (Delivery)',   val:'0.1%',   note:'Buy + Sell' },
+    ],
+    tags:['Regulation','Tax','Markets'],
   },
   {
-    id:'nifty', icon:'📈', title:'Understanding Nifty & Sensex', level:'Beginner',
-    summary:'India\'s two most-watched stock market benchmarks — what they measure and why.',
-    content:`**Nifty 50** — NSE's benchmark index of the 50 largest, most liquid companies.
-Launched: 1996 | Base: 1000 | Current: ~22,000
-
-**Sensex (BSE 30)** — BSE's index of 30 large companies.
-Launched: 1979 | Base: 100 | Current: ~73,000
-
-**How they're calculated:** Free-float market capitalisation weighted. Only the freely traded portion of shares counts (promoter holdings excluded).
-
-**Nifty Sectors (top weights):**
-- Financial Services ~33%
-- IT ~13%
-- Oil & Gas ~12%
-- Consumer Goods ~9%
-- Auto ~7%
-
-**Important derived indices:**
-- Nifty Bank, Nifty IT, Nifty Pharma, Nifty Metal
-- Nifty Midcap 150, Nifty Smallcap 250
-- India VIX — fear gauge (volatility index)
-
-**Tip:** Most retail investors should just buy a Nifty 50 or Nifty 500 index fund via SIP and hold for 10+ years. Historically ~12-15% CAGR over long periods.`,
-    tags:['Markets','Indices','Basics']
+    id:'nifty', icon:'📈', title:'Nifty, Sensex & Indices', level:'Beginner', tag:'Markets',
+    summary:'India\'s benchmark indices — how they work, what moves them, and how to use them.',
+    points:[
+      'Nifty 50: Top 50 companies by free-float market cap on NSE. Rebalanced semi-annually.',
+      'Sensex: Top 30 companies on BSE. Both are float-adjusted market cap weighted indices.',
+      'Nifty sectoral indices: Bank, IT, Pharma, Auto, Metal, FMCG, Realty — each tracks its sector.',
+      'Index funds/ETFs track these indices. Low cost (0.05–0.2% expense ratio) vs active funds (1–2%).',
+      'What moves Nifty: FII flows, RBI policy, US Fed, crude oil, INR, quarterly earnings, global cues.',
+      'Circuit breakers: Trading halts at 10%, 15%, 20% Nifty move. Prevents panic selling.',
+    ],
+    keyRates:[
+      { label:'Nifty 50',       val:'~22,124', note:'Mar 2026 level' },
+      { label:'Sensex',         val:'~73,198', note:'Mar 2026 level' },
+      { label:'P/E (Nifty)',    val:'~21x',    note:'12M trailing' },
+      { label:'Div Yield',      val:'~1.3%',   note:'Nifty aggregate' },
+    ],
+    tags:['Markets','Index','Investing'],
   },
   {
-    id:'fo', icon:'⚡', title:'F&O — Futures & Options Basics', level:'Intermediate',
-    summary:'Derivatives contracts on stocks and indices — leverage, risk, and how to read them.',
-    content:`**Futures:** Obligation to buy/sell an asset at a predetermined price on a future date.
-
-**Options:** Right (not obligation) to buy (Call) or sell (Put) at a strike price before expiry.
-
-**Key Terms:**
-- **Premium** — Price paid for an options contract
-- **Strike Price** — Price at which option can be exercised
-- **Expiry** — NSE: Weekly (Thursday) and Monthly
-- **Lot Size** — Minimum trading unit (e.g., Nifty = 75 units/lot)
-- **PCR (Put-Call Ratio)** — >1 = bearish, <0.7 = bullish sentiment
-- **MaxPain** — Strike price at which most option buyers lose money at expiry
-- **OI (Open Interest)** — Total outstanding contracts; rising OI with price rise = bullish
-
-**SEBI Warning:** >90% of F&O traders lose money. Average retail loss: ₹1.1 lakh/year (SEBI study 2024). Only trade with money you can afford to lose completely.
-
-**Practical Use for Retail:** Covered calls to earn premium on holdings, protective puts to hedge downside.`,
-    tags:['F&O','Advanced','Risk']
+    id:'fo', icon:'🔄', title:'F&O — Futures & Options', level:'Intermediate', tag:'Derivatives',
+    summary:'Derivatives explained — what F&O is, how it works, and why most retail traders lose.',
+    points:[
+      'F&O = Futures & Options. Derivatives — contracts deriving value from underlying (stock/index).',
+      'Futures: Agreement to buy/sell at fixed price on future date. Compulsory settlement.',
+      'Options: Right (not obligation) to buy (Call) or sell (Put) at strike price before expiry.',
+      'Premium = price of option. Affected by: intrinsic value + time value + implied volatility.',
+      'SEBI data: 93% of F&O retail traders lose money. Average loss ₹1.1L/year per trader.',
+      'Lot size: Nifty = 25 units per lot. Minimum margin required. Weekly and monthly expiry.',
+      'Hedging use: Legitimate use = protecting portfolio. Speculation = high risk, leverage amplifies losses.',
+    ],
+    keyRates:[
+      { label:'Nifty Lot Size',  val:'25',     note:'Units per contract' },
+      { label:'Margin (Approx)', val:'~₹1.3L', note:'Per lot (varies)' },
+      { label:'Retail Loss %',   val:'93%',    note:'SEBI FY24 study' },
+      { label:'Weekly Expiry',   val:'Thu',    note:'Nifty/BankNifty' },
+    ],
+    tags:['Derivatives','Risk','Advanced'],
   },
   {
-    id:'mf', icon:'💼', title:'Mutual Funds & SIP Strategy', level:'Beginner',
-    summary:'How mutual funds work, how to pick one, and why SIP beats lump sum for most people.',
-    content:`**Types of Mutual Funds (SEBI categories):**
-- Large Cap: Top 100 companies by market cap
-- Mid Cap: 101-250
-- Small Cap: 251+
-- Flexi Cap / Multi Cap: No restriction
-- ELSS: Tax-saving (80C), 3-yr lock-in
-- Index Funds: Passive, track Nifty 50 / Sensex
-- Debt Funds: Bonds, safer, lower returns
-
-**SIP (Systematic Investment Plan):**
-Invest a fixed amount monthly regardless of market level. Benefits from rupee-cost averaging — you buy more units when markets fall, fewer when they rise.
-
-**Key Metrics:**
-- **NAV** — Net Asset Value (fund's per-unit price)
-- **Expense Ratio** — Annual fee as % of AUM. Lower = better.
-- **XIRR** — Your actual returns accounting for SIP timing
-- **Alpha** — Returns above benchmark
-
-**Simple Rule:** For most retail investors, a low-cost Nifty 50 index fund (expense ratio <0.1%) via monthly SIP beats ~80% of actively managed funds over 10+ years.`,
-    tags:['MF','SIP','Basics']
+    id:'mf', icon:'💼', title:'Mutual Funds & SIP', level:'Beginner', tag:'Investing',
+    summary:'Everything about mutual funds — types, taxation, SIP mechanics and how to choose.',
+    points:[
+      'Mutual fund = pool of money from many investors, managed by AMC (Asset Management Company).',
+      'Categories: Equity (stocks), Debt (bonds), Hybrid (both), Index (passive), ELSS (tax saving).',
+      'NAV (Net Asset Value) = fund\'s per-unit price. Calculated daily after market close.',
+      'SIP (Systematic Investment Plan) = invest fixed amount monthly. Benefits from rupee cost averaging.',
+      'Expense ratio: Annual fee deducted from NAV. Index funds: 0.05–0.2%. Active: 0.5–2%.',
+      'Taxation: Equity MF LTCG (>1yr): 12.5% above ₹1.25L. Debt MF: slab rate (post Apr 2023).',
+      'AMFI registration: Check if your fund house and advisor are registered at amfiindia.com.',
+    ],
+    keyRates:[
+      { label:'Equity LTCG',    val:'12.5%', note:'>1 year, >₹1.25L' },
+      { label:'Equity STCG',    val:'20%',   note:'<1 year' },
+      { label:'Debt MF Tax',    val:'Slab',  note:'At income tax rate' },
+      { label:'Min SIP',        val:'₹100',  note:'Most platforms' },
+    ],
+    tags:['Investing','Tax','SIP'],
   },
   {
-    id:'tax', icon:'🧾', title:'Capital Gains Tax in India', level:'Intermediate',
-    summary:'STCG, LTCG, indexation, debt fund taxation — complete picture after Budget 2024.',
-    content:`**Equity & Equity MF (Budget 2024 changes):**
-- STCG (held <12 months): 20% (was 15%)
-- LTCG (held >12 months): 12.5% on gains above ₹1.25 lakh (was 10%, ₹1L limit)
-- No indexation benefit
-
-**Debt Mutual Funds (post Apr 2023):**
-- Gains taxed as per income tax slab (both short & long term)
-- Indexation removed entirely
-
-**Real Estate:**
-- STCG (<24 months): Slab rate
-- LTCG (>24 months): 12.5% without indexation (Budget 2024 removed indexation option)
-
-**Gold:**
-- Physical/Gold ETF LTCG (>24 months): 12.5%
-- Sovereign Gold Bonds: Exempt from LTCG if held to maturity
-
-**Key Strategy:** Harvest LTCG up to ₹1.25 lakh annually tax-free by booking and re-buying. Use ELSS to save up to ₹46,800 in tax via 80C.`,
-    tags:['Tax','Budgets','Planning']
+    id:'tax', icon:'📋', title:'Capital Gains & Tax', level:'Intermediate', tag:'Tax',
+    summary:'Complete guide to taxes on investments — stocks, MF, FD, real estate and gold.',
+    points:[
+      'STCG (Short Term Capital Gains): Sold within 1 year → 20% flat for equity/equity MF.',
+      'LTCG (Long Term Capital Gains): Held >1 year → 12.5% above ₹1.25L annual exemption.',
+      'Debt MF (post Apr 2023): Taxed at slab rate regardless of holding period. No indexation.',
+      'FD Interest: Added to income, taxed at slab rate. TDS at 10% if interest > ₹40K/year.',
+      'Real Estate: LTCG (>2yr) 12.5% without indexation (Budget 2024 change). STCG at slab.',
+      'Gold: Physical/SGB/Gold ETF — LTCG (>3yr) 12.5%. STT exempt on SGB redemption.',
+      'Tax Harvesting: Book LTCG up to ₹1.25L every year to reset cost basis. Legal and effective.',
+      'ELSS: Invest up to ₹1.5L under 80C. 3-year lock-in. LTCG applicable on redemption.',
+    ],
+    keyRates:[
+      { label:'Equity LTCG',   val:'12.5%', note:'Above ₹1.25L/yr' },
+      { label:'Equity STCG',   val:'20%',   note:'< 1 year' },
+      { label:'FD TDS',        val:'10%',   note:'If interest > ₹40K' },
+      { label:'ELSS 80C',      val:'₹1.5L', note:'Max deduction' },
+    ],
+    tags:['Tax','LTCG','Planning'],
   },
   {
-    id:'forex', icon:'💱', title:'INR & Forex Basics', level:'Intermediate',
-    summary:'What moves the rupee, how to interpret USD/INR movements, and sectoral impacts.',
-    content:`**What determines USD/INR:**
-- Trade Balance (India runs a deficit — imports > exports → rupee pressure)
-- FII Flows (FIIs buying = rupee strengthens; selling = rupee weakens)
-- Crude Oil Price (India imports ~85% crude; higher crude = more dollars demanded)
-- US Dollar Index (DXY): Stronger dollar globally = INR weaker
-- RBI Intervention: RBI can sell dollars to stabilise INR
-
-**Current (Mar 2026): ~₹87/$**
-
-**Sectoral Impact:**
-
-Weak INR (>₹85/$) —
-✅ IT (Infosys, TCS, Wipro) — USD revenues, INR costs = margin boost
-✅ Pharma exporters — same logic
-✅ ONGC, Oil India — crude in USD, revenue partially USD
-❌ Oil Marketing (HPCL, BPCL, IOC) — import costs rise
-❌ Airlines — ATF, leases in USD
-❌ FMCG (some) — imported inputs costlier
-
-Strong INR (<₹82/$) — reverse of above.
-
-**RBI's Role:** RBI actively intervenes to prevent excessive volatility. It uses forex reserves ($620B) to buy/sell dollars.`,
-    tags:['Forex','Macro','Sectors']
+    id:'forex', icon:'💱', title:'Forex & Currency', level:'Intermediate', tag:'Forex',
+    summary:'How the rupee works, what affects INR/USD, and how currency moves impact your portfolio.',
+    points:[
+      'INR is a partially convertible currency. RBI manages exchange rate through intervention.',
+      'Factors weakening INR: High crude oil prices, FII outflows, current account deficit, US rate hikes.',
+      'Factors strengthening INR: High forex reserves, FII inflows, falling crude, RBI intervention.',
+      'Impact on sectors: Weak INR = IT/pharma exports benefit (earn USD), importers (oil, electronics) lose.',
+      'Forex reserves ($620B): ~11 months import cover. RBI uses this to defend INR at key levels.',
+      'LRS (Liberalised Remittance Scheme): Indians can remit up to $250,000/year abroad. TCS applicable.',
+      'RBI intervention: Sells USD when INR weakens sharply, buys when INR strengthens excessively.',
+    ],
+    keyRates:[
+      { label:'USD/INR',     val:'₹92.3',  note:'Mar 2026' },
+      { label:'Forex Res.',  val:'$620B',  note:'~11 months cover' },
+      { label:'LRS Limit',   val:'$250K',  note:'Per year per person' },
+      { label:'TCS on LRS',  val:'20%',    note:'>₹7L (non-edu)' },
+    ],
+    tags:['Forex','Currency','RBI'],
   },
   {
-    id:'gloss', icon:'📖', title:'Financial Glossary', level:'Reference',
-    summary:'Key terms from EBITDA to circuit breakers — a quick reference dictionary.',
-    content:`**Market Terms:**
-- **Circuit Breaker:** NSE halts trading when Nifty moves ±10% (30-min halt), ±15% (45-min), ±20% (rest of day)
-- **Upper/Lower Circuit:** Individual stock freeze at ±5%, ±10%, ±20%
-- **T+1 Settlement:** Shares credited next working day after buy
-- **Bulk Deal:** >0.5% of company shares traded in single day
-- **Block Deal:** >₹5 Cr, ≥5 lakh shares traded in 35-min window
-
-**Company Financials:**
-- **EBITDA:** Earnings Before Interest, Tax, Depreciation, Amortisation
-- **PAT:** Profit After Tax (net profit)
-- **EPS:** Earnings Per Share (PAT / no. of shares)
-- **P/E Ratio:** Price / EPS — how expensive a stock is vs earnings
-- **ROE:** Return on Equity (PAT / Shareholders' equity)
-- **Debt-to-Equity:** Total debt / equity — <1 generally healthy
-
-**Bond/Rate Terms:**
-- **Yield:** Annual return on a bond
-- **Yield Curve Inversion:** Short-term yields > long-term = recession signal
-- **Spread:** Difference between two yields (e.g., corporate vs g-sec)
-
-**Derivatives:**
-- **Theta:** Options lose value as expiry approaches (time decay)
-- **Delta:** How much option price moves per ₹1 move in underlying
-- **IV (Implied Volatility):** Market's expectation of future price swings`,
-    tags:['Reference','Glossary','All Levels']
+    id:'glossary', icon:'📖', title:'Investor Glossary', level:'Beginner', tag:'Reference',
+    summary:'Quick-reference glossary of 40+ financial terms every Indian investor should know.',
+    points:[], // rendered differently
+    glossary:[
+      { term:'AUM',        def:'Assets Under Management — total market value of funds managed by AMC.' },
+      { term:'CAGR',       def:'Compound Annual Growth Rate — annualised return over multiple years.' },
+      { term:'CASA',       def:'Current Account Savings Account ratio — higher = cheaper funding for banks.' },
+      { term:'Circuit',    def:'Trading halt triggered at 5/10/20% price move on individual stocks.' },
+      { term:'CRISIL',     def:'Credit rating agency. AAA = highest safety. D = default.' },
+      { term:'DII',        def:'Domestic Institutional Investors — mutual funds, insurance companies.' },
+      { term:'DRHP',       def:'Draft Red Herring Prospectus — IPO document filed with SEBI before listing.' },
+      { term:'EBITDA',     def:'Earnings Before Interest, Tax, Depreciation, Amortisation — operating profit.' },
+      { term:'EPS',        def:'Earnings Per Share — net profit divided by total shares outstanding.' },
+      { term:'FII/FPI',    def:'Foreign Institutional/Portfolio Investor — overseas funds investing in India.' },
+      { term:'GMP',        def:'Grey Market Premium — unofficial IPO price before listing. Not regulated.' },
+      { term:'IEPF',       def:'Investor Education and Protection Fund — unclaimed dividends go here.' },
+      { term:'IPO',        def:'Initial Public Offering — first sale of shares to the public.' },
+      { term:'MCX',        def:'Multi Commodity Exchange — India\'s leading commodity derivatives exchange.' },
+      { term:'NAV',        def:'Net Asset Value — price per unit of a mutual fund. Calculated daily.' },
+      { term:'NPA',        def:'Non-Performing Asset — loan where repayment is overdue >90 days.' },
+      { term:'P/E Ratio',  def:'Price to Earnings — stock price divided by EPS. Valuation metric.' },
+      { term:'P/B Ratio',  def:'Price to Book — market cap vs book value. Used for banks/financials.' },
+      { term:'PLI',        def:'Production Linked Incentive — govt scheme to boost domestic manufacturing.' },
+      { term:'ROCE',       def:'Return on Capital Employed — profitability relative to capital used.' },
+      { term:'ROE',        def:'Return on Equity — net profit as % of shareholders equity.' },
+      { term:'SEBI',       def:'Securities and Exchange Board of India — capital markets regulator.' },
+      { term:'SGBs',       def:'Sovereign Gold Bonds — RBI-issued bonds linked to gold price. Tax-free on maturity.' },
+      { term:'SIP',        def:'Systematic Investment Plan — fixed periodic investment in a mutual fund.' },
+      { term:'STT',        def:'Securities Transaction Tax — charged on every equity buy/sell transaction.' },
+      { term:'T+1',        def:'Trade plus 1 day — settlement cycle. Shares credited next trading day.' },
+      { term:'UPI',        def:'Unified Payments Interface — NPCI real-time payment system.' },
+      { term:'XIRR',       def:'Extended Internal Rate of Return — accurate return calc for SIP/irregular cash flows.' },
+      { term:'YTM',        def:'Yield to Maturity — total return on bond if held until maturity.' },
+    ],
+    tags:['Reference','Basics','All levels'],
   },
 ];
 
-function TopicCard({ topic, onSelect, active }) {
-  const levelColor = { 'Beginner':'var(--green)', 'Intermediate':'var(--yellow)', 'Advanced':'var(--red)', 'Reference':'var(--blue)' };
-  return (
-    <div
-      onClick={() => onSelect(active ? null : topic.id)}
-      style={{
-        background:'var(--surface)', border:`1px solid ${active?'var(--blue)':'var(--border)'}`,
-        padding:16, cursor:'pointer', transition:'all 0.15s',
-        borderLeft: active ? '3px solid var(--blue)' : '1px solid var(--border)',
-      }}
-      onMouseEnter={e=>{if(!active)e.currentTarget.style.borderColor='var(--border2)'}}
-      onMouseLeave={e=>{if(!active)e.currentTarget.style.borderColor='var(--border)'}}
-    >
-      <div style={{display:'flex',alignItems:'flex-start',gap:10}}>
-        <span style={{fontSize:'1.3rem',flexShrink:0}}>{topic.icon}</span>
-        <div style={{flex:1}}>
-          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:5,flexWrap:'wrap'}}>
-            <span style={{fontSize:'0.84rem',fontWeight:600,color:'var(--bright)',fontFamily:'var(--font-sans)'}}>{topic.title}</span>
-            <span style={{fontSize:'0.56rem',letterSpacing:'0.1em',textTransform:'uppercase',color:levelColor[topic.level]||'var(--muted)',marginLeft:'auto'}}>{topic.level}</span>
-          </div>
-          <div style={{fontSize:'0.72rem',color:'var(--muted)',lineHeight:1.5}}>{topic.summary}</div>
-          <div style={{display:'flex',gap:5,marginTop:7,flexWrap:'wrap'}}>
-            {topic.tags.map(t=>(
-              <span key={t} style={{fontSize:'0.56rem',letterSpacing:'0.08em',textTransform:'uppercase',padding:'1px 5px',background:'var(--raised)',color:'var(--dim)',borderRadius:2}}>{t}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {active && (
-        <div style={{marginTop:14,paddingTop:14,borderTop:'1px solid var(--border)'}}>
-          {topic.content.split('\n\n').map((para,i) => {
-            // Bold formatting: **text**
-            const html = para.replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--bright)">$1</strong>');
-            return (
-              <div key={i} style={{fontSize:'0.78rem',color:'var(--body)',lineHeight:1.7,marginBottom:12}}
-                dangerouslySetInnerHTML={{__html:html}}/>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
+const LEVEL_COL = { Beginner:'var(--green)', Intermediate:'var(--yellow)', Advanced:'var(--red)' };
 
 export default function KnowledgePage() {
-  const [selected, setSelected] = useState(null);
-  const [filter, setFilter] = useState('All');
-  const levels = ['All','Beginner','Intermediate','Advanced','Reference'];
-  const filtered = filter==='All' ? TOPICS : TOPICS.filter(t=>t.level===filter);
+  const [active, setActive] = useState('rbi');
+  const [search, setSearch] = useState('');
+  const topic = TOPICS.find(t => t.id === active);
+
+  const filteredTopics = TOPICS.filter(t =>
+    !search || t.title.toLowerCase().includes(search.toLowerCase()) ||
+    t.summary.toLowerCase().includes(search.toLowerCase()) ||
+    t.tags.some(tag => tag.toLowerCase().includes(search.toLowerCase()))
+  );
 
   return (
-    <Layout title="Knowledge" desc="Financial education for Indian retail investors">
+    <Layout title="Knowledge Base" desc="RBI, SEBI, Nifty, F&O, Mutual Funds, Tax, Forex — India investment education">
       <div className="shell">
         <div className="shell-main">
-          <div className="slbl"><span className="slbl-dot" style={{background:'var(--purple)'}}/>Financial Learning Hub
+          <div className="slbl">
+            <span className="slbl-dot" style={{background:'var(--purple)'}}/>
+            Knowledge Base
             <span className="slbl-count">{TOPICS.length} topics</span>
           </div>
 
-          {/* Level filter */}
+          {/* Topic selector */}
           <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:20}}>
-            {levels.map(l => (
-              <button key={l} onClick={()=>setFilter(l)}
-                className={`fchip ${filter===l?'on':''}`} style={{fontSize:'0.62rem'}}>
-                {l}
+            {TOPICS.map(t => (
+              <button key={t.id} onClick={() => setActive(t.id)}
+                className={`fchip ${active===t.id?'on':''}`}>
+                {t.icon} {t.title.split(' ')[0]}
               </button>
             ))}
           </div>
 
-          <div style={{display:'grid',gap:10}}>
-            {filtered.map(t => (
-              <TopicCard key={t.id} topic={t} onSelect={setSelected} active={selected===t.id}/>
-            ))}
-          </div>
+          {/* Topic content */}
+          {topic && (
+            <div key={active} className="animate-fade-up">
+              {/* Header */}
+              <div style={{background:'var(--surface)',border:'1px solid var(--border)',
+                borderTop:`3px solid ${LEVEL_COL[topic.level]||'var(--blue)'}`,
+                padding:'18px 20px',marginBottom:16}}>
+                <div style={{display:'flex',alignItems:'flex-start',gap:14}}>
+                  <span style={{fontSize:'2rem',lineHeight:1}}>{topic.icon}</span>
+                  <div style={{flex:1}}>
+                    <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:6,flexWrap:'wrap'}}>
+                      <h2 style={{fontSize:'var(--fs-xl)',fontWeight:700,color:'var(--bright)',
+                        fontFamily:'var(--font-display)',letterSpacing:'-0.01em'}}>{topic.title}</h2>
+                      <span style={{fontSize:'var(--fs-label)',color:LEVEL_COL[topic.level],
+                        border:`1px solid ${LEVEL_COL[topic.level]}`,padding:'2px 8px',borderRadius:2,fontWeight:600}}>
+                        {topic.level}
+                      </span>
+                    </div>
+                    <p style={{fontSize:'var(--fs-base)',color:'var(--body)',lineHeight:1.65}}>{topic.summary}</p>
+                    <div style={{display:'flex',gap:4,marginTop:8,flexWrap:'wrap'}}>
+                      {topic.tags.map(tag => (
+                        <span key={tag} style={{fontSize:'var(--fs-label)',background:'var(--raised)',
+                          color:'var(--body)',padding:'2px 8px',borderRadius:2,border:'1px solid var(--border)'}}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Key rates */}
+              {topic.keyRates && (
+                <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:8,marginBottom:16}}>
+                  {topic.keyRates.map((r,i) => (
+                    <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',padding:'10px 12px'}}>
+                      <div style={{fontSize:'var(--fs-label)',color:'var(--muted)',letterSpacing:'0.08em',
+                        textTransform:'uppercase',marginBottom:5}}>{r.label}</div>
+                      <div style={{fontSize:'var(--fs-lg)',fontWeight:700,color:'var(--bright)',
+                        fontFamily:'var(--font-mono)',marginBottom:3}}>{r.val}</div>
+                      <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)'}}>{r.note}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Glossary special rendering */}
+              {topic.id === 'glossary' ? (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Search glossary terms..."
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    style={{width:'100%',background:'var(--raised)',border:'1px solid var(--border)',
+                      color:'var(--body)',fontFamily:'var(--font-mono)',fontSize:'var(--fs-sm)',
+                      padding:'8px 12px',outline:'none',marginBottom:12,borderRadius:3}}
+                  />
+                  <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:8}}>
+                    {(topic.glossary||[])
+                      .filter(g => !search || g.term.toLowerCase().includes(search.toLowerCase()) || g.def.toLowerCase().includes(search.toLowerCase()))
+                      .map((g,i) => (
+                        <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',padding:'10px 14px'}}>
+                          <div style={{fontSize:'var(--fs-sm)',fontWeight:700,color:'var(--blue)',
+                            fontFamily:'var(--font-mono)',marginBottom:4}}>{g.term}</div>
+                          <div style={{fontSize:'var(--fs-xs)',color:'var(--body)',lineHeight:1.6}}>{g.def}</div>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+              ) : (
+                /* Key points */
+                <div>
+                  {topic.points.map((point, i) => (
+                    <div key={i} style={{display:'flex',gap:12,padding:'10px 0',
+                      borderBottom:'1px solid var(--border)'}}>
+                      <div style={{flexShrink:0,width:22,height:22,borderRadius:'50%',
+                        background:'var(--raised)',border:'1px solid var(--border)',
+                        display:'flex',alignItems:'center',justifyContent:'center',marginTop:1}}>
+                        <span style={{fontSize:'var(--fs-label)',color:'var(--blue)',fontWeight:700}}>{i+1}</span>
+                      </div>
+                      <p style={{fontSize:'var(--fs-sm)',color:'var(--body)',lineHeight:1.7,margin:0}}>{point}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
+        {/* Aside */}
         <div className="shell-aside">
           <div className="widget">
-            <div className="w-head">📊 Topic Categories</div>
-            <div className="w-body">
-              {[['Beginner','var(--green)',TOPICS.filter(t=>t.level==='Beginner').length],
-                ['Intermediate','var(--yellow)',TOPICS.filter(t=>t.level==='Intermediate').length],
-                ['Advanced','var(--red)',TOPICS.filter(t=>t.level==='Advanced').length],
-                ['Reference','var(--blue)',TOPICS.filter(t=>t.level==='Reference').length],
-              ].map(([l,c,n]) => (
-                <div key={l} style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'5px 0',borderBottom:'1px solid var(--border)'}}>
-                  <span style={{fontSize:'0.68rem',color:c}}>{l}</span>
-                  <span style={{fontFamily:'var(--font-mono)',fontWeight:600,color:'var(--bright)'}}>{n}</span>
+            <div className="w-head">📚 All Topics</div>
+            <div className="w-body" style={{padding:0}}>
+              {TOPICS.map(t => (
+                <div key={t.id} onClick={() => setActive(t.id)}
+                  style={{padding:'9px 12px',borderBottom:'1px solid var(--border)',
+                    cursor:'pointer',background:active===t.id?'var(--raised)':'transparent',
+                    borderLeft:active===t.id?'2px solid var(--blue)':'2px solid transparent',
+                    transition:'all 0.1s'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:8}}>
+                    <span style={{fontSize:'0.9rem'}}>{t.icon}</span>
+                    <div>
+                      <div style={{fontSize:'var(--fs-xs)',fontWeight:active===t.id?600:400,
+                        color:active===t.id?'var(--bright)':'var(--body)'}}>{t.title}</div>
+                      <span style={{fontSize:'var(--fs-label)',color:LEVEL_COL[t.level]}}>{t.level}</span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div style={{padding:14,background:'var(--raised)',border:'1px solid var(--border)',fontSize:'0.7rem',color:'var(--muted)',lineHeight:1.8}}>
-            <div style={{color:'var(--blue)',fontWeight:600,marginBottom:6,fontSize:'0.62rem',letterSpacing:'0.1em',textTransform:'uppercase'}}>⚡ Quick Nav</div>
-            {TOPICS.map(t => (
-              <div key={t.id} onClick={()=>setSelected(t.id===selected?null:t.id)}
-                style={{cursor:'pointer',padding:'2px 0',color:selected===t.id?'var(--bright)':'var(--muted)',transition:'color 0.1s'}}
-                onMouseEnter={e=>e.currentTarget.style.color='var(--body)'}
-                onMouseLeave={e=>e.currentTarget.style.color=selected===t.id?'var(--bright)':'var(--muted)'}>
-                {t.icon} {t.title}
-              </div>
-            ))}
+          <div style={{marginTop:12,padding:12,background:'var(--raised)',border:'1px solid var(--border)',
+            fontSize:'var(--fs-xs)',color:'var(--muted)',lineHeight:1.9}}>
+            <div style={{color:'var(--body)',fontWeight:600,marginBottom:6,letterSpacing:'0.08em',
+              textTransform:'uppercase',fontSize:'var(--fs-label)'}}>Disclaimer</div>
+            Educational content only. Not financial advice. Consult a SEBI-registered investment advisor before making decisions.
           </div>
         </div>
       </div>

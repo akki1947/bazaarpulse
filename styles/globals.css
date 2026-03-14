@@ -224,3 +224,66 @@ html.light .tb-btn             { background:var(--raised); border-color:var(--bo
 html.light .tb-btn:hover       { background:var(--border); color:var(--body) }
 html.light ::-webkit-scrollbar-track { background:var(--raised) }
 html.light ::-webkit-scrollbar-thumb { background:var(--border2) }
+
+/* ── Mobile responsiveness ── */
+@media (max-width: 768px) {
+  :root {
+    --topbar-h: 48px;
+    --ticker-h: 28px;
+    --nav-h:    38px;
+    --shell-top: 114px;
+    --fs-xs:   0.72rem;
+    --fs-sm:   0.78rem;
+    --fs-base: 0.84rem;
+    --fs-md:   0.9rem;
+    --fs-label:0.68rem;
+    --fs-meta: 0.70rem;
+  }
+  .logo-sub       { display:none }
+  .tb-search      { max-width:160px !important }
+  .tb-clock       { display:none !important }
+  .shell          { grid-template-columns: 1fr !important }
+  .shell-aside    { display:none }
+  .shell-main     { padding:12px 14px; border-right:none !important }
+  .kpi-grid       { grid-template-columns: repeat(2,1fr) !important }
+  .filter-bar     { gap:4px }
+  .fchip          { font-size:0.62rem; padding:3px 7px }
+  .hero-title     { font-size:var(--fs-lg) !important }
+  .topbar         { padding:0 12px; gap:8px }
+  .nav-tab        { padding:0 10px; font-size:0.62rem }
+}
+
+@media (max-width: 480px) {
+  .tb-search      { display:none !important }
+  .mkt-status span:last-child { display:none }
+  .kpi-grid       { grid-template-columns: 1fr 1fr !important }
+  .shell-main     { padding:10px 12px }
+}
+
+/* ── Range input styling ── */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--border2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--blue);
+  cursor: pointer;
+  border: 2px solid var(--surface);
+}
+input[type=range]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--blue);
+  cursor: pointer;
+  border: 2px solid var(--surface);
+}
