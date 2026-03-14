@@ -7,6 +7,8 @@ const TABS = [
   { href:'/micro',       en:'Micro',         hi:'माइक्रो'       },
   { href:'/government',  en:'Govt & Policy', hi:'सरकार'        },
   { href:'/warzone',     en:'War Zone',      hi:'युद्ध क्षेत्र'  },
+  { href:'/ai',          en:'AI & ML',       hi:'एआई'          },
+  { href:'/sports',      en:'Sports',        hi:'खेल'          },
   { href:'/knowledge',   en:'Knowledge',     hi:'ज्ञान'         },
   { href:'/utilities',   en:'Utilities',     hi:'उपकरण'        },
 ];

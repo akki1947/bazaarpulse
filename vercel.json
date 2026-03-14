@@ -4,17 +4,15 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options",        "value": "DENY"    },
-        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
+        { "key": "X-Content-Type-Options", "value": "nosniff"                        },
+        { "key": "X-Frame-Options",        "value": "DENY"                           },
+        { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin"}
       ]
     }
   ],
   "crons": [
-    { "path": "/api/feed?refresh=1",   "schedule": "15 3 * * 1-5"  },
-    { "path": "/api/feed?refresh=1",   "schedule": "30 7 * * 1-5"  },
-    { "path": "/api/feed?refresh=1",   "schedule": "0 10 * * 1-5"  },
-    { "path": "/api/feed?refresh=1",   "schedule": "30 11 * * 1-5" },
+    { "path": "/api/feed?refresh=1",   "schedule": "30 8 * * 1-5"  },
+    { "path": "/api/feed?refresh=1",   "schedule": "30 12 * * 1-6" },
     { "path": "/api/market?refresh=1", "schedule": "45 3 * * 1-5"  },
     { "path": "/api/market?refresh=1", "schedule": "30 7 * * 1-5"  },
     { "path": "/api/market?refresh=1", "schedule": "15 10 * * 1-5" }

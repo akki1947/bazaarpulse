@@ -69,14 +69,14 @@
       "name": "MoneyControl",
       "url": "https://www.moneycontrol.com/rss/business.xml",
       "lang": "en",
-      "priority": 3
+      "priority": 1
     },
     {
       "id": "mc-markets",
       "name": "MoneyControl Markets",
       "url": "https://www.moneycontrol.com/rss/marketsnews.xml",
       "lang": "en",
-      "priority": 3
+      "priority": 1
     },
     {
       "id": "financial-exp",
@@ -139,7 +139,7 @@
       "name": "MoneyControl Mutual Fund",
       "url": "https://www.moneycontrol.com/rss/mutualfunds.xml",
       "lang": "en",
-      "priority": 3
+      "priority": 1
     },
     {
       "id": "techcrunch-ai",
