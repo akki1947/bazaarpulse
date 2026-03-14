@@ -136,7 +136,7 @@ const TOPICS = [
       { label:'Forex Reserves', val:'$620B+',note:'~11 months import cover' },
       { label:'LRS Annual Limit',val:'$250K', note:'Per person per year' },
       { label:'TCS on LRS',     val:'20%',   note:'>₹7L non-education remittance' },
-      { label:'India's Rank',   val:'Top 5', note:'Global forex reserve holders' },
+      { label:'India Rank',     val:'Top 5', note:'Global forex reserve holders' },
     ],
     tags:['Forex','Currency','RBI'],
   },

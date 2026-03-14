@@ -150,7 +150,7 @@ export default function MacroPage() {
           )}
         </div>
 
-        {/* Aside */}}
+        {/* Aside */}
         <div className="shell-aside">
           <div className="widget" style={{marginBottom:12}}>
             <div className="w-head">📅 Upcoming MPC Calendar</div>
