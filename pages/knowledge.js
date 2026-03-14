@@ -243,6 +243,7 @@ export default function KnowledgePage() {
 
               {/* Key rates */}
               {topic.keyRates && (
+                <>
                 <div style={{fontSize:'var(--fs-label)',fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',color:'var(--muted)',marginBottom:10}}>Key Statistics</div>
                 <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:8,marginBottom:16}}>
                   {topic.keyRates.map((r,i) => (
@@ -255,6 +256,7 @@ export default function KnowledgePage() {
                     </div>
                   ))}
                 </div>
+                </>
               )}
 
               {/* Glossary special rendering */}
