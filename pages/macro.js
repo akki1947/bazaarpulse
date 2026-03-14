@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import useSWR from 'swr';
 import Layout from '../components/layout/Layout';
 import macro from '../data/macro.json';
+
+const fetcher = url => fetch(url).then(r => r.json());
 
 const STATUS_COLOR = { strong:'var(--green)', easing:'var(--blue)', normal:'var(--muted)', warning:'var(--yellow)', stress:'var(--red)' };
 
@@ -81,6 +84,11 @@ const SECTIONS = [
 ];
 
 export default function MacroPage() {
+  const { data } = useSWR('/api/feed', fetcher, { revalidateOnFocus:false });
+  const macroNews = (data?.articles||[])
+    .filter(a => ['economy','banking','government','forex'].includes(a.category))
+    .slice(0, 6);
+
   return (
     <Layout title="Macro Economy" desc="India macroeconomic indicators — GDP, CPI, Repo Rate, Forex Reserves, fiscal data">
       <div className="shell">
@@ -110,9 +118,39 @@ export default function MacroPage() {
               </div>
             );
           })}
+        {/* Macro news brief */}
+          {macroNews.length > 0 && (
+            <div style={{marginTop:8}}>
+              <div className="slbl" style={{marginTop:20}}>
+                <span className="slbl-dot" style={{background:'var(--yellow)'}}/>
+                Macro News Brief
+                <span className="slbl-count">{macroNews.length} stories</span>
+              </div>
+              {macroNews.map(a => (
+                <div key={a.id} style={{padding:'10px 0',borderBottom:'1px solid var(--border)'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:5}}>
+                    <span style={{fontSize:'var(--fs-label)',fontWeight:600,
+                      color:a.severity==='CRITICAL'?'var(--red)':a.severity==='MAJOR'?'var(--yellow)':'var(--muted)',
+                      textTransform:'uppercase'}}>{a.severity}</span>
+                    <span style={{fontSize:'var(--fs-label)',background:'var(--raised)',color:'var(--muted)',
+                      padding:'1px 5px',borderRadius:2}}>{a.category}</span>
+                    <span style={{marginLeft:'auto',fontSize:'var(--fs-label)',color:'var(--dim)'}}>{a.source}</span>
+                  </div>
+                  <a href={a.link} target="_blank" rel="noopener noreferrer"
+                    style={{fontSize:'var(--fs-sm)',fontWeight:600,color:'var(--bright)',
+                      fontFamily:'var(--font-sans)',lineHeight:1.4,display:'block',marginBottom:4,
+                      textDecoration:'none'}}
+                    onMouseEnter={e=>e.target.style.color='var(--blue)'}
+                    onMouseLeave={e=>e.target.style.color='var(--bright)'}>{a.title}</a>
+                  {a.desc && <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',lineHeight:1.55,
+                    display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{a.desc}</div>}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Aside */}
+        {/* Aside */}}
         <div className="shell-aside">
           <div className="widget" style={{marginBottom:12}}>
             <div className="w-head">📅 Upcoming MPC Calendar</div>

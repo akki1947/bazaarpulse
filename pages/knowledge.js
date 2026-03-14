@@ -14,10 +14,10 @@ const TOPICS = [
       'RBI also manages INR via forex intervention, regulates all banks, NBFCs, and payment systems.',
     ],
     keyRates:[
-      { label:'Repo Rate',   val:'6.25%', note:'Feb 2026 cut' },
-      { label:'Reverse Repo',val:'3.35%', note:'Standing deposit' },
-      { label:'CRR',         val:'4.0%',  note:'Cash reserve' },
-      { label:'SLR',         val:'18%',   note:'Liquidity ratio' },
+      { label:'MPC Meetings/Year', val:'6',      note:'Every ~2 months' },
+      { label:'Inflation Target',  val:'4% ±2%', note:'RBI mandate band' },
+      { label:'MPC Members',       val:'6',      note:'3 RBI + 3 Govt' },
+      { label:'RBI Est.',          val:'1935',   note:'Year established' },
     ],
     tags:['Macro','Banking','Rates'],
   },
@@ -33,10 +33,10 @@ const TOPICS = [
       'SCORES portal: File complaints against SEBI-regulated entities. 30-day resolution target.',
     ],
     keyRates:[
-      { label:'IPO Retail Limit', val:'₹2L',   note:'Per application' },
-      { label:'LTCG (Equity)',    val:'12.5%',  note:'Above ₹1.25L' },
-      { label:'STCG (Equity)',    val:'20%',    note:'< 1 year hold' },
-      { label:'STT (Delivery)',   val:'0.1%',   note:'Buy + Sell' },
+      { label:'SEBI Est.',         val:'1992',  note:'Year established' },
+      { label:'Listed Companies',  val:'5,300+',note:'NSE + BSE combined' },
+      { label:'SCORES Portal',     val:'30 days',note:'Complaint resolution' },
+      { label:'Demat Accounts',    val:'17 Cr+', note:'Mar 2026 milestone' },
     ],
     tags:['Regulation','Tax','Markets'],
   },
@@ -52,10 +52,10 @@ const TOPICS = [
       'Circuit breakers: Trading halts at 10%, 15%, 20% Nifty move. Prevents panic selling.',
     ],
     keyRates:[
-      { label:'Nifty 50',       val:'~22,124', note:'Mar 2026 level' },
-      { label:'Sensex',         val:'~73,198', note:'Mar 2026 level' },
-      { label:'P/E (Nifty)',    val:'~21x',    note:'12M trailing' },
-      { label:'Div Yield',      val:'~1.3%',   note:'Nifty aggregate' },
+      { label:'Nifty 50 Stocks',  val:'50',     note:'Free-float weighted' },
+      { label:'Rebalancing',      val:'2x/year',note:'Semi-annual review' },
+      { label:'Circuit Breakers', val:'10/15/20%',note:'Nifty move triggers halt' },
+      { label:'Index Launch',     val:'1996',   note:'NSE Nifty base year 1995' },
     ],
     tags:['Markets','Index','Investing'],
   },
@@ -72,10 +72,10 @@ const TOPICS = [
       'Hedging use: Legitimate use = protecting portfolio. Speculation = high risk, leverage amplifies losses.',
     ],
     keyRates:[
-      { label:'Nifty Lot Size',  val:'25',     note:'Units per contract' },
-      { label:'Margin (Approx)', val:'~₹1.3L', note:'Per lot (varies)' },
-      { label:'Retail Loss %',   val:'93%',    note:'SEBI FY24 study' },
-      { label:'Weekly Expiry',   val:'Thu',    note:'Nifty/BankNifty' },
+      { label:'Nifty Lot Size',   val:'25 units',note:'Per Nifty contract' },
+      { label:'Retail Loss %',    val:'93%',     note:'SEBI FY24 study' },
+      { label:'F&O Traders (IN)', val:'1.1 Cr+', note:'Active retail traders' },
+      { label:'Weekly Expiry',    val:'Thursday',note:'Nifty/BankNifty/FinNifty' },
     ],
     tags:['Derivatives','Risk','Advanced'],
   },
@@ -92,10 +92,10 @@ const TOPICS = [
       'AMFI registration: Check if your fund house and advisor are registered at amfiindia.com.',
     ],
     keyRates:[
-      { label:'Equity LTCG',    val:'12.5%', note:'>1 year, >₹1.25L' },
-      { label:'Equity STCG',    val:'20%',   note:'<1 year' },
-      { label:'Debt MF Tax',    val:'Slab',  note:'At income tax rate' },
-      { label:'Min SIP',        val:'₹100',  note:'Most platforms' },
+      { label:'Total MF AUM',    val:'₹67L Cr+',note:'Feb 2026 record' },
+      { label:'SIP Accounts',    val:'10 Cr+',  note:'Active SIP folios' },
+      { label:'Monthly SIP Flow',val:'₹26,000 Cr',note:'Record high Feb 2026' },
+      { label:'Min SIP',         val:'₹100',    note:'Most platforms' },
     ],
     tags:['Investing','Tax','SIP'],
   },
@@ -113,10 +113,10 @@ const TOPICS = [
       'ELSS: Invest up to ₹1.5L under 80C. 3-year lock-in. LTCG applicable on redemption.',
     ],
     keyRates:[
-      { label:'Equity LTCG',   val:'12.5%', note:'Above ₹1.25L/yr' },
-      { label:'Equity STCG',   val:'20%',   note:'< 1 year' },
-      { label:'FD TDS',        val:'10%',   note:'If interest > ₹40K' },
-      { label:'ELSS 80C',      val:'₹1.5L', note:'Max deduction' },
+      { label:'LTCG Exemption', val:'₹1.25L',note:'Annual equity LTCG exempt' },
+      { label:'FD TDS Limit',   val:'₹40K',  note:'Interest above = TDS applies' },
+      { label:'ELSS Lock-in',   val:'3 years',note:'Shortest tax-saving lock-in' },
+      { label:'80C Limit',      val:'₹1.5L', note:'Max annual deduction' },
     ],
     tags:['Tax','LTCG','Planning'],
   },
@@ -133,10 +133,10 @@ const TOPICS = [
       'RBI intervention: Sells USD when INR weakens sharply, buys when INR strengthens excessively.',
     ],
     keyRates:[
-      { label:'USD/INR',     val:'₹92.3',  note:'Mar 2026' },
-      { label:'Forex Res.',  val:'$620B',  note:'~11 months cover' },
-      { label:'LRS Limit',   val:'$250K',  note:'Per year per person' },
-      { label:'TCS on LRS',  val:'20%',    note:'>₹7L (non-edu)' },
+      { label:'Forex Reserves', val:'$620B+',note:'~11 months import cover' },
+      { label:'LRS Annual Limit',val:'$250K', note:'Per person per year' },
+      { label:'TCS on LRS',     val:'20%',   note:'>₹7L non-education remittance' },
+      { label:'India's Rank',   val:'Top 5', note:'Global forex reserve holders' },
     ],
     tags:['Forex','Currency','RBI'],
   },
@@ -243,6 +243,7 @@ export default function KnowledgePage() {
 
               {/* Key rates */}
               {topic.keyRates && (
+                <div style={{fontSize:'var(--fs-label)',fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',color:'var(--muted)',marginBottom:10}}>Key Statistics</div>
                 <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:8,marginBottom:16}}>
                   {topic.keyRates.map((r,i) => (
                     <div key={i} style={{background:'var(--surface)',border:'1px solid var(--border)',padding:'10px 12px'}}>

@@ -195,6 +195,37 @@ export default function MicroPage() {
                 Click any sector card to expand metrics, analyst notes and key stocks. Outlook reflects 3–6 month view.
               </div>
               {SECTORS.map(s => <SectorCard key={s.id} sector={s}/>)}
+
+              {/* Micro news brief */}
+              {corpNews.length > 0 && (
+                <div style={{marginTop:24}}>
+                  <div className="slbl">
+                    <span className="slbl-dot" style={{background:'var(--cyan)'}}/>
+                    Corporate & Markets Brief
+                    <span className="slbl-count">{corpNews.slice(0,6).length} stories</span>
+                  </div>
+                  {corpNews.slice(0,6).map(a => (
+                    <div key={a.id} style={{padding:'10px 0',borderBottom:'1px solid var(--border)'}}>
+                      <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:5}}>
+                        <span style={{fontSize:'var(--fs-label)',fontWeight:600,
+                          color:a.severity==='CRITICAL'?'var(--red)':a.severity==='MAJOR'?'var(--yellow)':'var(--muted)',
+                          textTransform:'uppercase'}}>{a.severity}</span>
+                        <span style={{fontSize:'var(--fs-label)',background:'var(--raised)',color:'var(--muted)',
+                          padding:'1px 5px',borderRadius:2}}>{a.category}</span>
+                        <span style={{marginLeft:'auto',fontSize:'var(--fs-label)',color:'var(--dim)'}}>{a.source}</span>
+                      </div>
+                      <a href={a.link} target="_blank" rel="noopener noreferrer"
+                        style={{fontSize:'var(--fs-sm)',fontWeight:600,color:'var(--bright)',
+                          fontFamily:'var(--font-sans)',lineHeight:1.4,display:'block',marginBottom:4,
+                          textDecoration:'none'}}
+                        onMouseEnter={e=>e.target.style.color='var(--blue)'}
+                        onMouseLeave={e=>e.target.style.color='var(--bright)'}>{a.title}</a>
+                      {a.desc && <div style={{fontSize:'var(--fs-xs)',color:'var(--muted)',lineHeight:1.55,
+                        display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{a.desc}</div>}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
